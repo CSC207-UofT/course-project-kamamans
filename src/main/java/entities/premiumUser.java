@@ -11,7 +11,7 @@ public class premiumUser extends basicUser{
         this.appRating = appRating;
     }
 
-    public premiumUser(String id, String email, int phoneNumber, String c, Date renewalDate, int appRating) {
+    public premiumUser(String id, String email, String phoneNumber, String c, Date renewalDate, int appRating) {
         super(id, email, phoneNumber, c);
         this.renewalDate = renewalDate;
         this.appRating = appRating;
