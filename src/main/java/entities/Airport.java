@@ -7,6 +7,12 @@ public class Airport {
     private String iataCode;
     private List<Route> routes;
 
+    public Airport(String city, String iataCode, List<Route> routes){
+        this.city = city;
+        this.iataCode = iataCode;
+        this.routes = routes;
+    }
+
     public void setCity(String city){
         this.city = city;
     }
