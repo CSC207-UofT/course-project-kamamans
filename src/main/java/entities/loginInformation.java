@@ -20,5 +20,4 @@ public class loginInformation {
     public String getPassword(){
         return info.get("password");
     }
-
 }

@@ -42,7 +42,6 @@ public class AiportTest {
         a.setIataCode("YTZ");
         assertEquals("YTZ", a.getIataCode());
     }
-
     //TODO: Once Routes is created complete Unit Test Cases
 
 }

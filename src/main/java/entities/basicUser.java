@@ -49,4 +49,5 @@ public class basicUser extends loginInformation{
         this.classType = classType;
     }
 
+
 }

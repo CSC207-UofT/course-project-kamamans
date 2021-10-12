@@ -80,4 +80,5 @@ public class basicUserTest {
         assertEquals("business", b.getClassType());
     }
 
+
 }
