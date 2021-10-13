@@ -23,7 +23,7 @@ public class InteractDatabase {
         this.flightData = new Hashtable<String, Flight>();
         this.airportData = new Hashtable<String, Airport>();
 
-/*
+
         // Makeshift Data
         this.userData.put("keshi", new BasicUser("keshi", "right@here.com", "5551231234", "business"));
         this.userData.put("twice", new BasicUser("twice", "feel@special.kr", "2129212921", "first"));
@@ -45,7 +45,7 @@ public class InteractDatabase {
         this.airportData.put("pearson", new Airport());
         this.airportData.put("jfk", new Airport());
         this.airportData.put("heathrow", new Airport());
-*/
+
 
     }
 
