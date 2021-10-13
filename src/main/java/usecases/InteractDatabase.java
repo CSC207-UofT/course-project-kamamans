@@ -12,6 +12,22 @@ public class InteractDatabase {
         this.userData = new Hashtable<String, BasicUser>();
         this.flightData = new Hashtable<String, Flight>();
         this.airportData = new Hashtable<String, Airport>();
+
+/*
+        Makeshift Data
+        this.userData.put("keshi", BasicUser());
+        this.userData.put("twice", BasicUser());
+        this.userData.put("mxmtoon", BasicUser());
+
+        this.flightData.put("delectable", Flight());
+        this.flightData.put("succulent", Flight());
+        this.flightData.put("moist", Flight());
+
+        this.airportData.put("pearson", Airport());
+        this.airportData.put("jfk", Airport());
+        this.airportData.put("heathrow", Airport());
+*/
+
     }
 
     // add a User, returns true if successful, returns false otherwise
