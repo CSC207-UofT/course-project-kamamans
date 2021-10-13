@@ -1,6 +1,16 @@
 package usecases;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.Hashtable;
+
+// Notes and Questions
+// idk how to write tests since I dont have access to <BasicUser>, <Flight>, <Airport> implementations
+// ---> do we just verify on the Pull Request?
+// Have to put constructor parameters for Makeshift Data
+// For now <getFlightData> and <getAirportData> just retrieve by the id
+// I'm unclear on what <getHistory> is supposed to do
+// Should id's be strings?
 
 public class InteractDatabase {
 
@@ -14,18 +24,27 @@ public class InteractDatabase {
         this.airportData = new Hashtable<String, Airport>();
 
 /*
-        Makeshift Data
-        this.userData.put("keshi", BasicUser());
-        this.userData.put("twice", BasicUser());
-        this.userData.put("mxmtoon", BasicUser());
+        // Makeshift Data
+        this.userData.put("keshi", new BasicUser("keshi", "right@here.com", "5551231234", "business"));
+        this.userData.put("twice", new BasicUser("twice", "feel@special.kr", "2129212921", "first"));
+        this.userData.put("mxmtoon", new BasicUser("mxmtoon", "dawn@dusk.com", "6473334444", "economy"));
 
-        this.flightData.put("delectable", Flight());
-        this.flightData.put("succulent", Flight());
-        this.flightData.put("moist", Flight());
+        this.flightData.put("moist", Flight(
+                new Date(1584102896),
+                new Plane("Boeing 747", 223, 7, 223-7, true, new ArrayList<String>(0)),
+                new Route(), 3.141));
+        this.flightData.put("delectable", Flight(
+                new Date(1000293071)),
+                new Plane("Apollo 11", 1738, 12, 1738-12, true, new ArrayList<String>(0)),
+                new Route(), 1.6180);
+        this.flightData.put("succulent", Flight(
+                new Date(1426325213)),
+                new Plane("Falcon 1", 1337, 15, 1337-15, true, new ArrayList<String>(0)),
+                new Route(), 2.788);
 
-        this.airportData.put("pearson", Airport());
-        this.airportData.put("jfk", Airport());
-        this.airportData.put("heathrow", Airport());
+        this.airportData.put("pearson", new Airport());
+        this.airportData.put("jfk", new Airport());
+        this.airportData.put("heathrow", new Airport());
 */
 
     }
@@ -71,6 +90,19 @@ public class InteractDatabase {
             return this.flightData.get(id);
         }
         return null;
+    }
+
+    // get a list of Flights by Route
+    public Flight[] flightByRoutes(Route route) {
+        Flight[] output = new Flight[0];
+        Flight item;
+        for (String key : this.flightData.keySet()) {
+            item = this.flightData.get(key);
+            if (item.getRoute() == route) {
+                output.append(item);
+            }
+        }
+        return output;
     }
 
     // get an Airport by ID if possible
