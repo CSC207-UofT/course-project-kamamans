@@ -17,11 +17,13 @@ public class InteractDatabase {
     private Hashtable<String, BasicUser> userData;
     private Hashtable<String, Flight> flightData;
     private Hashtable<String, Airport> airportData;
+    private Hashtable<String, Route> routeData; // do we store routes?
 
     public InteractDatabase() {
         this.userData = new Hashtable<String, BasicUser>();
         this.flightData = new Hashtable<String, Flight>();
         this.airportData = new Hashtable<String, Airport>();
+        this.routeData = new Hashtable<String, Route>();
 
 
         // Makeshift Data
@@ -45,6 +47,10 @@ public class InteractDatabase {
         this.airportData.put("pearson", new Airport());
         this.airportData.put("jfk", new Airport());
         this.airportData.put("heathrow", new Airport());
+
+        this.routeData.put("red", new Route());
+        this.routeData.put("light", new Route());
+        this.routeData.put("green", new Route());
 
 
     }
@@ -73,6 +79,15 @@ public class InteractDatabase {
             return false;
         }
         this.airportData.put(id, toAdd);
+        return true;
+    }
+
+    // add a Route, returns true if successful, returns false otherwise
+    public boolean addRoute(String id, Route toAdd) {
+        if (this.routeData.containsKey(id)) {
+            return false
+        }
+        this.routeData.put(id, toAdd);
         return true;
     }
 
@@ -112,5 +127,15 @@ public class InteractDatabase {
         }
         return null;
     }
+
+    // get a Route by ID if possible
+    public Route getRoute(String id) {
+        if (this.routeData.containsKey(id)) {
+            return this.routeData.get(id);
+        }
+        return null;
+    }
+
+    
 
 }
