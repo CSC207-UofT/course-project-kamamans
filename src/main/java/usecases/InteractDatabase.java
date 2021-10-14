@@ -136,6 +136,17 @@ public class InteractDatabase {
         return null;
     }
 
-    
+    // get a Route by SearchQueries
+    public Route[] routeByQuery(SearchQueries query) {
+        // to create a Route instance, we search for a combination of Flights
+        // that link the source to the destination
+
+        // generate different possible routes
+        // (vary in cost, duration, or connecting flights)
+
+        // currently, there is no Route implementation so
+        output = [new Route(), new Route(), new Route()];
+        return output;
+    }
 
 }
