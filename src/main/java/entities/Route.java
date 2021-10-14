@@ -1,27 +1,27 @@
 package entities;
 
 public class Route<String> {
-    private String DepartureAirport;
-    private String DestinationAirport;
+    private String departureAirport;
+    private String destinationAirport;
 
-    public Route(String DepartureAirport, String DestinationAirport) {
-        this.DepartureAirport = DepartureAirport;
-        this.DestinationAirport = DestinationAirport;
+    public Route(String departureAirport, String destinationAirport) {
+        this.departureAirport = departureAirport;
+        this.destinationAirport = destinationAirport;
     }
 
     public String getDepartureAirport() {
-        return this.DepartureAirport;
+        return this.departureAirport;
     }
 
     public String getDestinationAirport() {
-        return this.DestinationAirport;
+        return this.destinationAirport;
     }
 
     public void setDepartureAirport(String newDepartureAirport){
-        this.DepartureAirport = newDepartureAirport;
+        this.departureAirport = newDepartureAirport;
     }
 
     public void setDestinationAirport(String newDestinationAirport){
-        this.DestinationAirport = newDestinationAirport;
+        this.destinationAirport = newDestinationAirport;
     }
 }

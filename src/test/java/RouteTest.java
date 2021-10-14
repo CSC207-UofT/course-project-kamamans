@@ -1,6 +1,3 @@
-import entities.Route;
-
-
 public class RouteTest {
     public Route r;
 
