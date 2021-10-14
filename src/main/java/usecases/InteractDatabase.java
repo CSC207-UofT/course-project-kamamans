@@ -119,7 +119,7 @@ public class InteractDatabase {
     }
 
     // get a Route by SearchQueries
-    public Route[] routeByQuery(SearchQueries query) {
+    public ArrayList<Route> routeByParameters(Airport source, Airport destination, Date arriveBy) {
         // to create a Route instance, we search for a combination of Flights
         // that link the source to the destination
 
@@ -127,7 +127,10 @@ public class InteractDatabase {
         // (vary in cost, duration, or connecting flights)
 
         // currently, there is no Route implementation so
-        output = [new Route(), new Route(), new Route()];
+        ArrayList<Route> output = new ArrayList<Route>();
+        output.add(new Route());
+        output.add(new Route());
+        output.add(new Route());
         return output;
     }
 
