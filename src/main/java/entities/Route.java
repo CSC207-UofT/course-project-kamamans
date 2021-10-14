@@ -1,12 +1,12 @@
 package entities;
 
-public class Route<String> {
+public class Route {
     private String departureAirport;
     private String destinationAirport;
-    private double priceofFlights;
-    private double totalDuration;
+    private String priceofFlights;
+    private String totalDuration;
 
-    public Route(String departureAirport, String destinationAirport, double priceofFlights, double totalDuration) {
+    public Route(String departureAirport, String destinationAirport, String priceofFlights, String totalDuration) {
         this.departureAirport = departureAirport;
         this.destinationAirport = destinationAirport;
         this.priceofFlights = priceofFlights;
@@ -29,11 +29,11 @@ public class Route<String> {
         this.destinationAirport = newDestinationAirport;
     }
 
-    public double getPriceofFlights(){
+    public String getPriceofFlights(){
         return this.priceofFlights;
     }
 
-    public double getTotalDuration(){
+    public String getTotalDuration(){
         return this.totalDuration;
     }
 }
