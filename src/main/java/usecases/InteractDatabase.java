@@ -3,6 +3,12 @@ package usecases;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Hashtable;
+import entities.BasicUser;
+import entities.Flight;
+import entities.Airport;
+import entities.Route;
+import entities.Plane;
+import usecases.SearchQueries;
 
 // Notes and Questions
 // idk how to write tests since I dont have access to <BasicUser>, <Flight>, <Airport> implementations
