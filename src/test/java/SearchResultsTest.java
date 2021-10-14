@@ -1,5 +1,5 @@
 import entities.Route;
-import entities.SearchQueries;
+import entities.SearchResults;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -8,13 +8,13 @@ import static org.junit.Assert.*;
 
 import java.util.List;
 
-public class SearchQueriesTest {
+public class SearchResultsTest {
 
     public Route<String> r1;
     public Route<String> r2;
     public Route<String> r3;
     public ArrayList<Route<String>> routes = new ArrayList<>();
-    public SearchQueries<List<Route<String>>> sq;
+    public SearchResults<List<Route<String>>> sq;
 
 
     @Before
@@ -29,7 +29,7 @@ public class SearchQueriesTest {
 
     @Before
     public void setUpSearchQueries(){
-        sq = new SearchQueries<>(routes);
+        sq = new SearchResults<>(routes);
     }
 
     @Test(timeout = 50)
@@ -40,7 +40,7 @@ public class SearchQueriesTest {
         routesa.add(r2);
         routesa.add(r1);
         routesa.add(r3);
-        SearchQueries<List<Route<String>>> sqa = new SearchQueries<>(routesa);
+        SearchResults<List<Route<String>>> sqa = new SearchResults<>(routesa);
 
         assertEquals(sq.getPotentialRoutes().get(0), sqa.getPotentialRoutes().get(0));
         assertEquals(sq.getPotentialRoutes().get(1), sqa.getPotentialRoutes().get(1));
@@ -55,7 +55,7 @@ public class SearchQueriesTest {
         routesa.add(r1);
         routesa.add(r3);
         routesa.add(r2);
-        SearchQueries<List<Route<String>>> sqa = new SearchQueries<>(routesa);
+        SearchResults<List<Route<String>>> sqa = new SearchResults<>(routesa);
 
         assertEquals(sq.getPotentialRoutes().get(0), sqa.getPotentialRoutes().get(0));
         assertEquals(sq.getPotentialRoutes().get(1), sqa.getPotentialRoutes().get(1));

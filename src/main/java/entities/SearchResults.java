@@ -1,14 +1,13 @@
 package entities;
 
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-public class SearchQueries<T> {
+public class SearchResults<T> {
 
     private List<Route<String>> potentialRoutes;
 
-    public SearchQueries(List<Route<String>> potentialRoutes){
+    public SearchResults(List<Route<String>> potentialRoutes){
         this.potentialRoutes = potentialRoutes;
     }
 
