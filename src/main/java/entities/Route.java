@@ -1,16 +1,16 @@
 package entities;
 
+import java.util.List;
+
 public class Route {
     private String departureAirport;
     private String destinationAirport;
-    private String priceofFlights;
-    private String totalDuration;
+    private List<Flight> flights;
 
-    public Route(String departureAirport, String destinationAirport, String priceofFlights, String totalDuration) {
+    public Route(String departureAirport, String destinationAirport, List<Flight> flights) {
         this.departureAirport = departureAirport;
         this.destinationAirport = destinationAirport;
-        this.priceofFlights = priceofFlights;
-        this.totalDuration = totalDuration;
+        this.flights = flights;
     }
 
     public String getDepartureAirport() {
@@ -29,11 +29,19 @@ public class Route {
         this.destinationAirport = newDestinationAirport;
     }
 
-    public String getPriceofFlights(){
-        return this.priceofFlights;
+    public double getPriceofFlights(){
+        double p = 0;
+        for(Flight f: this.flights) {
+            p = p + f.price;
+        }
+        return p;
     }
 
-    public String getTotalDuration(){
-        return this.totalDuration;
+    public double getTotalDuration(){
+        double d = 0;
+        for(Flight f: this.flights) {
+            d = d + f.duration;
+        }
+        return d;
     }
 }

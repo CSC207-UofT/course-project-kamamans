@@ -1,4 +1,7 @@
 package usecases;
 
-public class EditUser {
+import entities.basicUser;
+
+public class EditUser extends basicUser{
+    private 
 }
