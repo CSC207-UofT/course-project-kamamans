@@ -1,8 +1,7 @@
 package entities;
 
-import java.util.List;
-
 public class Airport {
+<<<<<<< HEAD
     private String city;
     private String iataCode;
     private List<Route> routes;
@@ -41,4 +40,6 @@ public class Airport {
         return this.routes;
     }
 
+=======
+>>>>>>> main
 }

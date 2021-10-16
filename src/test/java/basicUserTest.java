@@ -1,10 +1,5 @@
-
-import entities.basicUser;
-import org.junit.*;
-
-import static org.junit.Assert.*;
-
 public class basicUserTest {
+<<<<<<< HEAD
     basicUser b;
 
     @Before
@@ -82,3 +77,6 @@ public class basicUserTest {
 
 
 }
+=======
+}
+>>>>>>> main

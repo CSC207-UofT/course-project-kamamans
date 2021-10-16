@@ -1,5 +1,6 @@
 package entities;
 
+<<<<<<< HEAD
 import usecases.EditUser;
 
 import java.util.Date;
@@ -84,4 +85,7 @@ public class basicUser extends loginInformation {
     }
 
 
+=======
+public class basicUser {
+>>>>>>> main
 }
