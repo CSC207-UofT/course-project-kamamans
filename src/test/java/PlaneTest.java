@@ -12,21 +12,10 @@ public class PlaneTest {
 
     @Before
     public void setup() throws Exception {
-        // create an arraylist
-        ArrayList<String> passengers = new ArrayList<String>();
-        passengers.add("Majda");
-        passengers.add("Salwa");
-        passengers.add("Nathan");
-        passengers.add("Kevin");
-        passengers.add("Albert");
-        passengers.add("Marian");
-        passengers.add("Andrew");
-        passengers.add("Andrei");
-
         // create an instance of Plane
 
         p = new Plane("Airbus A321", 220, 20,
-                200, true, passengers);
+                200, true);
     }
 
     @Test(timeout = 50)
@@ -55,20 +44,5 @@ public class PlaneTest {
         assertTrue(p.getHasVacantSeats());
     }
 
-    @Test(timeout = 50)
-    public void TestGetPassengerList(){
-        //create an array
-        ArrayList<String> passengers = new ArrayList<String>();
-        passengers.add("Majda");
-        passengers.add("Salwa");
-        passengers.add("Nathan");
-        passengers.add("Kevin");
-        passengers.add("Albert");
-        passengers.add("Marian");
-        passengers.add("Andrew");
-        passengers.add("Andrei");
-        assertEquals(passengers, p.getPassengerList() );
-
-    }
 
 }

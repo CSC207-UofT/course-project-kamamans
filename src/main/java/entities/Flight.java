@@ -4,14 +4,16 @@ import java.util.Date;
 public class Flight {
     private Date date;
     private Plane plane;
-    private Route route;
     private double duration; //TODO: Assuming this will be in hours?
+    private Airport source;
+    private Airport destination;
 
-    public Flight(Date date, Plane plane, Route route, double duration){
+    public Flight(Date date, Plane plane, double duration, Airport source, Airport destination){
         this.date = date;
         this.plane = plane;
-        this.route = route;
         this.duration = duration;
+        this.source = source;
+        this.destination = destination;
     }
 
     public Date getDate(){
@@ -20,12 +22,12 @@ public class Flight {
     public Plane getPlane(){
         return this.plane;
     }
-    public Route getRoute(){
-        return this.route;
-    }
-
     public double getDuration(){
         return this.duration;
     }
+    public Airport getSource(){
+        return this.source;
+    }
+    public Airport getDestination(){return this.destination;}
 
 }

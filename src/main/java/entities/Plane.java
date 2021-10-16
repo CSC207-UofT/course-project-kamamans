@@ -8,18 +8,18 @@ public class Plane {
     private int firstClassSeats;
     private int economySeats;
     private boolean hasVacantSeats;
-    private ArrayList<String> passengerList; //TODO:Assumption is that passengerList is a list of all the passengers.
+
 
 
     public Plane(String brandName, int seatCount, int firstClassSeats,
-                 int economySeats, boolean hasVacantSeats, ArrayList<String> passengers){
+                 int economySeats, boolean hasVacantSeats){
 
         this.brandName = brandName;
         this.seatCount = seatCount;
         this.firstClassSeats = firstClassSeats;
         this.economySeats = economySeats;
         this.hasVacantSeats = hasVacantSeats;
-        this.passengerList = passengers;
+
 
     }
 
@@ -41,10 +41,6 @@ public class Plane {
 
     public boolean getHasVacantSeats(){
         return this.hasVacantSeats;
-    }
-
-    public ArrayList<String> getPassengerList(){
-        return this.passengerList;
     }
 
 }
