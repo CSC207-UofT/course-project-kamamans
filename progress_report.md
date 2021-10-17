@@ -26,4 +26,5 @@ Overall, everyone contributed to creating preliminary CRC cards for program.
 4. Majda Lojpur: Implemented the Flight and Plane classes. Also implemented FlightTest and PlaneTest. Reviewed other classes and updated the final version of the CRC cards and specifications documentation. Updated specifications.md, progress_report.md and designed tutorial presentation. Next steps are to implement all basicUser and premiumSetting methods and connect fully to ViewProfile.  
 5. Marian Wang: Implemented UserController class and beginnings of TerminalInterface. Planning to work on integrating backend with user accounts and data storage, as well as designing the frontend. 
 6. Albert Zhao: Implemented InteractDatabase, so far InteractDatabase has only dummy informations for skeleton run. Also reviewed other Pull Requests to see if they align with program specifications.  Next steps are setup a backend to fetch information from with InteractDatabase.
-7. Andrei Vilcan: 
+7. Andrew: Worked on the Route and Edituser classes which got condensed into a single basicUser class. Planning to work on commenting for user and route classes. 
+8. Andrei Vilcan: In charge of reviewing pull requests and making sure no major issues go through, and that they are consistent with crc cards. Planning on continuing to make sure there are no issues with future pull requests and merges. 
