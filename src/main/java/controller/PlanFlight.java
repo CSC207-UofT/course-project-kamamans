@@ -5,22 +5,24 @@ import entities.Flight;
 import usecases.InteractDatabase;
 import java.util.ArrayList;
 import java.util.Date;
-import entities.SearchQueries;
+import java.util.List;
+
+import entities.SearchResults;
 import entities.Route;
-import entities.basicUser;
+import entities.BasicUser;
 
 public class PlanFlight {
     private Flight selectedFlight;
-    private final basicUser user;
+    private final BasicUser user;
 
-    public PlanFlight(basicUser user){
+    public PlanFlight(BasicUser user){
         this.user = user;
     }
 
-    public SearchQueries<Route> EnterSearchRequirements(Date date, Airport departure, Airport destination ){
+    public SearchResults EnterSearchRequirements(Date date, Airport departure, Airport destination ){
         InteractDatabase db = new InteractDatabase();
-        ArrayList<Route> routes = db.routeByParameters( departure, destination, date);
-        return new SearchQueries<>(routes);
+        ArrayList<Route<Airport>> routes = db.getRoutes();
+        return new SearchResults(routes);
     }
 
     public void selectFlight(Flight flightToBeSelected){
@@ -31,7 +33,7 @@ public class PlanFlight {
         return this.selectedFlight;
     }
 
-    public basicUser getUser() {
+    public BasicUser getUser() {
         return this.user;
     }
 }

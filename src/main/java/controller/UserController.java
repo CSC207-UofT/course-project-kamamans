@@ -23,9 +23,7 @@ public class UserController {
             // add code to check if user exists, if not then call createAccount
         };
 
-    public static void main(String[] args) {
-
+    public static void main(String[] args){
         login();
-
     }
 }
