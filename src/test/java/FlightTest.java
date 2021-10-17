@@ -14,8 +14,8 @@ import static org.junit.Assert.*;
 public class FlightTest {
     Flight f;
     Plane p;
-    Route r1;
-    Route r2;
+    Route<Airport> r1;
+    Route<Airport> r2;
     Airport a1;
     Airport a2;
 
@@ -30,19 +30,19 @@ public class FlightTest {
 
         // create two instances of Airport (one source and one destination point of the flight)
 
-        ArrayList<Route> routes = new ArrayList<>();
+        ArrayList<Route<Airport>> routes = new ArrayList<>();
         routes.add(r1);
         routes.add(r2);
 
-        a1 = new Airport("Toronto", "YYZ", routes);
-        a2 = new Airport("London", "YXU", routes);
+        a1 = new Airport("Toronto", "YYZ");
+        a2 = new Airport("London", "YXU");
 
         // create an instance of Flight
         //Generate a date for Jan. 9, 2021, 10:11:12 AM
         Calendar cal = Calendar.getInstance();
         cal.set(2021, Calendar.JANUARY, 9, 10, 11, 12); //Year, month, day of month, hours, minutes and seconds
         Date date = cal.getTime();
-        f = new Flight(date, p, 1, a1, a2);
+        f = new Flight(date, p, 1, 4, a1, a2);
     }
 
     @Test(timeout = 50)
@@ -68,12 +68,12 @@ public class FlightTest {
 
     @Test(timeout = 50)
     public void TestGetSource(){
-        assert(a1 == f.getSource());
+        assert(a1 == f.getSourceAirport());
     }
 
     @Test(timeout = 50)
     public void TestGetDestination(){
-        assert(a2 == f.getDestination());
+        assert(a2 == f.getDestinationAirport());
     }
 
 

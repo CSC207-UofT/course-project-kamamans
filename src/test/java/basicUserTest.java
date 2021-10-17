@@ -1,10 +1,15 @@
+import entities.BasicUser;
+import org.junit.Before;
+import org.junit.Test;
+import static org.junit.Assert.*;
+
 public class basicUserTest {
-<<<<<<< HEAD
-    basicUser b;
+
+    BasicUser b;
 
     @Before
     public void setUp() throws Exception {
-        b = new basicUser("CSC207TEST", "csc207@mail.utoronto.ca", "4169782011", "economy");
+        b = new BasicUser("CSC207TEST", "csc207@mail.utoronto.ca", "4169782011", "economy");
         b.setUsername("testusername");
         b.setPassword("testpassword");
     }
@@ -77,6 +82,3 @@ public class basicUserTest {
 
 
 }
-=======
-}
->>>>>>> main

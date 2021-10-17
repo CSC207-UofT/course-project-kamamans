@@ -3,12 +3,13 @@ package usecases;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Hashtable;
+import java.util.List;
+
 import entities.BasicUser;
 import entities.Flight;
 import entities.Airport;
 import entities.Route;
 import entities.Plane;
-import usecases.SearchQueries;
 
 // Notes and Questions
 // idk how to write tests since I dont have access to <BasicUser>, <Flight>, <Airport> implementations
@@ -35,22 +36,26 @@ public class InteractDatabase {
         this.userData.put("twice", new BasicUser("twice", "feel@special.kr", "2129212921", "first"));
         this.userData.put("mxmtoon", new BasicUser("mxmtoon", "dawn@dusk.com", "6473334444", "economy"));
 
-        this.flightData.put("moist", Flight(
-                new Date(1584102896),
-                new Plane("Boeing 747", 223, 7, 223-7, true, new ArrayList<String>(0)),
-                new Route(), 3.141));
-        this.flightData.put("delectable", Flight(
-                new Date(1000293071)),
-                new Plane("Apollo 11", 1738, 12, 1738-12, true, new ArrayList<String>(0)),
-                new Route(), 1.6180);
-        this.flightData.put("succulent", Flight(
-                new Date(1426325213)),
-                new Plane("Falcon 1", 1337, 15, 1337-15, true, new ArrayList<String>(0)),
-                new Route(), 2.788);
+        this.airportData.put("pearson", new Airport("Montreal", "252"));
+        this.airportData.put("jfk", new Airport("Toronto", "76"));
+        this.airportData.put("heathrow", new Airport("Vancouver", "251256342"));
+        this.airportData.put("arnold", new Airport("Quebec City", "12443"));
+        this.airportData.put("jim", new Airport("Mumbai", "457"));
+        this.airportData.put("heartthrob", new Airport("Paris", "9856"));
 
-        this.airportData.put("pearson", new Airport());
-        this.airportData.put("jfk", new Airport());
-        this.airportData.put("heathrow", new Airport());
+
+        this.flightData.put("moist", new Flight(
+                new Date(1584102896),
+                new Plane("Boeing 747", 223, 7, 223-7, true),
+                300, 8, airportData.get("pearson"), airportData.get("jfk")));
+        this.flightData.put("delectable", new Flight(
+                new Date(1000293071),
+                new Plane("Apollo 11", 1738, 12, 1738-12, true),
+                600, 13, airportData.get("heathrow"), airportData.get("arnold")));
+        this.flightData.put("succulent", new Flight(
+                new Date(1426325213),
+                new Plane("Falcon 1", 1337, 15, 1337-15, true),
+                1200, 5, airportData.get("jim"), airportData.get("heartthrob")));
 
     }
 
@@ -98,16 +103,8 @@ public class InteractDatabase {
     }
 
     // get a list of Flights by Route
-    public Flight[] flightByRoutes(Route route) {
-        Flight[] output = new Flight[0];
-        Flight item;
-        for (String key : this.flightData.keySet()) {
-            item = this.flightData.get(key);
-            if (item.getRoute() == route) {
-                output.append(item);
-            }
-        }
-        return output;
+    public List<Flight> flightByRoutes(Route<Airport> route) {
+        return route.getFlights();
     }
 
     // get an Airport by ID if possible
@@ -119,7 +116,7 @@ public class InteractDatabase {
     }
 
     // get a Route by SearchQueries
-    public ArrayList<Route> routeByParameters(Airport source, Airport destination, Date arriveBy) {
+    public ArrayList<Route<Airport>> getRoutes() {
         // to create a Route instance, we search for a combination of Flights
         // that link the source to the destination
 
@@ -127,10 +124,16 @@ public class InteractDatabase {
         // (vary in cost, duration, or connecting flights)
 
         // currently, there is no Route implementation so
-        ArrayList<Route> output = new ArrayList<Route>();
-        output.add(new Route());
-        output.add(new Route());
-        output.add(new Route());
+        ArrayList<Route<Airport>> output = new ArrayList<>();
+        ArrayList<Flight> flights1 = new ArrayList<>();
+        flights1.add(this.flightData.get("moist"));
+        ArrayList<Flight> flights2 = new ArrayList<>();
+        flights2.add(this.flightData.get("delectable"));
+        ArrayList<Flight> flights3 = new ArrayList<>();
+        flights2.add(this.flightData.get("succulent"));
+        output.add(new Route<Airport>(this.airportData.get("pearson"), this.airportData.get("jfk"), flights1));
+        output.add(new Route<Airport>(this.airportData.get("heathrow"), this.airportData.get("arnold"), flights2));
+        output.add(new Route<Airport>(this.airportData.get("jim"), this.airportData.get("heartthrob"), flights3));
         return output;
     }
 

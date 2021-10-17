@@ -3,23 +3,23 @@ package entities;
 import java.util.Comparator;
 import java.util.List;
 
-public class SearchResults<T> {
+public class SearchResults {
 
-    private List<Route<String>> potentialRoutes;
+    private List<Route<Airport>> potentialRoutes;
 
-    public SearchResults(List<Route<String>> potentialRoutes){
+    public SearchResults(List<Route<Airport>> potentialRoutes){
         this.potentialRoutes = potentialRoutes;
     }
 
-    public List<Route<String>> getPotentialRoutes() {
+    public List<Route<Airport>> getPotentialRoutes() {
         return potentialRoutes;
     }
 
-    public void setPotentialRoutes(List<Route<String>> potentialRoutes) {
+    public void setPotentialRoutes(List<Route<Airport>> potentialRoutes) {
         this.potentialRoutes = potentialRoutes;
     }
 
-    public String getPrice(Route<String> route){
+    public String getPrice(Route<Airport> route){
         return route.toString();
     }
 

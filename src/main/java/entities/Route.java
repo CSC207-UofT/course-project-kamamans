@@ -1,38 +1,43 @@
 package entities;
+import usecases.InteractDatabase;
 
 import java.util.List;
 
-public class Route {
-    private String departureAirport;
-    private String destinationAirport;
+public class Route<A> {
+    private Airport departureAirport;
+    private Airport destinationAirport;
     private List<Flight> flights;
 
-    public Route(String departureAirport, String destinationAirport, List<Flight> flights) {
+    public Route(Airport departureAirport, Airport destinationAirport, List<Flight> flights) {
         this.departureAirport = departureAirport;
         this.destinationAirport = destinationAirport;
         this.flights = flights;
     }
 
-    public String getDepartureAirport() {
+    public Airport getDepartureAirport() {
         return this.departureAirport;
     }
 
-    public String getDestinationAirport() {
+    public Airport getDestinationAirport() {
         return this.destinationAirport;
     }
 
-    public void setDepartureAirport(String newDepartureAirport){
+    public void setDepartureAirport(Airport newDepartureAirport){
         this.departureAirport = newDepartureAirport;
     }
 
-    public void setDestinationAirport(String newDestinationAirport) {
+    public void setDestinationAirport(Airport newDestinationAirport) {
         this.destinationAirport = newDestinationAirport;
+    }
+
+    public List<Flight> getFlights() {
+        return flights;
     }
 
     public double getPriceofFlights(){
         double p = 0;
         for(Flight f: this.flights) {
-            p = p + f.price;
+            p = p + f.getPrice();
         }
         return p;
     }
@@ -40,7 +45,7 @@ public class Route {
     public double getTotalDuration(){
         double d = 0;
         for(Flight f: this.flights) {
-            d = d + f.duration;
+            d = d + f.getDuration();
         }
         return d;
     }

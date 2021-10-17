@@ -1,11 +1,10 @@
 package entities;
 
-<<<<<<< HEAD
 import usecases.EditUser;
 
 import java.util.Date;
 
-public class basicUser extends loginInformation {
+public class BasicUser extends loginInformation {
     private String ID;
     private String email;
     private String phoneNumber;
@@ -14,11 +13,11 @@ public class basicUser extends loginInformation {
     private Date renewalDate;
     private int appRating;
 
-    public basicUser(){
+    public BasicUser(){
 
     }
 
-    public basicUser(String id, String email, String phoneNumber, String c){
+    public BasicUser(String id, String email, String phoneNumber, String c){
         this.ID = id;
         this.email = email;
         this.phoneNumber = phoneNumber;
@@ -26,7 +25,7 @@ public class basicUser extends loginInformation {
         this.upgraded = false;
     }
 
-    public basicUser(String id, String email, String phoneNumber, String c, Boolean upgradeAccount){
+    public BasicUser(String id, String email, String phoneNumber, String c, Boolean upgradeAccount){
         this.ID = id;
         this.email = email;
         this.phoneNumber = phoneNumber;
@@ -84,8 +83,4 @@ public class basicUser extends loginInformation {
         this.appRating = appRating;
     }
 
-
-=======
-public class basicUser {
->>>>>>> main
 }

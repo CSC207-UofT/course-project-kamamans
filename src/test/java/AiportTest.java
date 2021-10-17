@@ -1,24 +1,20 @@
 
 import entities.Airport;
 import entities.Route;
-import entities.basicUser;
 import org.junit.*;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.Assert.*;
 
 public class AiportTest {
     Airport a;
-    private Route r;
-    //TODO : need to complete Route before testing
-    List<Route> listofRoute = new ArrayList<Route>(List.of(r));
+    private Route<Airport> r;
 
     @Before
     public void setUp() throws Exception {
-        a = new Airport("Toronto", "YYZ", listofRoute);
+        a = new Airport("Toronto", "YYZ");
     }
 
     @Test(timeout = 50)
