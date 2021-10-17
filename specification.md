@@ -1,7 +1,7 @@
 at least three entity classes: 
-     - BasicUser 
-          - loginInformation
-          - premiumSettings
+* BasicUser 
+     * loginInformation
+     * premiumSettings
      - Plane 
      - Flight 
      - Airport 
@@ -9,23 +9,23 @@ at least three entity classes:
      - SearchResults 
 
 at least two use case classes: 
-     - EditUser 
-     - InteractDatabase 
-     - SearchFlight 
+* EditUser 
+* InteractDatabase 
+* SearchFlight 
 
 at least one controller: 
-     - UserController 
-     - PlanFlight 
+* UserController 
+* PlanFlight 
 
 and at least a basic command line interface: 
-     - TerminalInterface 
+* TerminalInterface 
 
 Misc. Classes/interfaces/tests:
-     - BasicUserTest 
-     - PlaneTest 
-     - FlightTest 
-     - AirportTest 
-     - RouteTest 
-     - SearchResultsTest 
+* BasicUserTest 
+* PlaneTest 
+* FlightTest 
+* AirportTest 
+* RouteTest 
+* SearchResultsTest 
 
  
