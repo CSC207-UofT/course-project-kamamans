@@ -24,5 +24,5 @@ Overall, everyone contributed to creating preliminary CRC cards for program.
 2. Nathan Zavys-Cox: Implemented the PlanFlight class. Planning on implementing more communication with the backend for saving flights chosen to data to the database. 
 3. Kevin Lai: Implemented TerminalInterface, PremiumSettings, SearchResults. Fixed EditUser --> ViewProfile and Route Class. Merged all branches and fixed compatibility issues. Updated classes with missing Route implementations. Next steps are to replace the TerminalInterface with an application frontend that interacts with the other classes and implements untouched capabilities.  
 4. Majda Lojpur: Implemented the Flight and Plane classes. Also implemented FlightTest and PlaneTest. Reviewed other classes and updated the final version of the CRC cards and specifications documentation. Next steps are to implement all basicUser and premiumSetting methods and connect fully to ViewProfile.  
-5. 
+5. Marian Wang: Implemented UserController class and beginnings of TerminalInterface. Planning to work on integrating backend with user accounts and data storage, as well as designing the frontend. 
 
