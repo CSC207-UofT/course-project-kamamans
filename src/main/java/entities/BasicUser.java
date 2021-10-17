@@ -1,38 +1,41 @@
 package entities;
 
-import usecases.EditUser;
+import java.util.Calendar;
 
-import java.util.Date;
-
-public class BasicUser extends loginInformation {
+public class BasicUser extends LoginInformation {
     private String ID;
+    private String password;
     private String email;
     private String phoneNumber;
     private String classType;
+
     private boolean upgraded;
-    private Date renewalDate;
+    private Calendar renewalDate;
     private int appRating;
 
     public BasicUser(){
 
     }
 
-    public BasicUser(String id, String email, String phoneNumber, String c){
+    public BasicUser(String id, String password, String email, String phoneNumber, String c){
         this.ID = id;
+        this.password = password;
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.classType = c;
         this.upgraded = false;
     }
 
-    public BasicUser(String id, String email, String phoneNumber, String c, Boolean upgradeAccount){
+    public BasicUser(String id, String password, String email, String phoneNumber, String c, Boolean upgradeAccount){
         this.ID = id;
+        this.password = password;
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.classType = c;
         this.upgraded = upgradeAccount;
-        this.renewalDate = renewalDate;
-        this.appRating = appRating;
+        Calendar expiryDate = Calendar.getInstance();
+        expiryDate.add(Calendar.MONTH, 1);
+        this.renewalDate = expiryDate;
     }
 
     public String getID() {
@@ -42,6 +45,10 @@ public class BasicUser extends loginInformation {
     public void setID(String ID) {
         this.ID = ID;
     }
+
+    public String getPassword() { return password; }
+
+    public void setPassword(String password) {this.password = password; }
 
     public String getEmail() {
         return email;
@@ -67,11 +74,26 @@ public class BasicUser extends loginInformation {
         this.classType = classType;
     }
 
-    public Date getRenewalDate() {
+    public boolean isUpgraded() {
+        return upgraded;
+    }
+
+    public void setUpgraded(boolean upgraded) {
+        if(upgraded) {
+            this.upgraded = upgraded;
+            Calendar expiryDate = Calendar.getInstance();
+            expiryDate.add(Calendar.MONTH, 1);
+            this.renewalDate = expiryDate;
+        } else{
+            this.upgraded = upgraded;
+        }
+    }
+
+    public Calendar getRenewalDate() {
         return renewalDate;
     }
 
-    public void setRenewalDate(Date renewalDate) {
+    public void setRenewalDate(Calendar renewalDate) {
         this.renewalDate = renewalDate;
     }
 

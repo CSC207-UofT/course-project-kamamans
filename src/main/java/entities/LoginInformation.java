@@ -2,7 +2,7 @@ package entities;
 
 import java.util.HashMap;
 
-public class loginInformation {
+public class LoginInformation {
     private HashMap<String, String> info = new HashMap<>();
 
     public void setUsername(String u){

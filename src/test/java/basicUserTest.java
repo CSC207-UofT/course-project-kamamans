@@ -9,7 +9,7 @@ public class basicUserTest {
 
     @Before
     public void setUp() throws Exception {
-        b = new BasicUser("CSC207TEST", "csc207@mail.utoronto.ca", "4169782011", "economy");
+        b = new BasicUser("CSC207TEST", "password", "csc207@mail.utoronto.ca", "4169782011", "economy", true);
         b.setUsername("testusername");
         b.setPassword("testpassword");
     }
