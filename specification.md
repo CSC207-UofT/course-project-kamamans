@@ -12,7 +12,6 @@ at least two use case classes:
      - EditUser 
      - InteractDatabase 
      - SearchFlight 
-     - StoreFlight 
 
 at least one controller: 
      - UserController 
