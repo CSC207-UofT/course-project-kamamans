@@ -61,7 +61,7 @@ public class FlightTest {
 
     @Test(timeout = 50)
     public void TestGetDuration(){
-        assert(1 == f.getDuration());
+        assert(4 == f.getDuration());
     }
 
     @Test(timeout = 50)

@@ -44,9 +44,11 @@ public class SearchResultsTest {
         routesa.add(r2);
         SearchResults sqa = new SearchResults(routesa);
 
-        assertEquals(sq.getPotentialRoutes().get(0), sqa.getPotentialRoutes().get(0));
-        assertEquals(sq.getPotentialRoutes().get(1), sqa.getPotentialRoutes().get(1));
-        assertEquals(sq.getPotentialRoutes().get(2), sqa.getPotentialRoutes().get(2));
+        double a = sq.getPotentialRoutes().get(0).getPriceofFlights();
+        double b = sq.getPotentialRoutes().get(1).getPriceofFlights();
+        double c = sq.getPotentialRoutes().get(2).getPriceofFlights();
+
+        assertTrue((a <= b) && (b <= c));
     }
 
     @Test(timeout = 50)
