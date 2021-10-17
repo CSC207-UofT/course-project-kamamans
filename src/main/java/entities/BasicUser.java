@@ -10,6 +10,7 @@ public class BasicUser extends LoginInformation {
     private String classType;
 
     private boolean upgraded;
+    private PremiumSettings premiumSettings = new PremiumSettings();
     private Calendar renewalDate;
     private int appRating;
 
@@ -32,10 +33,12 @@ public class BasicUser extends LoginInformation {
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.classType = c;
+        if(upgradeAccount) {
+            Calendar expiryDate = Calendar.getInstance();
+            expiryDate.add(Calendar.MONTH, 1);
+            this.renewalDate = expiryDate;
+        }
         this.upgraded = upgradeAccount;
-        Calendar expiryDate = Calendar.getInstance();
-        expiryDate.add(Calendar.MONTH, 1);
-        this.renewalDate = expiryDate;
     }
 
     public String getID() {
