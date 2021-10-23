@@ -1,5 +1,10 @@
 package usecases;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.*;
 
 import entities.BasicUser;
@@ -8,19 +13,21 @@ import entities.Airport;
 import entities.Route;
 import entities.Plane;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+
 // Notes and Questions
-// idk how to write tests since I dont have access to <BasicUser>, <Flight>, <Airport> implementations
-// ---> do we just verify on the Pull Request?
-// Have to put constructor parameters for Makeshift Data
-// For now <getFlightData> and <getAirportData> just retrieve by the id
-// I'm unclear on what <getHistory> is supposed to do
-// Should id's be strings?
+
 
 public class InteractDatabase {
 
     private Hashtable<String, BasicUser> userData;
     private Hashtable<String, Flight> flightData;
     private Hashtable<String, Airport> airportData;
+    private static HttpURLConnection connection;
 
     public InteractDatabase() {
         this.userData = new Hashtable<String, BasicUser>();
@@ -140,4 +147,40 @@ public class InteractDatabase {
         return output;
     }
 
+    private static String getEndpoint(String endpoint) throws IOException {
+        BufferedReader reader;
+        String line;
+        StringBuffer responseContent = new StringBuffer();
+
+        URL url = new URL(endpoint);
+        connection = (HttpURLConnection) url.openConnection();
+
+        // Request Setup
+        connection.setRequestMethod("GET");
+        connection.setConnectTimeout(2500);
+        connection.setReadTimeout(2500);
+
+        int status = connection.getResponseCode();
+        // System.out.println(status);
+
+        if (status > 299) {
+            // connection is not successful
+            reader = new BufferedReader(new InputStreamReader(connection.getErrorStream()));
+        } else {
+            // connection is successful
+            reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+        }
+        while ((line = reader.readLine()) != null) {
+            responseContent.append(line);
+        }
+        reader.close();
+
+        return responseContent.toString();
+
+    }
+
+    public static void main(String[] args) throws IOException {
+        String output = getEndpoint("https://jsonplaceholder.typicode.com/posts/1/comments");
+        System.out.println(output);
+    }
 }
