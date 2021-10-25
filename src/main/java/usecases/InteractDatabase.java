@@ -147,7 +147,7 @@ public class InteractDatabase {
         return output;
     }
 
-    private static String getEndpoint(String endpoint) throws IOException {
+    public static String getEndpoint(String endpoint) throws IOException {
         BufferedReader reader;
         String line;
         StringBuffer responseContent = new StringBuffer();
@@ -161,7 +161,6 @@ public class InteractDatabase {
         connection.setReadTimeout(2500);
 
         int status = connection.getResponseCode();
-        // System.out.println(status);
 
         if (status > 299) {
             // connection is not successful
@@ -176,11 +175,10 @@ public class InteractDatabase {
         reader.close();
 
         return responseContent.toString();
-
     }
 
     public static void main(String[] args) throws IOException {
-        String output = getEndpoint("https://jsonplaceholder.typicode.com/posts/1/comments");
+        String output = getEndpoint("http://localhost:8080/");
         System.out.println(output);
     }
 }
