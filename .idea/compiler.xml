@@ -1,6 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="CompilerConfiguration">
-    <bytecodeTargetLevel target="16" />
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="kamamans" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel target="11" />
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="kamamans" options="-parameters" />
+    </option>
   </component>
 </project>
+
+<!--<?xml version="1.0" encoding="UTF-8"?>-->
+<!--<project version="4">-->
+<!--  <component name="CompilerConfiguration">-->
+<!--    <annotationProcessing>-->
+<!--      <profile name="Maven default annotation processors profile" enabled="true">-->
+<!--        <sourceOutputDir name="target/generated-sources/annotations" />-->
+<!--        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />-->
+<!--        <outputRelativeToContentRoot value="true" />-->
+<!--      </profile>-->
+<!--    </annotationProcessing>-->
+<!--    <bytecodeTargetLevel target="11">-->
+<!--      <module name="main" target="" />-->
+<!--    </bytecodeTargetLevel>-->
+<!--  </component>-->
+<!--</project>-->
