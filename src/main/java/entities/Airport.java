@@ -1,10 +1,23 @@
 package entities;
 
-import java.util.List;
+import javax.persistence.*;
 
+@Entity
+@Table
 public class Airport {
-    private String city;
+//    @Id
+//    @SequenceGenerator(
+//            name = "airport_sequence",
+//            sequenceName = "airport_sequence",
+//            allocationSize = 1
+//    )
+//    @GeneratedValue(
+//            strategy = GenerationType.SEQUENCE,
+//            generator = "airport_sequence"
+//    )
+@Id
     private String iataCode;
+    private String city;
 
     public Airport(String city, String iataCode){
         this.city = city;
