@@ -9,7 +9,7 @@ public class basicUserTest {
 
     @Before
     public void setUp() throws Exception {
-        b = new BasicUser("CSC207TEST", "csc207@mail.utoronto.ca", "4169782011", "economy");
+        b = new BasicUser("CSC207TEST", "username", "password", "csc207@mail.utoronto.ca", "4169782011");
         b.setUsername("testusername");
         b.setPassword("testpassword");
     }
@@ -42,12 +42,6 @@ public class basicUserTest {
     }
 
     @Test(timeout = 50)
-    public void TestSetID() {
-        b.setID("CSC207TEST2");
-        assertEquals("CSC207TEST2", b.getID());
-    }
-
-    @Test(timeout = 50)
     public void TestGetEmail(){
         assertEquals("csc207@mail.utoronto.ca", b.getEmail());
     }
@@ -64,21 +58,8 @@ public class basicUserTest {
     }
 
     @Test(timeout = 50)
-    public void TestSetPhoneNumber(){
+    public void TestSetPhoneNumber() {
         b.setPhoneNumber("4169786360");
         assertEquals("4169786360", b.getPhoneNumber());
     }
-
-    @Test(timeout = 50)
-    public void TestGetClassType(){
-        assertEquals("economy", b.getClassType());
-    }
-
-    @Test(timeout = 50)
-    public void TestSetClassType(){
-        b.setClassType("business");
-        assertEquals("business", b.getClassType());
-    }
-
-
 }

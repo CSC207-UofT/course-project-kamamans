@@ -32,9 +32,9 @@ public class InteractDatabase {
 
 
         // Makeshift Data
-        this.userData.put("keshi", new BasicUser("keshi", "right@here.com", "5551231234", "business"));
-        this.userData.put("twice", new BasicUser("twice", "feel@special.kr", "2129212921", "first"));
-        this.userData.put("mxmtoon", new BasicUser("mxmtoon", "dawn@dusk.com", "6473334444", "economy"));
+//        this.userData.put("keshi", new BasicUser("keshi", "right@here.com", "5551231234", "business"));
+//        this.userData.put("twice", new BasicUser("twice", "feel@special.kr", "2129212921", "first"));
+//        this.userData.put("mxmtoon", new BasicUser("mxmtoon", "dawn@dusk.com", "6473334444", "economy"));
 
         this.airportData.put("pearson", new Airport("Montreal", "252"));
         this.airportData.put("jfk", new Airport("Toronto", "76"));

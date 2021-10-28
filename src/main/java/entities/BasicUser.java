@@ -4,83 +4,40 @@ import usecases.EditUser;
 
 import java.util.Date;
 
-public class BasicUser extends loginInformation {
-    private String ID;
-    private String email;
-    private String phoneNumber;
-    private String classType;
-    private boolean upgraded;
-    private Date renewalDate;
-    private int appRating;
-
+public class BasicUser extends User {
     public BasicUser(){
-
     }
 
-    public BasicUser(String id, String email, String phoneNumber, String c){
+    public BasicUser(String id, String username, String password, String email, String phoneNumber){
         this.ID = id;
+        this.username = username;
+        this.password = password;
         this.email = email;
         this.phoneNumber = phoneNumber;
-        this.classType = c;
-        this.upgraded = false;
+        this.userType = "Basic";
     }
 
-    public BasicUser(String id, String email, String phoneNumber, String c, Boolean upgradeAccount){
-        this.ID = id;
-        this.email = email;
-        this.phoneNumber = phoneNumber;
-        this.classType = c;
-        this.upgraded = upgradeAccount;
-        this.renewalDate = renewalDate;
-        this.appRating = appRating;
-    }
+    public String getID() { return this.ID; }
 
-    public String getID() {
-        return ID;
-    }
+    public void setUsername(String username) { this.username = username; }
 
-    public void setID(String ID) {
-        this.ID = ID;
-    }
+    public String getUsername() { return this.username; }
 
-    public String getEmail() {
-        return email;
-    }
+    public void setPassword(String password) { this.password = password; }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+    public String getPassword() { return this.password; }
+
+    public void setEmail(String email) { this.email = email; }
+
+    public String getEmail() { return this.email; }
+
+    public void setPhoneNumber(String phoneNumber) { this.phoneNumber = phoneNumber; }
 
     public String getPhoneNumber() {
-        return phoneNumber;
+        return this.phoneNumber;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
+    public void setUserType(String userType) { this.userType = userType; }
 
-    public String getClassType() {
-        return classType;
-    }
-
-    public void setClassType(String classType) {
-        this.classType = classType;
-    }
-
-    public Date getRenewalDate() {
-        return renewalDate;
-    }
-
-    public void setRenewalDate(Date renewalDate) {
-        this.renewalDate = renewalDate;
-    }
-
-    public int getAppRating() {
-        return appRating;
-    }
-
-    public void setAppRating(int appRating) {
-        this.appRating = appRating;
-    }
-
+    public String getUserType() { return this.userType; }
 }
