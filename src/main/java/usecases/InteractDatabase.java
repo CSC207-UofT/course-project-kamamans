@@ -178,7 +178,7 @@ public class InteractDatabase {
     }
 
     public static void main(String[] args) throws IOException {
-        String output = getEndpoint("http://localhost:8080/");
+        String output = getEndpoint("http://localhost:8080/api/v1/GetAirport2");
         System.out.println(output);
     }
 }

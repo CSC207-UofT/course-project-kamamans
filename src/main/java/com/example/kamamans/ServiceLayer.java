@@ -4,6 +4,8 @@ import entities.Airport;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class ServiceLayer {
 
@@ -27,5 +29,22 @@ public class ServiceLayer {
         output[0] = new Airport("6ix God", "567-11-11");
         output[1] = new Airport("Candyland", "delectable");
         return output;
+    }
+
+    public void addNewAirport(Airport airport) {
+        Optional<Airport> airportOptional = airportRepository
+                .findAirportsByIataCode(airport.getIataCode());
+        if (airportOptional.isPresent()) {
+            throw new IllegalStateException("IATA Code Taken");
+        }
+        airportRepository.save(airport);
+    }
+
+    public void deleteAirport(String iataCode) {
+        boolean exists = airportRepository.existsById(iataCode);
+        if (!exists) {
+            throw new IllegalStateException("Airport with IATA Code " + iataCode + " does not exist");
+        }
+        airportRepository.deleteById(iataCode);
     }
 }

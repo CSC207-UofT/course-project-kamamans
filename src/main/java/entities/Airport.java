@@ -15,13 +15,18 @@ public class Airport {
 //            strategy = GenerationType.SEQUENCE,
 //            generator = "airport_sequence"
 //    )
-@Id
+    @Id
     private String iataCode;
     private String city;
 
     public Airport(String city, String iataCode){
         this.city = city;
         this.iataCode = iataCode;
+    }
+
+    public Airport() {
+        this.city = "";
+        this.iataCode = "";
     }
 
     public void setCity(String city){
