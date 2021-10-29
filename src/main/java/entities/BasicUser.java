@@ -1,43 +1,27 @@
 package entities;
 
-import usecases.EditUser;
+import usecases.UserManager;
 
-import java.util.Date;
+public class BasicUser implements BaseUser {
+    public static final String INVALID_REQUEST = "Not available for Basic Users. Upgrade to Premium today!";
+    public UserManager userManager;
 
-public class BasicUser extends User {
-    public BasicUser(){
+    public BasicUser(UserManager userManager) {
+        this.userManager = userManager;
     }
 
-    public BasicUser(String id, String username, String password, String email, String phoneNumber){
-        this.ID = id;
-        this.username = username;
-        this.password = password;
-        this.email = email;
-        this.phoneNumber = phoneNumber;
-        this.userType = "Basic";
+    public String setClassType(String classType) {
+        return INVALID_REQUEST;
     }
 
-    public String getID() { return this.ID; }
-
-    public void setUsername(String username) { this.username = username; }
-
-    public String getUsername() { return this.username; }
-
-    public void setPassword(String password) { this.password = password; }
-
-    public String getPassword() { return this.password; }
-
-    public void setEmail(String email) { this.email = email; }
-
-    public String getEmail() { return this.email; }
-
-    public void setPhoneNumber(String phoneNumber) { this.phoneNumber = phoneNumber; }
-
-    public String getPhoneNumber() {
-        return this.phoneNumber;
+    public String downgradeUserType() {
+        return "User Type is already Basic.";
     }
 
-    public void setUserType(String userType) { this.userType = userType; }
+    public String upgradeUserType() {
+        BaseUser new_user = new PremiumUser(this.userManager);
+        this.userManager.changeUserType(new_user);
+        return "User Type upgraded to Premium.";
+    }
 
-    public String getUserType() { return this.userType; }
 }

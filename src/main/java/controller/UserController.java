@@ -1,19 +1,20 @@
 package controller;
-import java.util.*;
-import entities.User;
+import entities.BaseUser;
 
 public class UserController {
-    User user;
-
-    public UserController(User user){
-        this.user = user;
+    public UserController(){
     }
 
     public static void createAccount(){
-
     }
 
     public static void login(){
+    }
 
-    };
+    public static void changeUserType(BaseUser user){
+    }
+
+    public static void main(String[] args) {
+
+    }
 }
