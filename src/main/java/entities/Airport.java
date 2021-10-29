@@ -2,7 +2,7 @@ package entities;
 
 import javax.persistence.*;
 
-@Entity
+@Entity(name="airports")
 @Table
 public class Airport {
 //    @Id
