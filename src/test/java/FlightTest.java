@@ -41,8 +41,7 @@ public class FlightTest {
         //Generate a date for Jan. 9, 2021, 10:11:12 AM
         Calendar cal = Calendar.getInstance();
         cal.set(2021, Calendar.JANUARY, 9, 10, 11, 12); //Year, month, day of month, hours, minutes and seconds
-        Date date = cal.getTime();
-        f = new Flight(date, p, 1, 4, a1, a2);
+        f = new Flight(cal, p, 1, 4, a1, a2);
     }
 
     @Test(timeout = 50)
@@ -56,14 +55,13 @@ public class FlightTest {
         //Generate a date for Jan. 9, 2021, 10:11:12 AM
         Calendar cal = Calendar.getInstance();
         cal.set(2021, Calendar.JANUARY, 9, 10, 11, 12); //Year, month, day of month, hours, minutes and seconds
-        Date date = cal.getTime();
 
-        assertEquals(date, f.getDate());
+        assertEquals(cal, f.getDate());
     }
 
     @Test(timeout = 50)
     public void TestGetDuration(){
-        assert(1 == f.getDuration());
+        assert(4 == f.getDuration());
     }
 
     @Test(timeout = 50)

@@ -1,15 +1,13 @@
 package usecases;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Hashtable;
-import java.util.List;
+import java.util.*;
 
 import entities.BasicUser;
 import entities.Flight;
 import entities.Airport;
 import entities.Route;
 import entities.Plane;
+import org.apache.catalina.User;
 
 // Notes and Questions
 // idk how to write tests since I dont have access to <BasicUser>, <Flight>, <Airport> implementations
@@ -21,20 +19,20 @@ import entities.Plane;
 
 public class InteractDatabase {
 
-    private Hashtable<String, BasicUser> userData;
+    private Hashtable<String, UserManager> userData;
     private Hashtable<String, Flight> flightData;
     private Hashtable<String, Airport> airportData;
 
     public InteractDatabase() {
-        this.userData = new Hashtable<String, BasicUser>();
+        this.userData = new Hashtable<String, UserManager>();
         this.flightData = new Hashtable<String, Flight>();
         this.airportData = new Hashtable<String, Airport>();
 
 
         // Makeshift Data
-//        this.userData.put("keshi", new BasicUser("keshi", "right@here.com", "5551231234", "business"));
-//        this.userData.put("twice", new BasicUser("twice", "feel@special.kr", "2129212921", "first"));
-//        this.userData.put("mxmtoon", new BasicUser("mxmtoon", "dawn@dusk.com", "6473334444", "economy"));
+        this.userData.put("keshi", new UserManager("5551231234", "keshi", "password", "right@here.com", "0001112222"));
+        this.userData.put("twice", new UserManager("2129212921", "twice", "password", "feel@special.kr", "1112223333"));
+        this.userData.put("mxmtoon", new UserManager("6473334444","mxmtoon", "password", "dawn@dusk.com",  "2223334444"));
 
         this.airportData.put("pearson", new Airport("Montreal", "252"));
         this.airportData.put("jfk", new Airport("Toronto", "76"));
@@ -45,22 +43,22 @@ public class InteractDatabase {
 
 
         this.flightData.put("moist", new Flight(
-                new Date(1584102896),
+                new GregorianCalendar(2021, Calendar.DECEMBER, 30),
                 new Plane("Boeing 747", 223, 7, 223-7, true),
                 300, 8, airportData.get("pearson"), airportData.get("jfk")));
         this.flightData.put("delectable", new Flight(
-                new Date(1000293071),
+                new GregorianCalendar(2022, Calendar.JUNE, 5),
                 new Plane("Apollo 11", 1738, 12, 1738-12, true),
                 600, 13, airportData.get("heathrow"), airportData.get("arnold")));
         this.flightData.put("succulent", new Flight(
-                new Date(1426325213),
+                new GregorianCalendar(2022, Calendar.APRIL, 4),
                 new Plane("Falcon 1", 1337, 15, 1337-15, true),
                 1200, 5, airportData.get("jim"), airportData.get("heartthrob")));
 
     }
 
     // add a User, returns true if successful, returns false otherwise
-    public boolean addUser(String id, BasicUser toAdd) {
+    public boolean addUser(String id, UserManager toAdd) {
         if (this.userData.containsKey(id)) {
             return false;
         }
@@ -86,10 +84,16 @@ public class InteractDatabase {
         return true;
     }
 
+    public Hashtable<String, UserManager> getUsers() {
+        return this.userData;
+    }
+
     // get a User by ID if possible
-    public BasicUser getUser(String id) {
+    public UserManager getUser(String id, String password) {
         if (this.userData.containsKey(id)) {
-            return this.userData.get(id);
+            if (this.userData.get(id).getPassword().equals(password)) {
+                return this.userData.get(id);
+            }
         }
         return null;
     }
@@ -115,7 +119,7 @@ public class InteractDatabase {
         return null;
     }
 
-    // get a Route by SearchQueries
+    // get all routes
     public ArrayList<Route<Airport>> getRoutes() {
         // to create a Route instance, we search for a combination of Flights
         // that link the source to the destination
@@ -123,17 +127,17 @@ public class InteractDatabase {
         // generate different possible routes
         // (vary in cost, duration, or connecting flights)
 
-        // currently, there is no Route implementation so
+        // for now, we return all routes
         ArrayList<Route<Airport>> output = new ArrayList<>();
         ArrayList<Flight> flights1 = new ArrayList<>();
         flights1.add(this.flightData.get("moist"));
         ArrayList<Flight> flights2 = new ArrayList<>();
         flights2.add(this.flightData.get("delectable"));
         ArrayList<Flight> flights3 = new ArrayList<>();
-        flights2.add(this.flightData.get("succulent"));
-        output.add(new Route<Airport>(this.airportData.get("pearson"), this.airportData.get("jfk"), flights1));
-        output.add(new Route<Airport>(this.airportData.get("heathrow"), this.airportData.get("arnold"), flights2));
-        output.add(new Route<Airport>(this.airportData.get("jim"), this.airportData.get("heartthrob"), flights3));
+        flights3.add(this.flightData.get("succulent"));
+        output.add(new Route<Airport>(this.airportData.get("pearson"), this.airportData.get("jfk"), flights1.get(0).getDate(), flights1));
+        output.add(new Route<Airport>(this.airportData.get("heathrow"), this.airportData.get("arnold"), flights2.get(0).getDate(), flights2));
+        output.add(new Route<Airport>(this.airportData.get("jim"), this.airportData.get("heartthrob"), flights3.get(0).getDate(), flights3));
         return output;
     }
 

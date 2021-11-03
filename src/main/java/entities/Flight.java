@@ -1,15 +1,17 @@
 package entities;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 public class Flight {
-    private Date date;
+    private Calendar date;
     private Plane plane;
     private double price;
     private double duration; //TODO: Assuming this will be in hours?
     private Airport sourceAirport;
     private Airport destinationAirport;
 
-    public Flight(Date date, Plane plane, double price, double duration, Airport source, Airport destination){
+    public Flight(Calendar date, Plane plane, double price, double duration, Airport source, Airport destination){
         this.date = date;
         this.plane = plane;
         this.price = price;
@@ -18,7 +20,7 @@ public class Flight {
         this.destinationAirport = destination;
     }
 
-    public Date getDate(){
+    public Calendar getDate(){
         return date;
     }
     public Plane getPlane(){

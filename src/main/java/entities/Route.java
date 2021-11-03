@@ -1,16 +1,19 @@
 package entities;
 import usecases.InteractDatabase;
 
+import java.util.Calendar;
 import java.util.List;
 
 public class Route<A> {
     private Airport departureAirport;
     private Airport destinationAirport;
+    private Calendar departureDate;
     private List<Flight> flights;
 
-    public Route(Airport departureAirport, Airport destinationAirport, List<Flight> flights) {
+    public Route(Airport departureAirport, Airport destinationAirport, Calendar departureDate, List<Flight> flights) {
         this.departureAirport = departureAirport;
         this.destinationAirport = destinationAirport;
+        this.departureDate = departureDate;
         this.flights = flights;
     }
 
@@ -29,6 +32,10 @@ public class Route<A> {
     public void setDestinationAirport(Airport newDestinationAirport) {
         this.destinationAirport = newDestinationAirport;
     }
+
+    public Calendar getDepartureDate() { return this.departureDate; }
+
+    public void setDepartureDate(Calendar departureDate) { this.departureDate = departureDate; }
 
     public List<Flight> getFlights() {
         return flights;
