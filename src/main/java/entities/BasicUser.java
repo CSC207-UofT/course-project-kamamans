@@ -2,6 +2,10 @@ package entities;
 
 import usecases.UserManager;
 
+/**
+ * BasicUser is responsible for implementing basic user actions which are defined in BaseUser
+ */
+
 public class BasicUser implements BaseUser {
     public static final String INVALID_REQUEST = "Not available for Basic Users. Upgrade to Premium today!";
     public UserManager userManager;
@@ -18,9 +22,12 @@ public class BasicUser implements BaseUser {
         return "User Type is already Basic.";
     }
 
+    /**
+     * Upgrade BasicUser to PremiumUser by creating a new PremiumUser and passing it to userManager
+     * @return String
+     */
     public String upgradeUserType() {
-        BaseUser new_user = new PremiumUser(this.userManager);
-        this.userManager.changeUserType(new_user);
+        this.userManager.changeUserType(new PremiumUser(this.userManager));
         return "User Type upgraded to Premium.";
     }
 

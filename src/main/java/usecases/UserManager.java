@@ -1,17 +1,18 @@
 package usecases;
 import entities.*;
 
+/**
+ * UserManager is responsible for common methods and attributes across all users.
+ */
+
 public class UserManager {
     private String id;
     private String username;
     private String password;
     private String email;
     private String phoneNumber;
+    private int appRating;
     public BaseUser user;
-
-    public UserManager() {
-        this.user = new BasicUser(this);
-    }
 
     public UserManager(String id, String username, String password, String email, String phoneNumber) {
         this.user = new BasicUser(this);
@@ -41,6 +42,10 @@ public class UserManager {
     public String getPhoneNumber() {
         return this.phoneNumber;
     }
+
+    public void setAppRating(int appRating) { this.appRating = appRating; }
+
+    public int getAppRating() { return this.appRating; }
 
     public void changeUserType(BaseUser user){
         this.user = user;
