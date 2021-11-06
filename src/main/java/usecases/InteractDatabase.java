@@ -1,5 +1,11 @@
 package usecases;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.sql.SQLOutput;
 import java.util.*;
 
 import entities.BasicUser;
@@ -138,6 +144,40 @@ public class InteractDatabase {
         output.add(new Route<Airport>(this.airportData.get("heathrow"), this.airportData.get("arnold"), flights2.get(0).getDate(), flights2));
         output.add(new Route<Airport>(this.airportData.get("jim"), this.airportData.get("heartthrob"), flights3.get(0).getDate(), flights3));
         return output;
+    }
+
+    public static String getEndpoint(String endpoint) throws IOException {
+        BufferedReader reader;
+        String line;
+        StringBuffer responseContent = new StringBuffer();
+
+        URL url = new URL(endpoint);
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+
+        // Request Setup
+        connection.setRequestMethod("GET");
+        connection.setConnectTimeout(2500);
+        connection.setReadTimeout(2500);
+
+        int status = connection.getResponseCode();
+
+        if (status > 299) {
+            // connection is not successful
+            reader = new BufferedReader(new InputStreamReader(connection.getErrorStream()));
+        } else {
+            // connection is successful
+            reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+        }
+        while ((line = reader.readLine()) != null) {
+            responseContent.append(line);
+        }
+        reader.close();
+
+        return responseContent.toString();
+    }
+
+    public static void main(String[] args) throws IOException {
+        System.out.println(getEndpoint("https://www.reddit.com/r/javascript.json"));
     }
 
 }
