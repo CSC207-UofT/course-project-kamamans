@@ -1,8 +1,6 @@
 package usecases;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.sql.SQLOutput;
@@ -117,12 +115,12 @@ public class InteractDatabase {
     }
 
     // get an Airport by ID if possible
-    public Airport getAirport(String id) {
-        if (this.airportData.containsKey(id)) {
-            return this.airportData.get(id);
-        }
-        return null;
-    }
+//    public Airport getAirport(String id) {
+//        if (this.airportData.containsKey(id)) {
+//            return this.airportData.get(id);
+//        }
+//        return null;
+//    }
 
     // get all routes
     public ArrayList<Route<Airport>> getRoutes() {
@@ -176,8 +174,99 @@ public class InteractDatabase {
         return responseContent.toString();
     }
 
-    public static void main(String[] args) throws IOException {
-        System.out.println(getEndpoint("https://www.reddit.com/r/javascript.json"));
+    public static void postAirport(Airport toStore) throws IOException, ClassNotFoundException {
+        // Serializes <toStore>
+        ArrayList<Airport> db = getAirportList();
+        db.add(toStore);
+
+        try {
+            FileOutputStream fos = new FileOutputStream("src/main/java/backend/database/airport.bin");
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+
+            oos.writeObject(db);
+
+            oos.close();
+            fos.close();
+        } catch (IOException i) {
+            i.printStackTrace();
+        }
+    }
+
+    public static ArrayList<Airport> getAirportList() throws IOException, ClassNotFoundException {
+        // Returns list of Object
+        ArrayList<Airport> outputList = new ArrayList<>();
+
+        try {
+            FileInputStream fis = new FileInputStream("src/main/java/backend/database/airport.bin");
+            ObjectInputStream ois = new ObjectInputStream(fis);
+
+            outputList = (ArrayList) ois.readObject();
+
+            ois.close();
+            fis.close();
+            return outputList;
+        } catch (IOException i) {
+            i.printStackTrace();
+            return null;
+        }
+    }
+
+    public static Airport getAirport(String iataCode) throws IOException, ClassNotFoundException  {
+        ArrayList<Airport> airportList = getAirportList();
+
+        for (Airport airport:airportList) {
+            if (airport.getIataCode().equals(iataCode)) {
+                return airport;
+            }
+        }
+        return null;
+    }
+
+    public static boolean initializeDatabase() {
+        // Sets the database files for ArrayList
+        // Only need to run this function once to setup your "server"
+
+        ArrayList<Airport> base = new ArrayList<>();
+
+        try {
+            FileOutputStream fos = new FileOutputStream("src/main/java/backend/database/airport.bin");
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+
+            oos.writeObject(base);
+
+            oos.close();
+            fos.close();
+
+            return true;
+        } catch (IOException i) {
+            i.printStackTrace();
+            return false;
+        }
+    }
+
+    public static void main(String[] args) throws IOException, ClassNotFoundException {
+//        System.out.println(getEndpoint("https://www.reddit.com/r/javascript.json"));
+
+//        Initialize
+//        if (initializeDatabase()) {
+//            System.out.println("Server Initialized");
+//        } else {
+//            System.out.println("Server Failed to Initialize");
+//        }
+
+//        Write Data
+//        Airport test1 = new Airport("toronto", "6ix");
+//        Airport test2 = new Airport("vancouver", "lacroix");
+//        postAirport(test1);
+//        postAirport(test2);
+
+//        Read Data
+//        ArrayList<Airport> airportList = getAirport();
+//        for (Airport temp: airportList) {
+//            System.out.println(temp.getCity());
+//        }
+
+        System.out.println(getAirport("6ix").getCity());
     }
 
 }
