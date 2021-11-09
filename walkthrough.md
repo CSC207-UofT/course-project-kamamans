@@ -4,4 +4,4 @@ Backend: Given the information received by SearchFlight, we search through a sor
 
 Once the user finds an appropriate flight, the selected flight is given to StoreFlight, which contains all the information related to the airport, plane, flight, and route. EditUser then takes this information and uses InteractDatabase to store it. 
 
-Backend: Given the information received by StoreFlight, we store the flight information to the associated user’s account. 
+Backend: Given the information received by StoreFlight, we store the flight information to the associated user’s account.

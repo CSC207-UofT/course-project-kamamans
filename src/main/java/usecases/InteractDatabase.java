@@ -1,5 +1,9 @@
 package usecases;
 
+import java.io.*;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.sql.SQLOutput;
 import java.util.*;
 
 import entities.BasicUser;
@@ -7,6 +11,7 @@ import entities.Flight;
 import entities.Airport;
 import entities.Route;
 import entities.Plane;
+import org.apache.catalina.User;
 
 // Notes and Questions
 // idk how to write tests since I dont have access to <BasicUser>, <Flight>, <Airport> implementations
@@ -18,20 +23,20 @@ import entities.Plane;
 
 public class InteractDatabase {
 
-    private Hashtable<String, BasicUser> userData;
+    private Hashtable<String, UserManager> userData;
     private Hashtable<String, Flight> flightData;
     private Hashtable<String, Airport> airportData;
 
     public InteractDatabase() {
-        this.userData = new Hashtable<String, BasicUser>();
+        this.userData = new Hashtable<String, UserManager>();
         this.flightData = new Hashtable<String, Flight>();
         this.airportData = new Hashtable<String, Airport>();
 
 
         // Makeshift Data
-        this.userData.put("keshi", new BasicUser("keshi", "password", "right@here.com", "5551231234", "business"));
-        this.userData.put("twice", new BasicUser("twice", "password", "feel@special.kr", "2129212921", "first"));
-        this.userData.put("mxmtoon", new BasicUser("mxmtoon", "password", "dawn@dusk.com", "6473334444", "economy"));
+        this.userData.put("keshi", new UserManager("5551231234", "keshi", "password", "right@here.com", "0001112222"));
+        this.userData.put("twice", new UserManager("2129212921", "twice", "password", "feel@special.kr", "1112223333"));
+        this.userData.put("mxmtoon", new UserManager("6473334444","mxmtoon", "password", "dawn@dusk.com",  "2223334444"));
 
         this.airportData.put("pearson", new Airport("Montreal", "252"));
         this.airportData.put("jfk", new Airport("Toronto", "76"));
@@ -57,7 +62,7 @@ public class InteractDatabase {
     }
 
     // add a User, returns true if successful, returns false otherwise
-    public boolean addUser(String id, BasicUser toAdd) {
+    public boolean addUser(String id, UserManager toAdd) {
         if (this.userData.containsKey(id)) {
             return false;
         }
@@ -83,12 +88,12 @@ public class InteractDatabase {
         return true;
     }
 
-    public Hashtable<String, BasicUser> getUsers() {
+    public Hashtable<String, UserManager> getUsers() {
         return this.userData;
     }
 
     // get a User by ID if possible
-    public BasicUser getUser(String id, String password) {
+    public UserManager getUser(String id, String password) {
         if (this.userData.containsKey(id)) {
             if (this.userData.get(id).getPassword().equals(password)) {
                 return this.userData.get(id);
@@ -108,14 +113,6 @@ public class InteractDatabase {
     // get a list of Flights by Route
     public List<Flight> flightByRoutes(Route<Airport> route) {
         return route.getFlights();
-    }
-
-    // get an Airport by ID if possible
-    public Airport getAirport(String id) {
-        if (this.airportData.containsKey(id)) {
-            return this.airportData.get(id);
-        }
-        return null;
     }
 
     // get all routes
@@ -138,6 +135,131 @@ public class InteractDatabase {
         output.add(new Route<Airport>(this.airportData.get("heathrow"), this.airportData.get("arnold"), flights2.get(0).getDate(), flights2));
         output.add(new Route<Airport>(this.airportData.get("jim"), this.airportData.get("heartthrob"), flights3.get(0).getDate(), flights3));
         return output;
+    }
+
+    public static String getEndpoint(String endpoint) throws IOException {
+        BufferedReader reader;
+        String line;
+        StringBuffer responseContent = new StringBuffer();
+
+        URL url = new URL(endpoint);
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+
+        // Request Setup
+        connection.setRequestMethod("GET");
+        connection.setConnectTimeout(2500);
+        connection.setReadTimeout(2500);
+
+        int status = connection.getResponseCode();
+
+        if (status > 299) {
+            // connection is not successful
+            reader = new BufferedReader(new InputStreamReader(connection.getErrorStream()));
+        } else {
+            // connection is successful
+            reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+        }
+        while ((line = reader.readLine()) != null) {
+            responseContent.append(line);
+        }
+        reader.close();
+
+        return responseContent.toString();
+    }
+
+    public static void postAirport(Airport toStore) throws IOException, ClassNotFoundException {
+        // Serializes <toStore>
+        ArrayList<Airport> db = getAirportList();
+        db.add(toStore);
+
+        try {
+            FileOutputStream fos = new FileOutputStream("src/main/java/backend/database/airport.bin");
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+
+            oos.writeObject(db);
+
+            oos.close();
+            fos.close();
+        } catch (IOException i) {
+            i.printStackTrace();
+        }
+    }
+
+    public static ArrayList<Airport> getAirportList() throws IOException, ClassNotFoundException {
+        // Returns list of Object
+        ArrayList<Airport> outputList = new ArrayList<>();
+
+        try {
+            FileInputStream fis = new FileInputStream("src/main/java/backend/database/airport.bin");
+            ObjectInputStream ois = new ObjectInputStream(fis);
+
+            outputList = (ArrayList) ois.readObject();
+
+            ois.close();
+            fis.close();
+            return outputList;
+        } catch (IOException i) {
+            i.printStackTrace();
+            return null;
+        }
+    }
+
+    public static Airport getAirport(String iataCode) throws IOException, ClassNotFoundException  {
+        ArrayList<Airport> airportList = getAirportList();
+
+        for (Airport airport:airportList) {
+            if (airport.getIataCode().equals(iataCode)) {
+                return airport;
+            }
+        }
+        return null;
+    }
+
+    public static boolean initializeDatabase() {
+        // Sets the database files for ArrayList
+        // Only need to run this function once to setup your "server"
+
+        ArrayList<Airport> base = new ArrayList<>();
+
+        try {
+            FileOutputStream fos = new FileOutputStream("src/main/java/backend/database/airport.bin");
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+
+            oos.writeObject(base);
+
+            oos.close();
+            fos.close();
+
+            return true;
+        } catch (IOException i) {
+            i.printStackTrace();
+            return false;
+        }
+    }
+
+    public static void main(String[] args) throws IOException, ClassNotFoundException {
+//        System.out.println(getEndpoint("https://www.reddit.com/r/javascript.json"));
+
+//        Initialize
+//        if (initializeDatabase()) {
+//            System.out.println("Server Initialized");
+//        } else {
+//            System.out.println("Server Failed to Initialize");
+//        }
+
+//        Write Data
+//        Airport test1 = new Airport("toronto", "6ix");
+//        Airport test2 = new Airport("vancouver", "lacroix");
+//        postAirport(test1);
+//        postAirport(test2);
+
+//        Read Data
+//        ArrayList<Airport> airportList = getAirport();
+//        for (Airport temp: airportList) {
+//            System.out.println(temp.getCity());
+//        }
+
+        System.out.println(getAirport("6ix").getCity());
     }
 
 }
