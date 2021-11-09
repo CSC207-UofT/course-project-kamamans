@@ -1,5 +1,9 @@
 package usecases;
 
+import java.io.*;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.sql.SQLOutput;
 import java.util.*;
 
 import entities.BasicUser;
@@ -111,14 +115,6 @@ public class InteractDatabase {
         return route.getFlights();
     }
 
-    // get an Airport by ID if possible
-    public Airport getAirport(String id) {
-        if (this.airportData.containsKey(id)) {
-            return this.airportData.get(id);
-        }
-        return null;
-    }
-
     // get all routes
     public ArrayList<Route<Airport>> getRoutes() {
         // to create a Route instance, we search for a combination of Flights
@@ -139,6 +135,131 @@ public class InteractDatabase {
         output.add(new Route<Airport>(this.airportData.get("heathrow"), this.airportData.get("arnold"), flights2.get(0).getDate(), flights2));
         output.add(new Route<Airport>(this.airportData.get("jim"), this.airportData.get("heartthrob"), flights3.get(0).getDate(), flights3));
         return output;
+    }
+
+    public static String getEndpoint(String endpoint) throws IOException {
+        BufferedReader reader;
+        String line;
+        StringBuffer responseContent = new StringBuffer();
+
+        URL url = new URL(endpoint);
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+
+        // Request Setup
+        connection.setRequestMethod("GET");
+        connection.setConnectTimeout(2500);
+        connection.setReadTimeout(2500);
+
+        int status = connection.getResponseCode();
+
+        if (status > 299) {
+            // connection is not successful
+            reader = new BufferedReader(new InputStreamReader(connection.getErrorStream()));
+        } else {
+            // connection is successful
+            reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+        }
+        while ((line = reader.readLine()) != null) {
+            responseContent.append(line);
+        }
+        reader.close();
+
+        return responseContent.toString();
+    }
+
+    public static void postAirport(Airport toStore) throws IOException, ClassNotFoundException {
+        // Serializes <toStore>
+        ArrayList<Airport> db = getAirportList();
+        db.add(toStore);
+
+        try {
+            FileOutputStream fos = new FileOutputStream("src/main/java/backend/database/airport.bin");
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+
+            oos.writeObject(db);
+
+            oos.close();
+            fos.close();
+        } catch (IOException i) {
+            i.printStackTrace();
+        }
+    }
+
+    public static ArrayList<Airport> getAirportList() throws IOException, ClassNotFoundException {
+        // Returns list of Object
+        ArrayList<Airport> outputList = new ArrayList<>();
+
+        try {
+            FileInputStream fis = new FileInputStream("src/main/java/backend/database/airport.bin");
+            ObjectInputStream ois = new ObjectInputStream(fis);
+
+            outputList = (ArrayList) ois.readObject();
+
+            ois.close();
+            fis.close();
+            return outputList;
+        } catch (IOException i) {
+            i.printStackTrace();
+            return null;
+        }
+    }
+
+    public static Airport getAirport(String iataCode) throws IOException, ClassNotFoundException  {
+        ArrayList<Airport> airportList = getAirportList();
+
+        for (Airport airport:airportList) {
+            if (airport.getIataCode().equals(iataCode)) {
+                return airport;
+            }
+        }
+        return null;
+    }
+
+    public static boolean initializeDatabase() {
+        // Sets the database files for ArrayList
+        // Only need to run this function once to setup your "server"
+
+        ArrayList<Airport> base = new ArrayList<>();
+
+        try {
+            FileOutputStream fos = new FileOutputStream("src/main/java/backend/database/airport.bin");
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+
+            oos.writeObject(base);
+
+            oos.close();
+            fos.close();
+
+            return true;
+        } catch (IOException i) {
+            i.printStackTrace();
+            return false;
+        }
+    }
+
+    public static void main(String[] args) throws IOException, ClassNotFoundException {
+//        System.out.println(getEndpoint("https://www.reddit.com/r/javascript.json"));
+
+//        Initialize
+//        if (initializeDatabase()) {
+//            System.out.println("Server Initialized");
+//        } else {
+//            System.out.println("Server Failed to Initialize");
+//        }
+
+//        Write Data
+//        Airport test1 = new Airport("toronto", "6ix");
+//        Airport test2 = new Airport("vancouver", "lacroix");
+//        postAirport(test1);
+//        postAirport(test2);
+
+//        Read Data
+//        ArrayList<Airport> airportList = getAirport();
+//        for (Airport temp: airportList) {
+//            System.out.println(temp.getCity());
+//        }
+
+        System.out.println(getAirport("6ix").getCity());
     }
 
 }

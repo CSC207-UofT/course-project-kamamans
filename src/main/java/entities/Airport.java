@@ -1,8 +1,9 @@
 package entities;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Airport {
+public class Airport implements Serializable {
     private String city;
     private String iataCode;
 
