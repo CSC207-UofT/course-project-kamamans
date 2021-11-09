@@ -114,14 +114,6 @@ public class InteractDatabase {
         return route.getFlights();
     }
 
-    // get an Airport by ID if possible
-//    public Airport getAirport(String id) {
-//        if (this.airportData.containsKey(id)) {
-//            return this.airportData.get(id);
-//        }
-//        return null;
-//    }
-
     // get all routes
     public ArrayList<Route<Airport>> getRoutes() {
         // to create a Route instance, we search for a combination of Flights
