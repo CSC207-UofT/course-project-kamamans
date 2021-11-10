@@ -1,16 +1,19 @@
 package entities;
+import java.io.Serializable;
 import usecases.InteractDatabase;
 
+import java.lang.reflect.Array;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 
-public class Route<A> {
+public class Route<A> implements Serializable{
     private Airport departureAirport;
     private Airport destinationAirport;
     private Calendar departureDate;
     private List<Flight> flights;
 
-    public Route(Airport departureAirport, Airport destinationAirport, Calendar departureDate, List<Flight> flights) {
+    public Route (Airport departureAirport, Airport destinationAirport, Calendar departureDate, List<Flight> flights) {
         this.departureAirport = departureAirport;
         this.destinationAirport = destinationAirport;
         this.departureDate = departureDate;
@@ -33,9 +36,13 @@ public class Route<A> {
         this.destinationAirport = newDestinationAirport;
     }
 
-    public Calendar getDepartureDate() { return this.departureDate; }
+    public Calendar getDepartureDate() {
+        return this.departureDate;
+    }
 
-    public void setDepartureDate(Calendar departureDate) { this.departureDate = departureDate; }
+    public void setDepartureDate(Calendar departureDate) {
+        this.departureDate = departureDate;
+    }
 
     public List<Flight> getFlights() {
         return flights;
@@ -55,5 +62,16 @@ public class Route<A> {
             d = d + f.getDuration();
         }
         return d;
+    }
+
+    public void getInformation(){
+        String[] lst = new String[6];
+        lst[0] = String.valueOf(this.departureAirport);
+        lst[1] = String.valueOf(this.destinationAirport);
+        lst[2] = String.valueOf(this.departureDate);
+        lst[3] = String.valueOf(this.flights);
+        lst[4] = String.valueOf(getPriceofFlights());
+        lst[5] = String.valueOf(getTotalDuration());
+        System.out.print(Arrays.toString(lst));
     }
 }
