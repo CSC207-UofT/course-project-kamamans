@@ -162,15 +162,13 @@ function selectFlight(routeId) {
     // TODO Add the flight to the user's flight history
     console.log("Selected flight: "+routeId);
 
-
-    // Create a popup to let the user know their selection was processed
     let flightSelectedPopup = `
             <div id="flightSelected" class="overlay">
                 <div class="popup">
                     <h2>Route #`+routeId+`</h2>
                     <a class="close" href="#">&times;</a>
                     <div class="content">
-                        <div class="">
+                        <div class="product-detail">
                             <h1>Flight successfully added to your search history.</h1>
                         </div>
                     </div>
@@ -184,4 +182,5 @@ function selectFlight(routeId) {
 
     stack.appendChild(htmlDom.documentElement);
 
+    window.location.href = "SelectFlight.html#flightSelected";
 }
