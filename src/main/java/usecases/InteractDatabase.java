@@ -3,15 +3,10 @@ package usecases;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.sql.SQLOutput;
 import java.util.*;
 
-import entities.BasicUser;
-import entities.Flight;
-import entities.Airport;
-import entities.Route;
-import entities.Plane;
-import org.apache.catalina.User;
+import entities.*;
+//import org.apache.catalina.User;
 
 // Notes and Questions
 // idk how to write tests since I dont have access to <BasicUser>, <Flight>, <Airport> implementations
@@ -34,9 +29,9 @@ public class InteractDatabase {
 
 
         // Makeshift Data
-        this.userData.put("keshi", new UserManager("5551231234", "keshi", "password", "right@here.com", "0001112222"));
-        this.userData.put("twice", new UserManager("2129212921", "twice", "password", "feel@special.kr", "1112223333"));
-        this.userData.put("mxmtoon", new UserManager("6473334444","mxmtoon", "password", "dawn@dusk.com",  "2223334444"));
+        this.userData.put("keshi", new UserManager( "keshi", "password", "right@here.com", "0001112222"));
+        this.userData.put("twice", new UserManager( "twice", "password", "feel@special.kr", "1112223333"));
+        this.userData.put("mxmtoon", new UserManager("mxmtoon", "password", "dawn@dusk.com",  "2223334444"));
 
         this.airportData.put("pearson", new Airport("Montreal", "252"));
         this.airportData.put("jfk", new Airport("Toronto", "76"));
@@ -92,11 +87,11 @@ public class InteractDatabase {
         return this.userData;
     }
 
-    // get a User by ID if possible
-    public UserManager getUser(String id, String password) {
-        if (this.userData.containsKey(id)) {
-            if (this.userData.get(id).getPassword().equals(password)) {
-                return this.userData.get(id);
+    // get a User by username if possible
+    public UserManager getUser(String username, String password) {
+        if (this.userData.containsKey(username)) {
+            if (this.userData.get(username).getPassword().equals(password)) {
+                return this.userData.get(username);
             }
         }
         return null;

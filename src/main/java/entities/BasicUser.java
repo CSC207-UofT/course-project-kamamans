@@ -1,7 +1,5 @@
 package entities;
 
-import usecases.UserManager;
-
 /**
  * BasicUser is responsible for implementing basic user actions which are defined in BaseUser
  */

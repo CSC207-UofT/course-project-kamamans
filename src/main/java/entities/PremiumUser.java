@@ -4,9 +4,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import usecases.UserManager;
-import entities.*;
-
 /**
  * PremiumUser is responsible for implementing premium user features and actions which are defined in BaseUser
  */
