@@ -3,6 +3,7 @@ package usecases;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.sql.Array;
 import java.sql.SQLOutput;
 import java.util.*;
 
@@ -11,7 +12,7 @@ import entities.Flight;
 import entities.Airport;
 import entities.Route;
 import entities.Plane;
-import org.apache.catalina.User;
+
 
 // Notes and Questions
 // idk how to write tests since I dont have access to <BasicUser>, <Flight>, <Airport> implementations
@@ -167,6 +168,8 @@ public class InteractDatabase {
         return responseContent.toString();
     }
 
+    // Airport Database:
+
     public static void postAirport(Airport toStore) throws IOException, ClassNotFoundException {
         // Serializes <toStore>
         ArrayList<Airport> db = getAirportList();
@@ -215,13 +218,67 @@ public class InteractDatabase {
         return null;
     }
 
+
+    // Plane Database:
+    public static void postPlane(Plane toStore) throws IOException, ClassNotFoundException {
+        // Serializes <toStore>
+        ArrayList<Plane> db = getPlaneList();
+        db.add(toStore);
+
+        try {
+            FileOutputStream fos = new FileOutputStream("src/main/java/backend/database/plane.bin");
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+
+            oos.writeObject(db);
+
+            oos.close();
+            fos.close();
+        } catch (IOException i) {
+            i.printStackTrace();
+        }
+    }
+
+    public static ArrayList<Plane> getPlaneList() throws IOException, ClassNotFoundException {
+        // Returns list of Object
+        ArrayList<Plane> outputList = new ArrayList<>();
+
+        try {
+            FileInputStream fis = new FileInputStream("src/main/java/backend/database/plane.bin");
+            ObjectInputStream ois = new ObjectInputStream(fis);
+
+            outputList = (ArrayList) ois.readObject();
+
+            ois.close();
+            fis.close();
+            return outputList;
+        } catch (IOException i) {
+            i.printStackTrace();
+            return null;
+        }
+    }
+
+    public static Plane getPlane(String brandName) throws IOException, ClassNotFoundException  {
+        ArrayList<Plane> planeList = getPlaneList();
+
+        for (Plane plane:planeList) {
+            if (plane.getBrandName().equals(brandName)) {
+                return plane;
+            }
+        }
+        return null;
+    }
+
+
     public static boolean initializeDatabase() {
         // Sets the database files for ArrayList
         // Only need to run this function once to setup your "server"
 
         ArrayList<Airport> base = new ArrayList<>();
+        ArrayList<Plane> base2 = new ArrayList<>();
 
         try {
+
+            // For Airport
             FileOutputStream fos = new FileOutputStream("src/main/java/backend/database/airport.bin");
             ObjectOutputStream oos = new ObjectOutputStream(fos);
 
@@ -229,6 +286,15 @@ public class InteractDatabase {
 
             oos.close();
             fos.close();
+
+            // For Plane
+            FileOutputStream fos2 = new FileOutputStream("src/main/java/backend/database/plane.bin");
+            ObjectOutputStream oos2 = new ObjectOutputStream(fos2);
+
+            oos2.writeObject(base2);
+
+            oos2.close();
+            fos2.close();
 
             return true;
         } catch (IOException i) {
@@ -240,12 +306,14 @@ public class InteractDatabase {
     public static void main(String[] args) throws IOException, ClassNotFoundException {
 //        System.out.println(getEndpoint("https://www.reddit.com/r/javascript.json"));
 
-//        Initialize
+        // Initialize
 //        if (initializeDatabase()) {
 //            System.out.println("Server Initialized");
 //        } else {
 //            System.out.println("Server Failed to Initialize");
 //        }
+
+//     Testing Airport Database:
 
 //        Write Data
 //        Airport test1 = new Airport("toronto", "6ix");
@@ -259,7 +327,20 @@ public class InteractDatabase {
 //            System.out.println(temp.getCity());
 //        }
 
-        System.out.println(getAirport("6ix").getCity());
-    }
+//        Testing Plane Database:
 
+        // Write Data
+//        Plane test3 = new Plane("Airbus A321", 220, 20, 200, true);
+//        Plane test4 = new Plane("Boeing 737", 189, 20, 169, true);
+//        postPlane(test3);
+//        postPlane(test4);
+
+        // Read Data
+//        ArrayList<Plane> planeList = getPlaneList();
+//        for (Plane temp: planeList) {
+//            System.out.println(temp.getBrandName());
+//        }
+
+        // System.out.println(getAirport("6ix").getCity());
+    }
 }
