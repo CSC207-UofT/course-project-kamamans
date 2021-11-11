@@ -12,19 +12,21 @@ public class UserList implements Serializable {
 
     /**
      * Add a user to the user list.
-     * @param user the UserManager for a single User
+     * @param user the UserManager to be added
      */
     public void addUser(UserManager user) {
         userList.put(user.getUsername(), user);
     }
 
+    /**
+     * Remove a user from the user list.
+     * @param user the UserManager to be removed
+     */
     public void removeUser(UserManager user) { userList.remove(user.getUsername()); }
 
     /**
-     * Get the UserManager by user id
-     * @param username the id of the user to get
+     * Get the UserManager by username
+     * @param username the username of the user to get
      */
     public UserManager getUser(String username) { return userList.get(username); }
-
-    public String getLoginPassword(String id) { return userList.get(id).getPassword(); }
 }

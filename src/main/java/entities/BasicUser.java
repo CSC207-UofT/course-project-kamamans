@@ -1,10 +1,12 @@
 package entities;
 
+import java.io.Serializable;
+
 /**
  * BasicUser is responsible for implementing basic user actions which are defined in BaseUser
  */
 
-public class BasicUser implements BaseUser {
+public class BasicUser implements BaseUser, Serializable {
     public static final String INVALID_REQUEST = "Not available for Basic Users. Upgrade to Premium today!";
     public UserManager userManager;
 

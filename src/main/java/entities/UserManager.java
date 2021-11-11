@@ -1,4 +1,5 @@
 package entities;
+import javax.persistence.Basic;
 import java.io.Serializable;
 
 /**
@@ -54,5 +55,15 @@ public class UserManager implements Serializable {
     public String upgradeUserType() { return this.user.upgradeUserType(); }
 
     public String downgradeUserType() { return this.user.downgradeUserType(); }
+
+    public String getUserType() {
+        if (this.user instanceof BasicUser) {
+            return "Basic";
+        } else if (this.user instanceof PremiumUser) {
+            return "Premium";
+        } else {
+            return null;
+        }
+    }
 
 }
