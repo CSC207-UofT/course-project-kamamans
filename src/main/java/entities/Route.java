@@ -3,10 +3,7 @@ import java.io.Serializable;
 import usecases.InteractDatabase;
 
 import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.List;
+import java.util.*;
 
 public class Route<A> implements Serializable{
     private Airport departureAirport;
@@ -65,14 +62,26 @@ public class Route<A> implements Serializable{
         return d;
     }
 
-    public ArrayList<Object> getInformation(Route<A> r){
-        ArrayList<Object> lst = new ArrayList<>();
-        lst.set(0, r.departureAirport);
-        lst.set(1, r.destinationAirport);
-        lst.set(2, r.departureDate);
-        lst.set(3, r.flights);
-        lst.set(4, r.getPriceofFlights());
-        lst.set(5, r.getTotalDuration());
-        return lst;
+    public HashMap<String, Object> getInformation(Route<A> r){
+        HashMap<String, Object> info = new HashMap<String,Object>();
+
+        HashMap<String, Object> departureAirport = new HashMap<String,Object>();
+        departureAirport.put("city", r.departureAirport.getCity());
+        departureAirport.put("iataCode", r.departureAirport.getIataCode());
+        info.put("departureAirport", departureAirport);
+
+        HashMap<String, Object> destinationAirport = new HashMap<String,Object>();
+        destinationAirport.put("city", r.destinationAirport.getCity());
+        destinationAirport.put("iataCode", r.destinationAirport.getIataCode());
+        info.put("destinationAirport", destinationAirport);
+
+        info.put("departureDate", r.departureDate);
+
+        info.put("flights", r.flights);
+
+        info.put("price", r.getPriceofFlights());
+
+        info.put("duration", r.getTotalDuration());
+        return info;
     }
 }

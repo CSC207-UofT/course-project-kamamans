@@ -1,10 +1,9 @@
 package usecases;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.sql.SQLOutput;
 import java.util.*;
 
 import entities.BasicUser;
@@ -12,42 +11,31 @@ import entities.Flight;
 import entities.Airport;
 import entities.Route;
 import entities.Plane;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-
 // Notes and Questions
-
-
+// idk how to write tests since I dont have access to <BasicUser>, <Flight>, <Airport> implementations
+// ---> do we just verify on the Pull Request?
+// Have to put constructor parameters for Makeshift Data
+// For now <getFlightData> and <getAirportData> just retrieve by the id
+// I'm unclear on what <getHistory> is supposed to do
+// Should id's be strings?
 public class InteractDatabase {
-
     private Hashtable<String, BasicUser> userData;
     private Hashtable<String, Flight> flightData;
     private Hashtable<String, Airport> airportData;
-    private static HttpURLConnection connection;
-
     public InteractDatabase() {
         this.userData = new Hashtable<String, BasicUser>();
         this.flightData = new Hashtable<String, Flight>();
         this.airportData = new Hashtable<String, Airport>();
-
-
         // Makeshift Data
         this.userData.put("keshi", new BasicUser("keshi", "password", "right@here.com", "5551231234", "business"));
         this.userData.put("twice", new BasicUser("twice", "password", "feel@special.kr", "2129212921", "first"));
         this.userData.put("mxmtoon", new BasicUser("mxmtoon", "password", "dawn@dusk.com", "6473334444", "economy"));
-
         this.airportData.put("pearson", new Airport("Montreal", "252"));
         this.airportData.put("jfk", new Airport("Toronto", "76"));
         this.airportData.put("heathrow", new Airport("Vancouver", "251256342"));
         this.airportData.put("arnold", new Airport("Quebec City", "12443"));
         this.airportData.put("jim", new Airport("Mumbai", "457"));
         this.airportData.put("heartthrob", new Airport("Paris", "9856"));
-
-
         this.flightData.put("moist", new Flight(
                 new GregorianCalendar(2021, Calendar.DECEMBER, 30),
                 new Plane("Boeing 747", 223, 7, 223-7, true),
@@ -60,9 +48,7 @@ public class InteractDatabase {
                 new GregorianCalendar(2022, Calendar.APRIL, 4),
                 new Plane("Falcon 1", 1337, 15, 1337-15, true),
                 1200, 5, airportData.get("jim"), airportData.get("heartthrob")));
-
     }
-
     // add a User, returns true if successful, returns false otherwise
     public boolean addUser(String id, BasicUser toAdd) {
         if (this.userData.containsKey(id)) {
@@ -71,7 +57,6 @@ public class InteractDatabase {
         this.userData.put(id, toAdd);
         return true;
     }
-
     // add a Flight, returns true if successful, returns false otherwise
     public boolean addFlight(String id, Flight toAdd) {
         if (this.flightData.containsKey(id)) {
@@ -80,7 +65,6 @@ public class InteractDatabase {
         this.flightData.put(id, toAdd);
         return true;
     }
-
     // add an Airport, returns true if successful, returns false otherwise
     public boolean addAirport(String id, Airport toAdd) {
         if (this.airportData.containsKey(id)) {
@@ -89,11 +73,9 @@ public class InteractDatabase {
         this.airportData.put(id, toAdd);
         return true;
     }
-
     public Hashtable<String, BasicUser> getUsers() {
         return this.userData;
     }
-
     // get a User by ID if possible
     public BasicUser getUser(String id, String password) {
         if (this.userData.containsKey(id)) {
@@ -103,7 +85,6 @@ public class InteractDatabase {
         }
         return null;
     }
-
     // get a Flight by ID if possible
     public Flight getFlight(String id) {
         if (this.flightData.containsKey(id)) {
@@ -111,28 +92,16 @@ public class InteractDatabase {
         }
         return null;
     }
-
     // get a list of Flights by Route
     public List<Flight> flightByRoutes(Route<Airport> route) {
         return route.getFlights();
     }
-
-    // get an Airport by ID if possible
-    public Airport getAirport(String id) {
-        if (this.airportData.containsKey(id)) {
-            return this.airportData.get(id);
-        }
-        return null;
-    }
-
     // get all routes
     public ArrayList<Route<Airport>> getRoutes() {
         // to create a Route instance, we search for a combination of Flights
         // that link the source to the destination
-
         // generate different possible routes
         // (vary in cost, duration, or connecting flights)
-
         // for now, we return all routes
         ArrayList<Route<Airport>> output = new ArrayList<>();
         ArrayList<Flight> flights1 = new ArrayList<>();
@@ -153,7 +122,7 @@ public class InteractDatabase {
         StringBuffer responseContent = new StringBuffer();
 
         URL url = new URL(endpoint);
-        connection = (HttpURLConnection) url.openConnection();
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 
         // Request Setup
         connection.setRequestMethod("GET");
@@ -177,8 +146,147 @@ public class InteractDatabase {
         return responseContent.toString();
     }
 
-    public static void main(String[] args) throws IOException {
-        String output = getEndpoint("http://localhost:8080/api/v1/GetAirport2");
-        System.out.println(output);
+    public static void postAirport(Airport toStore) throws IOException, ClassNotFoundException {
+        // Serializes <toStore>
+        ArrayList<Airport> db = getAirportList();
+        db.add(toStore);
+
+        try {
+            FileOutputStream fos = new FileOutputStream("src/main/java/backend/database/airport.bin");
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+
+            oos.writeObject(db);
+
+            oos.close();
+            fos.close();
+        } catch (IOException i) {
+            i.printStackTrace();
+        }
     }
+
+    public static ArrayList<Airport> getAirportList() throws IOException, ClassNotFoundException {
+        // Returns list of Object
+        ArrayList<Airport> outputList = new ArrayList<>();
+
+        try {
+            FileInputStream fis = new FileInputStream("src/main/java/backend/database/airport.bin");
+            ObjectInputStream ois = new ObjectInputStream(fis);
+
+            outputList = (ArrayList) ois.readObject();
+
+            ois.close();
+            fis.close();
+            return outputList;
+        } catch (IOException i) {
+            i.printStackTrace();
+            return null;
+        }
+    }
+
+    public static Airport getAirport(String iataCode) throws IOException, ClassNotFoundException  {
+        ArrayList<Airport> airportList = getAirportList();
+
+        for (Airport airport:airportList) {
+            if (airport.getIataCode().equals(iataCode)) {
+                return airport;
+            }
+        }
+        return null;
+    }
+
+    public static void postRoute(Route routeToStore) throws IOException, ClassNotFoundException {
+        // Serializes <toStore>
+        ArrayList<Route> dbRoute = getRouteList();
+        dbRoute.add(routeToStore);
+
+        try {
+            FileOutputStream fos = new FileOutputStream("src/main/java/backend/database/airport.bin");
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+
+            oos.writeObject(dbRoute);
+
+            oos.close();
+            fos.close();
+        } catch (IOException i) {
+            i.printStackTrace();
+        }
+    }
+
+    public static ArrayList<Route> getRouteList() throws IOException, ClassNotFoundException {
+        // Returns list of Object
+        ArrayList<Route> outputList = new ArrayList<>();
+
+        try {
+            FileInputStream fis = new FileInputStream("src/main/java/backend/database/route.bin");
+            ObjectInputStream ois = new ObjectInputStream(fis);
+
+            outputList = (ArrayList) ois.readObject();
+
+            ois.close();
+            fis.close();
+            return outputList;
+        } catch (IOException i) {
+            i.printStackTrace();
+            return null;
+        }
+    }
+
+    public static Route getRoute(Airport departure, Airport destination) throws IOException, ClassNotFoundException  {
+        ArrayList<Route> routeList = getRouteList();
+
+        for (Route route:routeList) {
+            if (route.getDepartureAirport().equals(departure) & route.getDestinationAirport().equals(destination)) {
+                return route;
+            }
+        }
+        return null;
+    }
+
+    public static boolean initializeDatabase() {
+        // Sets the database files for ArrayList
+        // Only need to run this function once to setup your "server"
+
+        ArrayList<Airport> base = new ArrayList<>();
+
+        try {
+            FileOutputStream fos = new FileOutputStream("src/main/java/backend/database/airport.bin");
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+
+            oos.writeObject(base);
+
+            oos.close();
+            fos.close();
+
+            return true;
+        } catch (IOException i) {
+            i.printStackTrace();
+            return false;
+        }
+    }
+
+    public static void main(String[] args) throws IOException, ClassNotFoundException {
+        //        System.out.println(getEndpoint("https://www.reddit.com/r/javascript.json"));
+
+        //        Initialize
+        //        if (initializeDatabase()) {
+        //            System.out.println("Server Initialized");
+        //        } else {
+        //            System.out.println("Server Failed to Initialize");
+        //        }
+
+        //        Write Data
+        //        Airport test1 = new Airport("toronto", "6ix");
+        //        Airport test2 = new Airport("vancouver", "lacroix");
+        //        postAirport(test1);
+        //        postAirport(test2);
+
+        //        Read Data
+        //        ArrayList<Airport> airportList = getAirport();
+        //        for (Airport temp: airportList) {
+        //            System.out.println(temp.getCity());
+        //        }
+
+        System.out.println(getAirport("6ix").getCity());
+    }
+
 }
