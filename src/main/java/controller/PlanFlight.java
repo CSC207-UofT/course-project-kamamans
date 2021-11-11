@@ -21,7 +21,7 @@ public class PlanFlight {
 
     public SearchResults EnterSearchRequirements(Date date, Airport departure, Airport destination ){
         InteractDatabase db = new InteractDatabase();
-        ArrayList<Route<Airport>> routes = db.getRoutes();
+        ArrayList<Route> routes = db.getRoutes();
         return new SearchResults(routes);
     }
 

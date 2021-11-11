@@ -110,12 +110,12 @@ public class InteractDatabase {
     }
 
     // get a list of Flights by Route
-    public List<Flight> flightByRoutes(Route<Airport> route) {
+    public List<Flight> flightByRoutes(Route route) {
         return route.getFlights();
     }
 
     // get all routes
-    public ArrayList<Route<Airport>> getRoutes() {
+    public ArrayList<Route> getRoutes() {
         // to create a Route instance, we search for a combination of Flights
         // that link the source to the destination
 
@@ -123,16 +123,16 @@ public class InteractDatabase {
         // (vary in cost, duration, or connecting flights)
 
         // for now, we return all routes
-        ArrayList<Route<Airport>> output = new ArrayList<>();
+        ArrayList<Route> output = new ArrayList<>();
         ArrayList<Flight> flights1 = new ArrayList<>();
         flights1.add(this.flightData.get("moist"));
         ArrayList<Flight> flights2 = new ArrayList<>();
         flights2.add(this.flightData.get("delectable"));
         ArrayList<Flight> flights3 = new ArrayList<>();
         flights3.add(this.flightData.get("succulent"));
-        output.add(new Route<Airport>(this.airportData.get("pearson"), this.airportData.get("jfk"), flights1.get(0).getDate(), flights1));
-        output.add(new Route<Airport>(this.airportData.get("heathrow"), this.airportData.get("arnold"), flights2.get(0).getDate(), flights2));
-        output.add(new Route<Airport>(this.airportData.get("jim"), this.airportData.get("heartthrob"), flights3.get(0).getDate(), flights3));
+        output.add(new Route(this.airportData.get("pearson"), this.airportData.get("jfk"), flights1.get(0).getDate(), flights1));
+        output.add(new Route(this.airportData.get("heathrow"), this.airportData.get("arnold"), flights2.get(0).getDate(), flights2));
+        output.add(new Route(this.airportData.get("jim"), this.airportData.get("heartthrob"), flights3.get(0).getDate(), flights3));
         return output;
     }
 

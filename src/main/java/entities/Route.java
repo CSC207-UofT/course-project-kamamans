@@ -4,7 +4,7 @@ import usecases.InteractDatabase;
 import java.util.Calendar;
 import java.util.List;
 
-public class Route<A> {
+public class Route {
     private Airport departureAirport;
     private Airport destinationAirport;
     private Calendar departureDate;

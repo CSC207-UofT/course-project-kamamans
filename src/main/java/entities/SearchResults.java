@@ -5,21 +5,21 @@ import java.util.List;
 
 public class SearchResults {
 
-    private List<Route<Airport>> potentialRoutes;
+    private List<Route> potentialRoutes;
 
-    public SearchResults(List<Route<Airport>> potentialRoutes){
+    public SearchResults(List<Route> potentialRoutes){
         this.potentialRoutes = potentialRoutes;
     }
 
-    public List<Route<Airport>> getPotentialRoutes() {
+    public List<Route> getPotentialRoutes() {
         return potentialRoutes;
     }
 
-    public void setPotentialRoutes(List<Route<Airport>> potentialRoutes) {
+    public void setPotentialRoutes(List<Route> potentialRoutes) {
         this.potentialRoutes = potentialRoutes;
     }
 
-    public String getPrice(Route<Airport> route){
+    public String getPrice(Route route){
         return route.toString();
     }
 
