@@ -6,17 +6,17 @@ import java.util.List;
 import java.util.Scanner;
 
 import entities.Airport;
-import entities.BasicUser;
+import usecases.UserManager;
 import entities.Route;
 import usecases.InteractDatabase;
 
 public class TerminalInterface {
 
-    public static BasicUser runDemoLogin(){
+    public static UserManager runDemoLogin(){
 
         InteractDatabase db = new InteractDatabase();
 
-        BasicUser currentUser = null;
+        UserManager currentUser = null;
 
         System.out.println("Welcome to your Flight Planner! \n");
         Scanner sc = new Scanner(System.in); // System.in is a standard input stream
@@ -85,7 +85,7 @@ public class TerminalInterface {
 
     public static void main(String[] args) {
 
-        BasicUser currentUser = runDemoLogin();
+        UserManager currentUser = runDemoLogin();
         Route<Airport> selectedRoute = runDemoFindRoute();
     }
 

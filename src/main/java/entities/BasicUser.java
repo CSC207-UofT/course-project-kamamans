@@ -1,111 +1,34 @@
 package entities;
 
-import java.util.Calendar;
+import usecases.UserManager;
 
-public class BasicUser extends LoginInformation {
-    private String ID;
-    private String password;
-    private String email;
-    private String phoneNumber;
-    private String classType;
+/**
+ * BasicUser is responsible for implementing basic user actions which are defined in BaseUser
+ */
 
-    private boolean upgraded;
-    private PremiumSettings premiumSettings = new PremiumSettings();
-    private Calendar renewalDate;
-    private int appRating;
+public class BasicUser implements BaseUser {
+    public static final String INVALID_REQUEST = "Not available for Basic Users. Upgrade to Premium today!";
+    public UserManager userManager;
 
-    public BasicUser(){
-
+    public BasicUser(UserManager userManager) {
+        this.userManager = userManager;
     }
 
-    public BasicUser(String id, String password, String email, String phoneNumber, String c){
-        this.ID = id;
-        this.password = password;
-        this.email = email;
-        this.phoneNumber = phoneNumber;
-        this.classType = c;
-        this.upgraded = false;
+    public String setClassType(String classType) {
+        return INVALID_REQUEST;
     }
 
-    public BasicUser(String id, String password, String email, String phoneNumber, String c, Boolean upgradeAccount){
-        this.ID = id;
-        this.password = password;
-        this.email = email;
-        this.phoneNumber = phoneNumber;
-        this.classType = c;
-        if(upgradeAccount) {
-            Calendar expiryDate = Calendar.getInstance();
-            expiryDate.add(Calendar.MONTH, 1);
-            this.renewalDate = expiryDate;
-        }
-        this.upgraded = upgradeAccount;
+    public String downgradeUserType() {
+        return "User Type is already Basic.";
     }
 
-    public String getID() {
-        return ID;
-    }
-
-    public void setID(String ID) {
-        this.ID = ID;
-    }
-
-    public String getPassword() { return password; }
-
-    public void setPassword(String password) {this.password = password; }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
-    public String getClassType() {
-        return classType;
-    }
-
-    public void setClassType(String classType) {
-        this.classType = classType;
-    }
-
-    public boolean isUpgraded() {
-        return upgraded;
-    }
-
-    public void setUpgraded(boolean upgraded) {
-        if(upgraded) {
-            this.upgraded = upgraded;
-            Calendar expiryDate = Calendar.getInstance();
-            expiryDate.add(Calendar.MONTH, 1);
-            this.renewalDate = expiryDate;
-        } else{
-            this.upgraded = upgraded;
-        }
-    }
-
-    public Calendar getRenewalDate() {
-        return renewalDate;
-    }
-
-    public void setRenewalDate(Calendar renewalDate) {
-        this.renewalDate = renewalDate;
-    }
-
-    public int getAppRating() {
-        return appRating;
-    }
-
-    public void setAppRating(int appRating) {
-        this.appRating = appRating;
+    /**
+     * Upgrade BasicUser to PremiumUser by creating a new PremiumUser and passing it to userManager
+     * @return String
+     */
+    public String upgradeUserType() {
+        this.userManager.changeUserType(new PremiumUser(this.userManager));
+        return "User Type upgraded to Premium.";
     }
 
 }

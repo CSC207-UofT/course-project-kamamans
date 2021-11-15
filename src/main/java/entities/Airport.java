@@ -1,5 +1,6 @@
 package entities;
 
+routeBackend
 import javax.persistence.*;
 
 @Entity(name="airports")
@@ -16,6 +17,13 @@ public class Airport {
 //            generator = "airport_sequence"
 //    )
     @Id
+
+import java.io.Serializable;
+import java.util.List;
+
+public class Airport implements Serializable {
+    private String city;
+main
     private String iataCode;
     private String city;
 
