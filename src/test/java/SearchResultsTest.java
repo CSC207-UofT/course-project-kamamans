@@ -12,10 +12,10 @@ import java.util.List;
 
 public class SearchResultsTest {
 
-    public Route<Airport> r1;
-    public Route<Airport> r2;
-    public Route<Airport> r3;
-    public ArrayList<Route<Airport>> routes = new ArrayList<>();
+    public Route r1;
+    public Route r2;
+    public Route r3;
+    public ArrayList<Route> routes = new ArrayList<>();
     public SearchResults sq;
     InteractDatabase db = new InteractDatabase();
 
@@ -38,7 +38,7 @@ public class SearchResultsTest {
     public void TestFlightsSortedByPrice() {
         sq.sortByPrice();
 
-        ArrayList<Route<Airport>> routesa = new ArrayList<>();
+        ArrayList<Route> routesa = new ArrayList<>();
         routesa.add(r3);
         routesa.add(r1);
         routesa.add(r2);
@@ -55,7 +55,7 @@ public class SearchResultsTest {
     public void TestFlightsSortedByDuration() {
         sq.sortByDuration();
 
-        ArrayList<Route<Airport>> routesa = new ArrayList<>();
+        ArrayList<Route> routesa = new ArrayList<>();
         routesa.add(r3);
         routesa.add(r1);
         routesa.add(r2);
