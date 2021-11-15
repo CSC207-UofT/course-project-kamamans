@@ -1,20 +1,19 @@
 package controller;
-import entities.BaseUser;
+
+import usecases.UserSettings;
 
 public class UserController {
-    public UserController(){
+    private final UserSettings userSettings;
+
+    public UserController(UserSettings userSettings) {
+        this.userSettings = userSettings;
     }
 
-    public static void createAccount(){
+    public void createAccount(String username, String password, String email, String phoneNumber) {
+        userSettings.createAccount(username, password, email, phoneNumber);
     }
 
-    public static void login(){
-    }
-
-    public static void changeUserType(BaseUser user){
-    }
-
-    public static void main(String[] args) {
-
+    public boolean login(String username, String password) {
+        return userSettings.loginAttempt(username, password);
     }
 }

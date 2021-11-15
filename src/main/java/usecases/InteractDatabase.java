@@ -3,7 +3,6 @@ package usecases;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
-routeBackend
 
 import java.sql.Array;
 main
@@ -19,7 +18,7 @@ routeBackend
 
 
 
-main
+
 // Notes and Questions
 // idk how to write tests since I dont have access to <BasicUser>, <Flight>, <Airport> implementations
 // ---> do we just verify on the Pull Request?
@@ -41,14 +40,6 @@ main
         this.flightData = new Hashtable<String, Flight>();
         this.airportData = new Hashtable<String, Airport>();
         // Makeshift Data
-routeBackend
-        this.userData.put("keshi", new BasicUser("keshi", "password", "right@here.com", "5551231234", "business"));
-        this.userData.put("twice", new BasicUser("twice", "password", "feel@special.kr", "2129212921", "first"));
-        this.userData.put("mxmtoon", new BasicUser("mxmtoon", "password", "dawn@dusk.com", "6473334444", "economy"));
-
-        this.userData.put("keshi", new UserManager("5551231234", "keshi", "password", "right@here.com", "0001112222"));
-        this.userData.put("twice", new UserManager("2129212921", "twice", "password", "feel@special.kr", "1112223333"));
-        this.userData.put("mxmtoon", new UserManager("6473334444","mxmtoon", "password", "dawn@dusk.com",  "2223334444"));
 
 main
         this.airportData.put("pearson", new Airport("Montreal", "252"));
@@ -102,11 +93,6 @@ routeBackend
 main
         return this.userData;
     }
-    // get a User by ID if possible
-    public UserManager getUser(String id, String password) {
-        if (this.userData.containsKey(id)) {
-            if (this.userData.get(id).getPassword().equals(password)) {
-                return this.userData.get(id);
             }
         }
         return null;
