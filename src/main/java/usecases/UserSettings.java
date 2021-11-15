@@ -6,11 +6,20 @@ import entities.UserManager;
 import java.io.IOException;
 
 public class UserSettings {
-    private final UserList users;
+    private UserList users;
     UserReadWriter userReadWriter = new UserReadWriter();
 
-    public UserSettings(UserList users) {
-        this.users = users;
+    public UserSettings() {
+        try {
+            this.users = userReadWriter.readFromFile("src/main/java/backend/database/users.ser");
+        } catch (IOException e) {
+            System.out.println("Unable to read user list.");
+        } catch (ClassNotFoundException e) {
+            System.out.println("Invalid class.");
+        }
+    }
+
+    public void serializeUsers() {
         try {
             userReadWriter.saveToFile("src/main/java/backend/database/users.ser", users);
         } catch (IOException e) {
