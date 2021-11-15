@@ -1,29 +1,19 @@
 package controller;
-import java.io.Console;
-import java.util.*;
+
+import usecases.UserSettings;
 
 public class UserController {
-    public static void createAccount() {
-    };
+    private final UserSettings userSettings;
 
-    public static void login(){
-            Console console = System.console();
-            if (console == null) {
-                System.out.println("Couldn't get Console instance");
-                System.exit(0);
-            }
+    public UserController(UserSettings userSettings) {
+        this.userSettings = userSettings;
+    }
 
-            console.printf("Welcome to your Flight Planner! \n");
-            Scanner sc = new Scanner(System.in); // System.in is a standard input stream
-            System.out.print("Username: ");
-            String username = sc.nextLine();              // reads string as username
+    public void createAccount(String username, String password, String email, String phoneNumber) {
+        userSettings.createAccount(username, password, email, phoneNumber);
+    }
 
-            char[] passwordArray = console.readPassword("Password: ");
-
-            // add code to check if user exists, if not then call createAccount
-        };
-
-    public static void main(String[] args){
-        login();
+    public boolean login(String username, String password) {
+        return userSettings.loginAttempt(username, password);
     }
 }
