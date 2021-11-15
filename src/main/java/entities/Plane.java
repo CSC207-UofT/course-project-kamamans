@@ -1,8 +1,9 @@
 package entities;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Plane {
+public class Plane implements Serializable {
     private String brandName;
     private int seatCount;
     private int firstClassSeats;
