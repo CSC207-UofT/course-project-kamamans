@@ -1,16 +1,17 @@
 package entities;
+import java.io.Serializable;
 import usecases.InteractDatabase;
 
-import java.util.Calendar;
-import java.util.List;
+import java.lang.reflect.Array;
+import java.util.*;
 
-public class Route<A> {
+public class Route<A> implements Serializable{
     private Airport departureAirport;
     private Airport destinationAirport;
     private Calendar departureDate;
     private List<Flight> flights;
 
-    public Route(Airport departureAirport, Airport destinationAirport, Calendar departureDate, List<Flight> flights) {
+    public Route (Airport departureAirport, Airport destinationAirport, Calendar departureDate, List<Flight> flights) {
         this.departureAirport = departureAirport;
         this.destinationAirport = destinationAirport;
         this.departureDate = departureDate;
@@ -33,9 +34,13 @@ public class Route<A> {
         this.destinationAirport = newDestinationAirport;
     }
 
-    public Calendar getDepartureDate() { return this.departureDate; }
+    public Calendar getDepartureDate() {
+        return this.departureDate;
+    }
 
-    public void setDepartureDate(Calendar departureDate) { this.departureDate = departureDate; }
+    public void setDepartureDate(Calendar departureDate) {
+        this.departureDate = departureDate;
+    }
 
     public List<Flight> getFlights() {
         return flights;
@@ -55,5 +60,28 @@ public class Route<A> {
             d = d + f.getDuration();
         }
         return d;
+    }
+
+    public HashMap<String, Object> getInformation(Route<A> r){
+        HashMap<String, Object> info = new HashMap<String,Object>();
+
+        HashMap<String, Object> departureAirport = new HashMap<String,Object>();
+        departureAirport.put("city", r.departureAirport.getCity());
+        departureAirport.put("iataCode", r.departureAirport.getIataCode());
+        info.put("departureAirport", departureAirport);
+
+        HashMap<String, Object> destinationAirport = new HashMap<String,Object>();
+        destinationAirport.put("city", r.destinationAirport.getCity());
+        destinationAirport.put("iataCode", r.destinationAirport.getIataCode());
+        info.put("destinationAirport", destinationAirport);
+
+        info.put("departureDate", r.departureDate);
+
+        info.put("flights", r.flights);
+
+        info.put("price", r.getPriceofFlights());
+
+        info.put("duration", r.getTotalDuration());
+        return info;
     }
 }

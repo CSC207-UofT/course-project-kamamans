@@ -1,15 +1,40 @@
 package entities;
 
+routeBackend
+import javax.persistence.*;
+
+@Entity(name="airports")
+@Table
+public class Airport {
+//    @Id
+//    @SequenceGenerator(
+//            name = "airport_sequence",
+//            sequenceName = "airport_sequence",
+//            allocationSize = 1
+//    )
+//    @GeneratedValue(
+//            strategy = GenerationType.SEQUENCE,
+//            generator = "airport_sequence"
+//    )
+    @Id
+
 import java.io.Serializable;
 import java.util.List;
 
 public class Airport implements Serializable {
     private String city;
+main
     private String iataCode;
+    private String city;
 
     public Airport(String city, String iataCode){
         this.city = city;
         this.iataCode = iataCode;
+    }
+
+    public Airport() {
+        this.city = "";
+        this.iataCode = "";
     }
 
     public void setCity(String city){
