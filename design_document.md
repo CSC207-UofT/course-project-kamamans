@@ -1,4 +1,4 @@
-**Updated Specifications**
+** Updated Specifications **
 
 Create a web-based interface that lets users join a platform named Flight Planner. Users of
 Flight Planner are allowed to join at specific tiers that offer different benefits. Unlike Phase
