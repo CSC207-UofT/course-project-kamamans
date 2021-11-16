@@ -24,7 +24,7 @@ csv), to allow for user’s flight history to accumulate. The state of the user 
 logging out and closing the web-based interface.
 
 **UML Diagram**
-![alt text](UML 207.png)
+![alt text](https://github.com/CSC207-UofT/course-project-kamamans/blob/main/UML%20207.png)
 
 **Design Decisions**
 
@@ -161,6 +161,8 @@ incorporating the GUI more heavily (chain of responsibility for controlling the 
 requests between a chain of objects) and when we implement more complicated search
 methods (template method design pattern to defer very exact steps of algorithms for
 searching).
+
+![alt text](https://github.com/CSC207-UofT/course-project-kamamans/blob/main/design%20pattern%20207.png)
 
 **Github Features**
 
