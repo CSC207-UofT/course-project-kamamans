@@ -7,6 +7,10 @@ import java.util.Scanner;
 
 import entities.Airport;
 import usecases.UserManager;
+import java.text.SimpleDateFormat;
+import java.util.List;
+import java.util.Scanner;
+
 import entities.Route;
 import usecases.InteractDatabase;
 
@@ -41,7 +45,7 @@ public class TerminalInterface {
         // add code to check if user exists, if not then call createAccount
     };
 
-    public static Route<Airport> runDemoFindRoute(){
+    public static Route runDemoFindRoute(){
 
         // The actual program will have users enter a search query where the database returns appropriate routes
         InteractDatabase db = new InteractDatabase();
@@ -50,7 +54,7 @@ public class TerminalInterface {
 
         System.out.println("Select one of the following routes (#): ");
 
-        List<Route<Airport>> routes = db.getRoutes();
+        List<Route> routes = db.getRoutes();
 
         SimpleDateFormat fmt = new SimpleDateFormat("dd-MMM-yyyy");
 
@@ -86,7 +90,7 @@ public class TerminalInterface {
     public static void main(String[] args) {
 
         UserManager currentUser = runDemoLogin();
-        Route<Airport> selectedRoute = runDemoFindRoute();
+        Route selectedRoute = runDemoFindRoute();
     }
 
 }

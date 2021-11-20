@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # This .gitignore will automatically ignore certain Gradle and IntelliJ files that you likely won't want to commit!
 
 # Gradle .gitignore (https://github.com/github/gitignore/blob/master/Gradle.gitignore)
@@ -89,3 +90,38 @@ fabric.properties
 # Android studio 3.1+ serialized cache file
 .idea/caches/build_file_checksums.ser
 /.idea/
+=======
+HELP.md
+target/
+!.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+build/
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+### VS Code ###
+.vscode/
+>>>>>>> 1bf3d5726c7292bd59e05e7aacc70501c6408cfa

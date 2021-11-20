@@ -1,6 +1,7 @@
 package controller;
 
 import entities.*;
+import usecases.InteractDatabase;
 
 import java.util.*;
 
@@ -57,13 +58,16 @@ public class PlanFlight {
         flights.removeIf(flight -> flight.getSourceAirport().getIataCode().equals(departure.getIataCode()));
         flights.removeIf(flight -> flight.getDestinationAirport().getIataCode().equals(destination.getIataCode()));
 
-        ArrayList<Route<Airport>> routeList = new ArrayList<Route<Airport>>();
+        ArrayList<Route> routeList = new ArrayList<Route>();
 
         for (Flight obj: flights) {
             // Create a new Route for every flight
             ArrayList<Flight> flightsToAdd = new ArrayList<Flight>();
             flightsToAdd.add(obj);
-            Route<Airport> routeToAdd = new Route<>(departure, destination, departureDate, flightsToAdd);
+            Route routeToAdd = new Route(departure, destination, departureDate, flightsToAdd);
+            if (routeToAdd.getFlights().get(0).getSourceAirport().getCity().equalsIgnoreCase(departure.getCity()) &&
+                    routeToAdd.getFlights().get(0).getDestinationAirport().getCity().equalsIgnoreCase(destination.
+                            getCity())) {
             if (routeToAdd.getFlights().get(0).getSourceAirport().getCity().equalsIgnoreCase(departure.getCity()) &&
                     routeToAdd.getFlights().get(0).getDestinationAirport().getCity().equalsIgnoreCase(destination.
                             getCity())) {
@@ -71,6 +75,7 @@ public class PlanFlight {
             }
         }
 
+        }
         return new SearchResults(routeList);
     }
 

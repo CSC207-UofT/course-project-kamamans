@@ -11,7 +11,8 @@ import entities.Flight;
 import entities.Airport;
 import entities.Route;
 import entities.Plane;
-import org.apache.catalina.User;
+
+
 
 // Notes and Questions
 // idk how to write tests since I dont have access to <BasicUser>, <Flight>, <Airport> implementations
@@ -92,11 +93,11 @@ public class InteractDatabase {
         return this.userData;
     }
 
-    // get a User by ID if possible
-    public UserManager getUser(String id, String password) {
-        if (this.userData.containsKey(id)) {
-            if (this.userData.get(id).getPassword().equals(password)) {
-                return this.userData.get(id);
+    // get a User by username if possible
+    public UserManager getUser(String username, String password) {
+        if (this.userData.containsKey(username)) {
+            if (this.userData.get(username).getPassword().equals(password)) {
+                return this.userData.get(username);
             }
         }
         return null;
@@ -111,12 +112,12 @@ public class InteractDatabase {
     }
 
     // get a list of Flights by Route
-    public List<Flight> flightByRoutes(Route<Airport> route) {
+    public List<Flight> flightByRoutes(Route route) {
         return route.getFlights();
     }
 
     // get all routes
-    public ArrayList<Route<Airport>> getRoutes() {
+    public ArrayList<Route> getRoutes() {
         // to create a Route instance, we search for a combination of Flights
         // that link the source to the destination
 
@@ -124,16 +125,16 @@ public class InteractDatabase {
         // (vary in cost, duration, or connecting flights)
 
         // for now, we return all routes
-        ArrayList<Route<Airport>> output = new ArrayList<>();
+        ArrayList<Route> output = new ArrayList<>();
         ArrayList<Flight> flights1 = new ArrayList<>();
         flights1.add(this.flightData.get("moist"));
         ArrayList<Flight> flights2 = new ArrayList<>();
         flights2.add(this.flightData.get("delectable"));
         ArrayList<Flight> flights3 = new ArrayList<>();
         flights3.add(this.flightData.get("succulent"));
-        output.add(new Route<Airport>(this.airportData.get("pearson"), this.airportData.get("jfk"), flights1.get(0).getDate(), flights1));
-        output.add(new Route<Airport>(this.airportData.get("heathrow"), this.airportData.get("arnold"), flights2.get(0).getDate(), flights2));
-        output.add(new Route<Airport>(this.airportData.get("jim"), this.airportData.get("heartthrob"), flights3.get(0).getDate(), flights3));
+        output.add(new Route(this.airportData.get("pearson"), this.airportData.get("jfk"), flights1.get(0).getDate(), flights1));
+        output.add(new Route(this.airportData.get("heathrow"), this.airportData.get("arnold"), flights2.get(0).getDate(), flights2));
+        output.add(new Route(this.airportData.get("jim"), this.airportData.get("heartthrob"), flights3.get(0).getDate(), flights3));
         return output;
     }
 
@@ -166,6 +167,8 @@ public class InteractDatabase {
 
         return responseContent.toString();
     }
+
+    // Airport Database:
 
     public static void postAirport(Airport toStore) throws IOException, ClassNotFoundException {
         // Serializes <toStore>
@@ -203,7 +206,6 @@ public class InteractDatabase {
             return null;
         }
     }
-
     public static Airport getAirport(String iataCode) throws IOException, ClassNotFoundException  {
         ArrayList<Airport> airportList = getAirportList();
 
@@ -214,14 +216,81 @@ public class InteractDatabase {
         }
         return null;
     }
+    public static Airport getAirportByName(String name) throws IOException, ClassNotFoundException {
+        ArrayList<Airport> airportList = getAirportList();
+        try {
+            assert airportList != null;
+            for (Airport airport : airportList) {
+                if (airport.getCity().toLowerCase().contains(name.toLowerCase())) {
+                    return airport;
+                }
+            }
+        } catch (NullPointerException | AssertionError e) {
+            return null;
+        }
+        return null;
+    }
+
+    // Plane Database:
+    public static void postPlane(Plane toStore) throws IOException, ClassNotFoundException {
+        // Serializes <toStore>
+        ArrayList<Plane> db = getPlaneList();
+        db.add(toStore);
+
+        try {
+            FileOutputStream fos = new FileOutputStream("src/main/java/backend/database/plane.bin");
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+
+            oos.writeObject(db);
+
+            oos.close();
+            fos.close();
+        } catch (IOException i) {
+            i.printStackTrace();
+        }
+    }
+
+    public static ArrayList<Plane> getPlaneList() throws IOException, ClassNotFoundException {
+        // Returns list of Object
+        ArrayList<Plane> outputList = new ArrayList<>();
+
+        try {
+            FileInputStream fis = new FileInputStream("src/main/java/backend/database/plane.bin");
+            ObjectInputStream ois = new ObjectInputStream(fis);
+
+            outputList = (ArrayList) ois.readObject();
+
+            ois.close();
+            fis.close();
+            return outputList;
+        } catch (IOException i) {
+            i.printStackTrace();
+            return null;
+        }
+    }
+
+    public static Plane getPlane(String brandName) throws IOException, ClassNotFoundException  {
+        ArrayList<Plane> planeList = getPlaneList();
+
+        for (Plane plane:planeList) {
+            if (plane.getBrandName().equals(brandName)) {
+                return plane;
+            }
+        }
+        return null;
+    }
+
 
     public static boolean initializeDatabase() {
         // Sets the database files for ArrayList
         // Only need to run this function once to setup your "server"
 
         ArrayList<Airport> base = new ArrayList<>();
+        ArrayList<Plane> base2 = new ArrayList<>();
 
         try {
+
+            // For Airport
             FileOutputStream fos = new FileOutputStream("src/main/java/backend/database/airport.bin");
             ObjectOutputStream oos = new ObjectOutputStream(fos);
 
@@ -229,6 +298,15 @@ public class InteractDatabase {
 
             oos.close();
             fos.close();
+
+            // For Plane
+            FileOutputStream fos2 = new FileOutputStream("src/main/java/backend/database/plane.bin");
+            ObjectOutputStream oos2 = new ObjectOutputStream(fos2);
+
+            oos2.writeObject(base2);
+
+            oos2.close();
+            fos2.close();
 
             return true;
         } catch (IOException i) {
@@ -240,12 +318,14 @@ public class InteractDatabase {
     public static void main(String[] args) throws IOException, ClassNotFoundException {
 //        System.out.println(getEndpoint("https://www.reddit.com/r/javascript.json"));
 
-//        Initialize
+        // Initialize
 //        if (initializeDatabase()) {
 //            System.out.println("Server Initialized");
 //        } else {
 //            System.out.println("Server Failed to Initialize");
 //        }
+
+//     Testing Airport Database:
 
 //        Write Data
 //        Airport test1 = new Airport("toronto", "6ix");
@@ -258,6 +338,20 @@ public class InteractDatabase {
 //        for (Airport temp: airportList) {
 //            System.out.println(temp.getCity());
 //        }
+
+//        Testing Plane Database:
+
+        // Write Data
+//        Plane test3 = new Plane("Airbus A321", 220, 20, 200, true);
+//        Plane test4 = new Plane("Boeing 737", 189, 20, 169, true);
+//        postPlane(test3);
+//        postPlane(test4);
+
+        // Read Data
+        ArrayList<Plane> planeList = getPlaneList();
+        for (Plane temp: planeList) {
+            System.out.println(temp.getBrandName());
+        }
 
         System.out.println(getAirport("6ix").getCity());
     }

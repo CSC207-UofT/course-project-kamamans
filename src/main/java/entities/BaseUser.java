@@ -7,8 +7,8 @@ import java.util.Date;
  */
 
 public interface BaseUser {
-    abstract String setClassType(String classType);
+    String setClassType(String classType);
 
-    abstract String upgradeUserType();
-    abstract String downgradeUserType();
+    String upgradeUserType();
+    String downgradeUserType();
 }
