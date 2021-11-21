@@ -5,15 +5,10 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 import java.sql.Array;
-main
 import java.sql.SQLOutput;
 import java.util.*;
 
-import entities.BasicUser;
-import entities.Flight;
-import entities.Airport;
-import entities.Route;
-import entities.Plane;
+import entities.*;
 
 
 // Notes and Questions
@@ -24,9 +19,6 @@ import entities.Plane;
 // I'm unclear on what <getHistory> is supposed to do
 // Should id's be strings?
 public class InteractDatabase {
-
-    private Hashtable<String, BasicUser> userData;
-
 
     private Hashtable<String, UserManager> userData;
 
@@ -81,9 +73,6 @@ public class InteractDatabase {
         this.airportData.put(id, toAdd);
         return true;
     }
-  
-    public Hashtable<String, BasicUser> getUsers() {
-
 
     public Hashtable<String, UserManager> getUsers() {
         return this.userData;
@@ -283,19 +272,6 @@ public class InteractDatabase {
 
             oos.writeObject(dbRoute);
 
-
-    // Plane Database:
-    public static void postPlane(Plane toStore) throws IOException, ClassNotFoundException {
-        // Serializes <toStore>
-        ArrayList<Plane> db = getPlaneList();
-        db.add(toStore);
-
-        try {
-            FileOutputStream fos = new FileOutputStream("src/main/java/backend/database/plane.bin");
-            ObjectOutputStream oos = new ObjectOutputStream(fos);
-
-            oos.writeObject(db);
-
             oos.close();
             fos.close();
         } catch (IOException i) {
@@ -303,19 +279,13 @@ public class InteractDatabase {
         }
     }
 
+
     public static ArrayList<Route> getRouteList() throws IOException, ClassNotFoundException {
         // Returns list of Object
         ArrayList<Route> outputList = new ArrayList<>();
 
         try {
             FileInputStream fis = new FileInputStream("src/main/java/backend/database/route.bin");
-
-    public static ArrayList<Plane> getPlaneList() throws IOException, ClassNotFoundException {
-        // Returns list of Object
-        ArrayList<Plane> outputList = new ArrayList<>();
-
-        try {
-            FileInputStream fis = new FileInputStream("src/main/java/backend/database/plane.bin");
             ObjectInputStream ois = new ObjectInputStream(fis);
 
             outputList = (ArrayList) ois.readObject();
@@ -332,16 +302,10 @@ public class InteractDatabase {
     public static Route getRoute(Airport departure, Airport destination) throws IOException, ClassNotFoundException  {
         ArrayList<Route> routeList = getRouteList();
 
+        assert routeList != null;
         for (Route route:routeList) {
             if (route.getDepartureAirport().equals(departure) & route.getDestinationAirport().equals(destination)) {
                 return route;
-
-    public static Plane getPlane(String brandName) throws IOException, ClassNotFoundException  {
-        ArrayList<Plane> planeList = getPlaneList();
-
-        for (Plane plane:planeList) {
-            if (plane.getBrandName().equals(brandName)) {
-                return plane;
             }
         }
         return null;
@@ -355,9 +319,7 @@ public class InteractDatabase {
 
         try {
 
-        ArrayList<Plane> base2 = new ArrayList<>();
-
-        try {
+            ArrayList<Plane> base2 = new ArrayList<>();
 
             // For Airport
             FileOutputStream fos = new FileOutputStream("src/main/java/backend/database/airport.bin");
@@ -407,7 +369,6 @@ public class InteractDatabase {
         //        }
 
         System.out.println(getAirport("6ix").getCity());
-    }
 
 
 //        System.out.println(getEndpoint("https://www.reddit.com/r/javascript.json"));
@@ -448,14 +409,5 @@ public class InteractDatabase {
         }
 
         System.out.println(getAirport("6ix").getCity());
-    }
-
-        // Read Data
-        ArrayList<Plane> planeList = getPlaneList();
-        for (Plane temp: planeList) {
-            System.out.println(temp.getBrandName());
-        }
-
-        // System.out.println(getAirport("6ix").getCity());
     }
 }

@@ -15,9 +15,5 @@
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="course-project-kamamans" options="-parameters" />
     </option>
-
-    <bytecodeTargetLevel target="8">
-      <module name="course-project-kamamans" target="8" />
-    </bytecodeTargetLevel>
   </component>
 </project>

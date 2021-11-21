@@ -1,11 +1,11 @@
 package entities;
 
-routeBackend
 import javax.persistence.*;
+import java.io.Serializable;
+import java.util.List;
 
 @Entity(name="airports")
 @Table
-public class Airport {
 //    @Id
 //    @SequenceGenerator(
 //            name = "airport_sequence",
@@ -16,16 +16,11 @@ public class Airport {
 //            strategy = GenerationType.SEQUENCE,
 //            generator = "airport_sequence"
 //    )
-    @Id
 
-import java.io.Serializable;
-import java.util.List;
 
 public class Airport implements Serializable {
     private String city;
-main
     private String iataCode;
-    private String city;
 
     public Airport(String city, String iataCode){
         this.city = city;
