@@ -10,8 +10,7 @@ public class UserSettings {
     private UserList users;
     private String currentUser;
     UserReadWriter userReadWriter = new UserReadWriter();
-
-
+  
     public UserSettings() {
         try {
             this.users = userReadWriter.readFromFile("src/main/java/backend/database/users.ser");
@@ -29,6 +28,7 @@ public class UserSettings {
             System.out.println("Unable to save user list.");
         }
     }
+  
     public UserList deserializeUsers() {
         try {
             return userReadWriter.readFromFile("src/main/java/backend/database/users.ser");
@@ -40,6 +40,7 @@ public class UserSettings {
             return null;
         }
     }
+  
     /**
      * create a new UserManager with username, password, email, and phoneNumber and add them to users
      * @param username username of new user
@@ -79,7 +80,5 @@ public class UserSettings {
     public String getCurrentUser(){
         return this.currentUser;
     }
-
-
-
+  
 }

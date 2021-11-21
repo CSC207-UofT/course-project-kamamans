@@ -14,8 +14,8 @@ import static org.junit.Assert.*;
 public class FlightTest {
     Flight f;
     Plane p;
-    Route<Airport> r1;
-    Route<Airport> r2;
+    Route r1;
+    Route r2;
     Airport a1;
     Airport a2;
 
@@ -30,7 +30,7 @@ public class FlightTest {
 
         // create two instances of Airport (one source and one destination point of the flight)
 
-        ArrayList<Route<Airport>> routes = new ArrayList<>();
+        ArrayList<Route> routes = new ArrayList<>();
         routes.add(r1);
         routes.add(r2);
 

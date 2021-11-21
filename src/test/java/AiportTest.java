@@ -10,7 +10,7 @@ import static org.junit.Assert.*;
 
 public class AiportTest {
     Airport a;
-    private Route<Airport> r;
+    private Route r;
 
     @Before
     public void setUp() throws Exception {

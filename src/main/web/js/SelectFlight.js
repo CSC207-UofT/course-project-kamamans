@@ -1,4 +1,3 @@
-
 function httpGet(theUrl){
     const xmlHttp = new XMLHttpRequest();
     xmlHttp.open( "GET", theUrl, false ); // false for synchronous request
@@ -164,5 +163,6 @@ function selectFlight(routeId) {
     const stack = document.body;
 
     stack.appendChild(htmlDom.documentElement);
+
     window.location.href = "SelectFlight.html#flightSelected";
 }

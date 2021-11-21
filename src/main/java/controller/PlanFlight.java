@@ -68,13 +68,8 @@ public class PlanFlight {
             if (routeToAdd.getFlights().get(0).getSourceAirport().getCity().equalsIgnoreCase(departure.getCity()) &&
                     routeToAdd.getFlights().get(0).getDestinationAirport().getCity().equalsIgnoreCase(destination.
                             getCity())) {
-            if (routeToAdd.getFlights().get(0).getSourceAirport().getCity().equalsIgnoreCase(departure.getCity()) &&
-                    routeToAdd.getFlights().get(0).getDestinationAirport().getCity().equalsIgnoreCase(destination.
-                            getCity())) {
                 routeList.add(routeToAdd);
             }
-        }
-
         }
         return new SearchResults(routeList);
     }

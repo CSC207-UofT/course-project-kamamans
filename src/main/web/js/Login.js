@@ -23,11 +23,4 @@ function verifyInformation(username, password){
     } else {
         window.alert(signInResult);
     }
-
-
-    // Call java function to verify login credentials and check format of inputs
-    // If successful, return null. If unsuccessful, return error string.
-
-
-
 }

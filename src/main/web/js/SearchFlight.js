@@ -1,4 +1,3 @@
-
 function httpGet(theUrl){
     const xmlHttp = new XMLHttpRequest();
     xmlHttp.open( "GET", theUrl, false ); // false for synchronous request

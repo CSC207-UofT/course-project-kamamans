@@ -1,7 +1,7 @@
 import entities.BasicUser;
 import org.junit.Before;
 import org.junit.Test;
-import usecases.UserManager;
+import entities.UserManager;
 
 import static org.junit.Assert.*;
 
@@ -10,7 +10,7 @@ public class UserTest {
 
     @Before
     public void setUp() throws Exception {
-        userManager = new UserManager("001", "user", "pw", "email@example.com", "123456789");
+        userManager = new UserManager("user", "pw", "email@example.com", "123456789");
     }
 
     @Test(timeout = 50)
@@ -41,4 +41,8 @@ public class UserTest {
         assertEquals("Class Type changed to Economy.", userManager.user.setClassType("Economy"));
     }
 
+    @Test(timeout = 50)
+    public void TestLogin() {
+
+    }
 }

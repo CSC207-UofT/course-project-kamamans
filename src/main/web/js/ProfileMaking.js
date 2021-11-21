@@ -14,9 +14,6 @@ function signUp(id, psw, psw_repeat, email, phone) {
     console.log(url)
     const done = httpGet(url)
 
-
-
-
     let signUpResult;
 
     // TODO: To be replaced with java

@@ -8,7 +8,6 @@ import usecases.UserSettings;
 public class UserController {
     private final UserSettings userSettings;
 
-
     public UserController(UserSettings userSettings) {
         this.userSettings = userSettings;
     }
@@ -25,7 +24,6 @@ public class UserController {
             System.out.println(e);
             return(false);
         }
-
     }
 
 

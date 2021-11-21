@@ -1,7 +1,5 @@
 package entities;
 
-import java.util.Date;
-
 /**
  * BaseUser defines common methods with different implementations depending on Basic or Premium user status.
  */
