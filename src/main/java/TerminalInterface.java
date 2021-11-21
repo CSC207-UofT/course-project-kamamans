@@ -3,7 +3,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import entities.Airport;
-import usecases.UserManager;
+import entities.UserManager;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Scanner;
