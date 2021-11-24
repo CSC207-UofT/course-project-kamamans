@@ -1,5 +1,7 @@
 package entities;
 
+import entities.UserManager;
+
 import java.io.Serializable;
 
 /**

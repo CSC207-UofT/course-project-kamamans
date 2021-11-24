@@ -1,5 +1,6 @@
 package usecases;
 
+import entities.BaseUser;
 import entities.UserList;
 import entities.UserManager;
 
@@ -7,8 +8,9 @@ import java.io.IOException;
 
 public class UserSettings {
     private UserList users;
+    private String currentUser;
     UserReadWriter userReadWriter = new UserReadWriter();
-
+  
     public UserSettings() {
         try {
             this.users = userReadWriter.readFromFile("src/main/java/backend/database/users.ser");
@@ -21,12 +23,24 @@ public class UserSettings {
 
     public void serializeUsers() {
         try {
-            userReadWriter.saveToFile("src/main/java/backend/database/users.ser", users);
+            userReadWriter.saveToFile("src/main/java/backend/database/users.ser", this.users);
         } catch (IOException e) {
             System.out.println("Unable to save user list.");
         }
     }
-
+  
+    public UserList deserializeUsers() {
+        try {
+            return userReadWriter.readFromFile("src/main/java/backend/database/users.ser");
+        } catch (IOException e) {
+            System.out.println("Unable to read user list.");
+            return null;
+        } catch (ClassNotFoundException e) {
+            System.out.println("Invalid class.");
+            return null;
+        }
+    }
+  
     /**
      * create a new UserManager with username, password, email, and phoneNumber and add them to users
      * @param username username of new user
@@ -37,7 +51,9 @@ public class UserSettings {
      */
     public UserManager createAccount(String username, String password, String email, String phoneNumber) {
         UserManager newUser = new UserManager(username, password, email, phoneNumber);
-        users.addUser(newUser);
+        this.users.addUser(newUser);
+        this.serializeUsers();
+        this.users = deserializeUsers();
         return newUser;
     }
 
@@ -53,6 +69,7 @@ public class UserSettings {
      */
     public boolean loginAttempt(String username, String password) {
         UserManager user = users.getUser(username);
+        this.currentUser = user.getUsername();
         return user.passwordMatches(password);
     }
 
@@ -60,4 +77,8 @@ public class UserSettings {
         return users.getUser(username).getUserType();
     }
 
+    public String getCurrentUser(){
+        return this.currentUser;
+    }
+  
 }

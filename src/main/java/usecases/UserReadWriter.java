@@ -18,7 +18,7 @@ public class UserReadWriter {
         OutputStream file = new FileOutputStream(filePath);
         OutputStream buffer = new BufferedOutputStream(file);
         ObjectOutput output = new ObjectOutputStream(buffer);
-
+        System.out.println("user was cereal");
         // serialize the Map
         output.writeObject(allUsers);
         output.close();

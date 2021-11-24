@@ -1,17 +1,23 @@
 function cancelSignUp() {
     window.location.href = "LoginPage.html";
 }
-
+function httpGet(theUrl){
+    const xmlHttp = new XMLHttpRequest();
+    xmlHttp.open( "GET", theUrl, false ); // false for synchronous request
+    xmlHttp.send( null );
+    return xmlHttp.responseText;
+}
 function signUp(id, psw, psw_repeat, email, phone) {
     // Add user account information here and verify the format of inputs.
     // If successful, return null. If unsuccessful, return error string.
-
-    // TODO make sure to match the id, passwords, email, and phone to a regex in the UserController class.
+    const url= 'http://localhost:8080/createAccount?username='+id+'&password='+psw+'&repeatPassword='+psw_repeat+'&email='+email+'&phoneNumber='+phone
+    console.log(url)
+    const done = httpGet(url)
 
     let signUpResult;
 
     // TODO: To be replaced with java
-    if(id==="login"){
+    if(done==="true"){
         signUpResult = null;
     } else {
         signUpResult = "There was an error signing up.";

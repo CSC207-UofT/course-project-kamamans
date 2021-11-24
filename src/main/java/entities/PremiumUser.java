@@ -5,6 +5,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import entities.UserManager;
+import entities.*;
+
 /**
  * PremiumUser is responsible for implementing premium user features and actions which are defined in BaseUser
  */
@@ -18,8 +21,7 @@ public class PremiumUser implements BaseUser, Serializable {
     private double autoLogoutTimer;
     private Airport homeAirport;
 
-    public PremiumUser(UserManager userManager) {
-        this.userManager = userManager;
+    public PremiumUser(entities.UserManager userManager) {
     }
 
     public String setClassType(String classType) {

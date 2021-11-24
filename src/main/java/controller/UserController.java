@@ -1,5 +1,8 @@
 package controller;
 
+import entities.BaseUser;
+import entities.Route;
+import entities.UserManager;
 import usecases.UserSettings;
 
 public class UserController {
@@ -14,6 +17,14 @@ public class UserController {
     }
 
     public boolean login(String username, String password) {
-        return userSettings.loginAttempt(username, password);
+        try{
+            return userSettings.loginAttempt(username, password);
+        }
+        catch (NullPointerException e){
+            System.out.println(e);
+            return(false);
+        }
     }
+
+
 }

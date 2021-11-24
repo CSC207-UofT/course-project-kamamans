@@ -7,9 +7,9 @@ import java.util.*;
 
 public class PlanFlight {
     private Flight selectedFlight;
-    private final BasicUser user;
+    private final String user;
 
-    public PlanFlight(BasicUser user){
+    public PlanFlight(String user){
         this.user = user;
     }
 
@@ -65,9 +65,12 @@ public class PlanFlight {
             ArrayList<Flight> flightsToAdd = new ArrayList<Flight>();
             flightsToAdd.add(obj);
             Route routeToAdd = new Route(departure, destination, departureDate, flightsToAdd);
-            routeList.add(routeToAdd);
+            if (routeToAdd.getFlights().get(0).getSourceAirport().getCity().equalsIgnoreCase(departure.getCity()) &&
+                    routeToAdd.getFlights().get(0).getDestinationAirport().getCity().equalsIgnoreCase(destination.
+                            getCity())) {
+                routeList.add(routeToAdd);
+            }
         }
-
         return new SearchResults(routeList);
     }
 
@@ -106,7 +109,7 @@ public class PlanFlight {
         return this.selectedFlight;
     }
 
-    public BasicUser getUser() {
+    public String getUser() {
         return this.user;
     }
 

@@ -5,18 +5,10 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 import java.sql.Array;
-main
 import java.sql.SQLOutput;
 import java.util.*;
 
-import entities.BasicUser;
-import entities.Flight;
-import entities.Airport;
-import entities.Route;
-import entities.Plane;
-routeBackend
-
-
+import entities.*;
 
 
 // Notes and Questions
@@ -27,12 +19,9 @@ routeBackend
 // I'm unclear on what <getHistory> is supposed to do
 // Should id's be strings?
 public class InteractDatabase {
-routeBackend
-    private Hashtable<String, BasicUser> userData;
-
 
     private Hashtable<String, UserManager> userData;
-main
+
     private Hashtable<String, Flight> flightData;
     private Hashtable<String, Airport> airportData;
     public InteractDatabase() {
@@ -41,7 +30,6 @@ main
         this.airportData = new Hashtable<String, Airport>();
         // Makeshift Data
 
-main
         this.airportData.put("pearson", new Airport("Montreal", "252"));
         this.airportData.put("jfk", new Airport("Toronto", "76"));
         this.airportData.put("heathrow", new Airport("Vancouver", "251256342"));
@@ -85,14 +73,16 @@ main
         this.airportData.put(id, toAdd);
         return true;
     }
-routeBackend
-    public Hashtable<String, BasicUser> getUsers() {
-
 
     public Hashtable<String, UserManager> getUsers() {
-main
         return this.userData;
     }
+
+    // get a User by username if possible
+    public UserManager getUser(String username, String password) {
+        if (this.userData.containsKey(username)) {
+            if (this.userData.get(username).getPassword().equals(password)) {
+                return this.userData.get(username);
             }
         }
         return null;
@@ -108,10 +98,7 @@ main
     public List<Flight> flightByRoutes(Route route) {
         return route.getFlights();
     }
-routeBackend
 
-
-main
     // get all routes
     public ArrayList<Route> getRoutes() {
         // to create a Route instance, we search for a combination of Flights
@@ -162,11 +149,7 @@ main
         return responseContent.toString();
     }
 
-routeBackend
-
     // Airport Database:
-
-main
     public static void postAirport(Airport toStore) throws IOException, ClassNotFoundException {
         // Serializes <toStore>
         ArrayList<Airport> db = getAirportList();
@@ -203,7 +186,6 @@ main
             return null;
         }
     }
-
     public static Airport getAirport(String iataCode) throws IOException, ClassNotFoundException  {
         ArrayList<Airport> airportList = getAirportList();
 
@@ -214,19 +196,20 @@ main
         }
         return null;
     }
-
-routeBackend
-    public static void postRoute(Route routeToStore) throws IOException, ClassNotFoundException {
-        // Serializes <toStore>
-        ArrayList<Route> dbRoute = getRouteList();
-        dbRoute.add(routeToStore);
-
+    public static Airport getAirportByName(String name) throws IOException, ClassNotFoundException {
+        ArrayList<Airport> airportList = getAirportList();
         try {
-            FileOutputStream fos = new FileOutputStream("src/main/java/backend/database/airport.bin");
-            ObjectOutputStream oos = new ObjectOutputStream(fos);
-
-            oos.writeObject(dbRoute);
-
+            assert airportList != null;
+            for (Airport airport : airportList) {
+                if (airport.getCity().toLowerCase().contains(name.toLowerCase())) {
+                    return airport;
+                }
+            }
+        } catch (NullPointerException | AssertionError e) {
+            return null;
+        }
+        return null;
+    }
 
     // Plane Database:
     public static void postPlane(Plane toStore) throws IOException, ClassNotFoundException {
@@ -239,7 +222,6 @@ routeBackend
             ObjectOutputStream oos = new ObjectOutputStream(fos);
 
             oos.writeObject(db);
- main
 
             oos.close();
             fos.close();
@@ -248,21 +230,12 @@ routeBackend
         }
     }
 
-routeBackend
-    public static ArrayList<Route> getRouteList() throws IOException, ClassNotFoundException {
-        // Returns list of Object
-        ArrayList<Route> outputList = new ArrayList<>();
-
-        try {
-            FileInputStream fis = new FileInputStream("src/main/java/backend/database/route.bin");
-
     public static ArrayList<Plane> getPlaneList() throws IOException, ClassNotFoundException {
         // Returns list of Object
         ArrayList<Plane> outputList = new ArrayList<>();
 
         try {
             FileInputStream fis = new FileInputStream("src/main/java/backend/database/plane.bin");
-main
             ObjectInputStream ois = new ObjectInputStream(fis);
 
             outputList = (ArrayList) ois.readObject();
@@ -276,45 +249,79 @@ main
         }
     }
 
-routeBackend
-    public static Route getRoute(Airport departure, Airport destination) throws IOException, ClassNotFoundException  {
-        ArrayList<Route> routeList = getRouteList();
-
-        for (Route route:routeList) {
-            if (route.getDepartureAirport().equals(departure) & route.getDestinationAirport().equals(destination)) {
-                return route;
-
     public static Plane getPlane(String brandName) throws IOException, ClassNotFoundException  {
         ArrayList<Plane> planeList = getPlaneList();
 
         for (Plane plane:planeList) {
             if (plane.getBrandName().equals(brandName)) {
                 return plane;
-main
             }
         }
         return null;
     }
 
-routeBackend
-=======
 
-main
+    public static void postRoute(Route routeToStore) throws IOException, ClassNotFoundException {
+        // Serializes <toStore>
+        ArrayList<Route> dbRoute = getRouteList();
+        dbRoute.add(routeToStore);
+
+        try {
+            FileOutputStream fos = new FileOutputStream("src/main/java/backend/database/airport.bin");
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+
+            oos.writeObject(dbRoute);
+
+            oos.close();
+            fos.close();
+        } catch (IOException i) {
+            i.printStackTrace();
+        }
+    }
+
+
+    public static ArrayList<Route> getRouteList() throws IOException, ClassNotFoundException {
+        // Returns list of Object
+        ArrayList<Route> outputList = new ArrayList<>();
+
+        try {
+            FileInputStream fis = new FileInputStream("src/main/java/backend/database/route.bin");
+            ObjectInputStream ois = new ObjectInputStream(fis);
+
+            outputList = (ArrayList) ois.readObject();
+
+            ois.close();
+            fis.close();
+            return outputList;
+        } catch (IOException i) {
+            i.printStackTrace();
+            return null;
+        }
+    }
+
+    public static Route getRoute(Airport departure, Airport destination) throws IOException, ClassNotFoundException  {
+        ArrayList<Route> routeList = getRouteList();
+
+        assert routeList != null;
+        for (Route route:routeList) {
+            if (route.getDepartureAirport().equals(departure) & route.getDestinationAirport().equals(destination)) {
+                return route;
+            }
+        }
+        return null;
+    }
+
     public static boolean initializeDatabase() {
         // Sets the database files for ArrayList
         // Only need to run this function once to setup your "server"
 
         ArrayList<Airport> base = new ArrayList<>();
-routeBackend
 
         try {
 
-        ArrayList<Plane> base2 = new ArrayList<>();
-
-        try {
+            ArrayList<Plane> base2 = new ArrayList<>();
 
             // For Airport
-main
             FileOutputStream fos = new FileOutputStream("src/main/java/backend/database/airport.bin");
             ObjectOutputStream oos = new ObjectOutputStream(fos);
 
@@ -322,8 +329,6 @@ main
 
             oos.close();
             fos.close();
-
-routeBackend
 
             // For Plane
             FileOutputStream fos2 = new FileOutputStream("src/main/java/backend/database/plane.bin");
@@ -334,7 +339,6 @@ routeBackend
             oos2.close();
             fos2.close();
 
-main
             return true;
         } catch (IOException i) {
             i.printStackTrace();
@@ -343,7 +347,6 @@ main
     }
 
     public static void main(String[] args) throws IOException, ClassNotFoundException {
-routeBackend
         //        System.out.println(getEndpoint("https://www.reddit.com/r/javascript.json"));
 
         //        Initialize
@@ -366,9 +369,7 @@ routeBackend
         //        }
 
         System.out.println(getAirport("6ix").getCity());
-    }
 
-}
 
 //        System.out.println(getEndpoint("https://www.reddit.com/r/javascript.json"));
 
@@ -407,7 +408,6 @@ routeBackend
             System.out.println(temp.getBrandName());
         }
 
-        // System.out.println(getAirport("6ix").getCity());
+        System.out.println(getAirport("6ix").getCity());
     }
 }
-main

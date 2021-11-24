@@ -1,6 +1,7 @@
 package entities;
-import javax.persistence.Basic;
 import java.io.Serializable;
+import java.util.ArrayList;
+import javax.persistence.Basic;
 
 /**
  * UserManager is responsible for common methods and attributes across all users.

@@ -4,6 +4,10 @@ import java.util.Scanner;
 
 import entities.Airport;
 import entities.UserManager;
+import java.text.SimpleDateFormat;
+import java.util.List;
+import java.util.Scanner;
+
 import entities.Route;
 import usecases.InteractDatabase;
 
@@ -83,7 +87,7 @@ public class TerminalInterface {
     public static void main(String[] args) {
 
         UserManager currentUser = runDemoLogin();
-        Route<Airport> selectedRoute = runDemoFindRoute();
+        Route selectedRoute = runDemoFindRoute();
     }
 
 }

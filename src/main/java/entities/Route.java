@@ -5,7 +5,7 @@ import usecases.InteractDatabase;
 import java.lang.reflect.Array;
 import java.util.*;
 
-public class Route<A> implements Serializable{
+public class Route implements Serializable{
     private Airport departureAirport;
     private Airport destinationAirport;
     private Calendar departureDate;
@@ -62,7 +62,7 @@ public class Route<A> implements Serializable{
         return d;
     }
 
-    public HashMap<String, Object> getInformation(Route<A> r){
+    public HashMap<String, Object> getInformation(Route r){
         HashMap<String, Object> info = new HashMap<String,Object>();
 
         HashMap<String, Object> departureAirport = new HashMap<String,Object>();
