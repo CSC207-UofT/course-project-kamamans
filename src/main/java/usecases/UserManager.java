@@ -1,7 +1,5 @@
 package usecases;
 
-import entities.BaseUser;
-import entities.UserList;
 import entities.UserManager;
 
 import java.io.IOException;
