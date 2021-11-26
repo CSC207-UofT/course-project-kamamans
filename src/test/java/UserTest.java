@@ -1,21 +1,16 @@
-import entities.BasicUser;
+import entities.BasicUserSettings;
 import org.junit.Before;
 import org.junit.Test;
-import entities.UserManager;
+import entities.User;
 
 import static org.junit.Assert.*;
 
 public class UserTest {
-    UserManager userManager;
+    User userManager;
 
     @Before
     public void setUp() throws Exception {
-        userManager = new UserManager("user", "pw", "email@example.com", "123456789");
-    }
-
-    @Test(timeout = 50)
-    public void TestBasicUserClassType() {
-        assertEquals(BasicUser.INVALID_REQUEST, userManager.user.setClassType("Economy"));
+        userManager = new User("user", "pw", "email@example.com", "123456789");
     }
 
     @Test(timeout = 50)
@@ -35,11 +30,6 @@ public class UserTest {
         assertEquals("User Type downgraded to Basic.", userManager.downgradeUserType());
     }
 
-    @Test(timeout = 50)
-    public void TestPremiumUserFeatures() {
-        userManager.upgradeUserType();
-        assertEquals("Class Type changed to Economy.", userManager.user.setClassType("Economy"));
-    }
 
     @Test(timeout = 50)
     public void TestLogin() {

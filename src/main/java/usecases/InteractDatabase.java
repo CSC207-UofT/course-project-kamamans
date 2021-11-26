@@ -4,8 +4,6 @@ import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-import java.sql.Array;
-import java.sql.SQLOutput;
 import java.util.*;
 
 import entities.*;
@@ -20,12 +18,12 @@ import entities.*;
 // Should id's be strings?
 public class InteractDatabase {
 
-    private Hashtable<String, UserManager> userData;
+    private Hashtable<String, User> userData;
 
     private Hashtable<String, Flight> flightData;
     private Hashtable<String, Airport> airportData;
     public InteractDatabase() {
-        this.userData = new Hashtable<String, UserManager>();
+        this.userData = new Hashtable<String, User>();
         this.flightData = new Hashtable<String, Flight>();
         this.airportData = new Hashtable<String, Airport>();
         // Makeshift Data
@@ -50,7 +48,7 @@ public class InteractDatabase {
                 1200, 5, airportData.get("jim"), airportData.get("heartthrob")));
     }
     // add a User, returns true if successful, returns false otherwise
-    public boolean addUser(String id, UserManager toAdd) {
+    public boolean addUser(String id, User toAdd) {
         if (this.userData.containsKey(id)) {
             return false;
         }
@@ -74,12 +72,12 @@ public class InteractDatabase {
         return true;
     }
 
-    public Hashtable<String, UserManager> getUsers() {
+    public Hashtable<String, User> getUsers() {
         return this.userData;
     }
 
     // get a User by username if possible
-    public UserManager getUser(String username, String password) {
+    public User getUser(String username, String password) {
         if (this.userData.containsKey(username)) {
             if (this.userData.get(username).getPassword().equals(password)) {
                 return this.userData.get(username);

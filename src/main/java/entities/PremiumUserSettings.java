@@ -5,53 +5,69 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import entities.UserManager;
-import entities.*;
-
 /**
- * PremiumUser is responsible for implementing premium user features and actions which are defined in BaseUser
+ * PremiumUserSettings is responsible for implementing premium user features and actions which are defined in BaseUserSettings
  */
 
-public class PremiumUser implements BaseUser, Serializable {
+public class PremiumUserSettings implements BaseUserSettings, Serializable {
     private String classType;
     private Date renewalDate;
-    private UserManager userManager;
+    private User user;
     private String colorScheme;
     private List<Airport> favouriteAirports = new ArrayList<>();
-    private double autoLogoutTimer;
+    private int autoLogoutTimer = 60;
     private Airport homeAirport;
 
-    public PremiumUser(entities.UserManager userManager) {
+    public PremiumUserSettings(User user) {
+        this.user = user;
     }
 
-    public String setClassType(String classType) {
+    public boolean setClassType(String classType) {
         this.classType = classType;
-        return "Class Type changed to " + classType + ".";
+        return true;
     }
 
-    public String getClassType() { return this.classType; }
+    public String getClassType() { return classType; }
 
-    public Date getRenewalDate() { return this.renewalDate; }
+    public Date getRenewalDate() { return renewalDate; }
 
-    public void setRenewalDate(Date renewalDate) { this.renewalDate = renewalDate; }
+    public boolean setRenewalDate(Date renewalDate) {
+        this.renewalDate = renewalDate;
+        return true;
+    }
 
     public String getColorScheme() { return colorScheme; }
 
-    public void setColorScheme(String colorScheme) { this.colorScheme = colorScheme; }
+    public boolean setColorScheme(String colorScheme) {
+        this.colorScheme = colorScheme;
+        return true;
+    }
 
     public List<Airport> getFavouriteAirports() { return favouriteAirports; }
 
-    public void addFavouriteAirport(Airport favouriteAirport) { this.favouriteAirports.add(favouriteAirport); }
+    public boolean addFavouriteAirport(Airport favouriteAirport) {
+        this.favouriteAirports.add(favouriteAirport);
+        return true;
+    }
 
-    public void removeFavouriteAirport(Airport removedAirport) { this.favouriteAirports.remove(removedAirport); }
+    public boolean removeFavouriteAirport(Airport removedAirport) {
+        this.favouriteAirports.remove(removedAirport);
+        return true;
+    }
 
-    public double getAutoLogoutTimer() { return autoLogoutTimer; }
+    public int getAutoLogoutTimer() { return autoLogoutTimer; }
 
-    public void setAutoLogoutTimer(double autoLogoutTimer) { this.autoLogoutTimer = autoLogoutTimer; }
+    public boolean setAutoLogoutTimer(int autoLogoutTimer) {
+        this.autoLogoutTimer = autoLogoutTimer;
+        return true;
+    }
 
     public Airport getHomeAirport() { return homeAirport; }
 
-    public void setHomeAirport(Airport homeAirport) { this.homeAirport = homeAirport; }
+    public boolean setHomeAirport(Airport homeAirport) {
+        this.homeAirport = homeAirport;
+        return true;
+    }
 
     public String upgradeUserType() {
         return "User Type is already Premium.";
@@ -62,7 +78,7 @@ public class PremiumUser implements BaseUser, Serializable {
      * @return None
      */
     public String downgradeUserType() {
-        this.userManager.changeUserType(new BasicUser(this.userManager));
+        this.user.changeUserType(new BasicUserSettings(this.user));
         return "User Type downgraded to Basic.";
     }
 }

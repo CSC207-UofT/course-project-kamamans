@@ -1,7 +1,5 @@
 package usecases;
 
-import entities.UserList;
-
 import java.io.*;
 
 public class UserReadWriter {

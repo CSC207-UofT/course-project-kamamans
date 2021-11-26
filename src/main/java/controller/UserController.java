@@ -1,30 +1,43 @@
 package controller;
 
-import entities.BaseUser;
-import entities.Route;
-import entities.UserManager;
-import usecases.UserSettings;
+import usecases.UserManager;
 
 public class UserController {
-    private final UserSettings userSettings;
+    private final UserManager userManager;
 
-    public UserController(UserSettings userSettings) {
-        this.userSettings = userSettings;
+    public UserController(UserManager userManager) {
+        this.userManager = userManager;
     }
 
     public void createAccount(String username, String password, String email, String phoneNumber) {
-        userSettings.createAccount(username, password, email, phoneNumber);
+        userManager.createAccount(username, password, email, phoneNumber);
     }
 
     public boolean login(String username, String password) {
-        try{
-            return userSettings.loginAttempt(username, password);
+        try {
+            return userManager.loginAttempt(username, password);
         }
         catch (NullPointerException e){
             System.out.println(e);
-            return(false);
+            return false;
         }
     }
 
+    public void logout() {
+        userManager.logout();
+    }
 
+    public void changePassword(String password) { userManager.setPassword(password); }
+
+    public void changeEmail(String email) {
+        userManager.setEmail(email);
+    }
+
+    public void changePhoneNumber(String phoneNumber) {
+        userManager.setPhoneNumber(phoneNumber);
+    }
+
+    public void changeAppRating (int appRating) {
+        userManager.setAppRating(appRating);
+    }
 }
