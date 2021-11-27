@@ -15,7 +15,7 @@ public class PremiumUserSettings implements BaseUserSettings, Serializable {
     private User user;
     private String colorScheme;
     private List<Airport> favouriteAirports = new ArrayList<>();
-    private int autoLogoutTimer = 60;
+    private int autoLogoutTimer = 60; // default autoLogoutTimer
     private Airport homeAirport;
 
     public PremiumUserSettings(User user) {

@@ -1,33 +1,34 @@
-import entities.BasicUserSettings;
 import org.junit.Before;
 import org.junit.Test;
-import entities.User;
+
+import usecases.UserManager;
+import controller.UserController;
 
 import static org.junit.Assert.*;
 
 public class UserTest {
-    User userManager;
+    UserManager um = new UserManager();
+    UserController uc = new UserController(um);
 
     @Before
-    public void setUp() throws Exception {
-        userManager = new User("user", "pw", "email@example.com", "123456789");
+    public void setUp() {
+        uc.createAccount("user01", "1234", "user01@gmail.com", "1234");
     }
 
     @Test(timeout = 50)
     public void TestBasicUserDowngrade() {
-        assertEquals("User Type is already Basic.", userManager.downgradeUserType());
+        assertEquals("User Type is already Basic.", uc.downgradeUserType());
     }
 
     @Test(timeout = 50)
     public void TestBasicUserUpgrade() {
-        assertEquals("User Type upgraded to Premium.", userManager.upgradeUserType());
-        System.out.println(userManager.user.toString());
+        assertEquals("User Type upgraded to Premium.", uc.upgradeUserType());
     }
 
     @Test(timeout = 50)
     public void TestPremiumUserDowngrade() {
-        assertEquals("User Type upgraded to Premium.", userManager.upgradeUserType());
-        assertEquals("User Type downgraded to Basic.", userManager.downgradeUserType());
+        assertEquals("User Type upgraded to Premium.", uc.upgradeUserType());
+        assertEquals("User Type downgraded to Basic.", uc.downgradeUserType());
     }
 
 
