@@ -2,6 +2,7 @@ package controller;
 
 import entities.*;
 import usecases.InteractDatabase;
+import usecases.AllPossibleFlights;
 
 import java.util.*;
 
@@ -14,64 +15,58 @@ public class PlanFlight {
     }
 
     public static SearchResults EnterSearchRequirements(Calendar departureDate, Airport departure, Airport destination ) {
-//    public static ArrayList<Flight> EnterSearchRequirements(Calendar departureDate, Airport departure, Airport destination ) {
-        // ArrayList<Flight> flights = InteractDatabase.getFlight();
-        // ^^ waiting for majda's implementation
+        // Create a sample graph
+        AllPossibleFlights.Graph_dfs g = new AllPossibleFlights.Graph_dfs(7); // specify the number of verticies
+        // In our case the number of vertices will be: SearchRoutePOC.len = obj.airportData.size();
 
-        // Creating example flights for development
-        ArrayList<Flight> flights = new ArrayList<Flight>();
+        AllPossibleFlights obj = new AllPossibleFlights();
+        Enumeration<String> enu = obj.getAirportData().keys();
 
-        Plane basic = new Plane("boeing", 100, 10,80, true);
-        Airport toronto = new Airport("Toronto", "code1");
-        Airport vancouver = new Airport("Vancouver", "code2");
-        Airport nyc = new Airport("New York", "code3");
+        ArrayList<String> keys = new ArrayList<String>();
 
-        Calendar day0 = Calendar.getInstance();
-        day0.set(2020, 5, 5);
-        Calendar day1 = Calendar.getInstance();
-        day1.set(2021, 11, 18);
-        Calendar day2 = Calendar.getInstance();
-        day2.set(2021, 11, 19);
-        Calendar day3 = Calendar.getInstance();
-        day3.set(2021, 11, 20);
+        // Creating an Array List of airport names
+        while (enu.hasMoreElements()) {keys.add(enu.nextElement());}
 
-        flights.add(new Flight(day0, basic, 1, 5, nyc, vancouver));
-        flights.add(new Flight(day1, basic, 2, 5, toronto, vancouver));
-        flights.add(new Flight(day1, basic, 3, 5, vancouver, toronto));
-        flights.add(new Flight(day1, basic, 4, 5, toronto, nyc));
-        flights.add(new Flight(day2, basic, 5, 5, vancouver, toronto));
-        flights.add(new Flight(day3, basic, 6, 5, nyc, toronto));
-        flights.add(new Flight(day3, basic, 7, 5, nyc, vancouver));
-        // ^^^ all this is to generate a flight list
+        HashMap<String, Integer> NodeID = new HashMap<String, Integer>();
 
+        Hashtable<String, Airport> airports = obj.getAirportData();
 
-        // Filter to only have flights after given date
-//        flights.removeIf(flight -> flight.getDate().before(departureDate));
-
-        // Sort by date
-//        Collections.sort(flights, (f1, f2)-> f1.getDate().compareTo(f2.getDate()));
-
-
-        // Shallow Copy
-//        ArrayList<Flight> tempFlights = (ArrayList<Flight>) flights.clone(); // <- shallow copy
-
-        flights.removeIf(flight -> flight.getSourceAirport().getIataCode().equals(departure.getIataCode()));
-        flights.removeIf(flight -> flight.getDestinationAirport().getIataCode().equals(destination.getIataCode()));
-
-        ArrayList<Route> routeList = new ArrayList<Route>();
-
-        for (Flight obj: flights) {
-            // Create a new Route for every flight
-            ArrayList<Flight> flightsToAdd = new ArrayList<Flight>();
-            flightsToAdd.add(obj);
-            Route routeToAdd = new Route(departure, destination, departureDate, flightsToAdd);
-            if (routeToAdd.getFlights().get(0).getSourceAirport().getCity().equalsIgnoreCase(departure.getCity()) &&
-                    routeToAdd.getFlights().get(0).getDestinationAirport().getCity().equalsIgnoreCase(destination.
-                            getCity())) {
-                routeList.add(routeToAdd);
-            }
+        // In Graph, Airports are Nodes/Vertices:
+        //NodeID is used for changing iatacode to int (for use in graph)
+        int node = 0;
+        for (String key : keys) {
+            NodeID.put(key, node);
+            node++;
         }
-        return new SearchResults(routeList);
+
+        Hashtable <String, Flight> flights = obj.getFlightData();
+
+        // In Graph, Flights are Paths:
+        //gets names of all airports to use for NodeID
+        Enumeration<String> enuflight = flights.keys();
+        ArrayList<String> flight_keys = new ArrayList<String>();
+
+        while (enuflight.hasMoreElements()) {
+            flight_keys.add(enuflight.nextElement());
+        }
+
+        for(String key2: flight_keys) {
+            Flight flight_object = (Flight) flights.get(key2);
+            // Arrival and Destination Airports for each flight
+            String end = flight_object.getSourceAirport().getIataCode();
+            String arrival = flight_object.getDestinationAirport().getIataCode();
+            //System.out.println(departure);
+            //System.out.println(arrival);
+
+            // let u, v be NodeID.get(source, dest)
+            int u = NodeID.get(arrival);
+            int v = NodeID.get(end);
+            g.addEdge(v, u);
+        }
+
+        List<Integer> output = g.printRoutes(departure, destination);
+        return output;
+
     }
 
     private static ArrayList<Flight> availableFlights(ArrayList<Flight> flightList, Airport src, Calendar time) {

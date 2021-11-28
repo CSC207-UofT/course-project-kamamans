@@ -70,11 +70,11 @@ public class AllPossibleFlights {
 
     }
 
-    private Hashtable <String, Airport> getAirportData() {
+    public Hashtable <String, Airport> getAirportData() {
         return this.airportData;
     }
 
-    private Hashtable <String, Flight> getFlightData() {
+    public Hashtable <String, Flight> getFlightData() {
         return this.flightData;
     }
 
@@ -105,7 +105,7 @@ public class AllPossibleFlights {
 
         // Prints all flights from Airport 'a' to Airport 'b'
 
-        public void printRoutes(int a, int b) {
+        public List<Integer> printRoutes(int a, int b) {
             boolean[] isVisited = new boolean[v];
             ArrayList<Integer> pathList = new ArrayList<>();
 
@@ -113,17 +113,16 @@ public class AllPossibleFlights {
             pathList.add(a);
 
             // Call recursive utility
-            printRoute(a, b, isVisited, pathList);
+            return printRoute(a, b, isVisited, pathList);
         }
 
-        private void printRoute(Integer u, Integer w,
+        private List<Integer> printRoute(Integer u, Integer w,
                                        boolean[] isVisited,
                                        List<Integer> routes) {
 
             if (u.equals(w)) {
-                System.out.println(routes);
                 // if match found then no need to traverse more till depth
-                return;
+                return routes;
             }
 
             // Mark the current node
