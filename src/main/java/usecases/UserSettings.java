@@ -47,7 +47,7 @@ public class UserSettings {
      * @param password password of new user
      * @param email email address of user
      * @param phoneNumber phone number of new user
-     * @return UserManager representing this new user
+     * @return UserManager representing this new user, null if failed to create account
      */
     public UserManager createAccount(String username, String password, String email, String phoneNumber) {
         UserManager newUser = new UserManager(username, password, email, phoneNumber);
