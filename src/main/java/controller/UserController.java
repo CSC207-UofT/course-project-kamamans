@@ -5,6 +5,9 @@ import entities.Route;
 import entities.UserManager;
 import usecases.UserSettings;
 
+/**
+ * UserController is responsible for implementing features such as logging in a user, and creating new accounts.
+ */
 public class UserController {
     private final UserSettings userSettings;
 
