@@ -1,13 +1,11 @@
 import org.junit.Before;
 import org.junit.Test;
 
-import usecases.UserManager;
+import usecases.LoginHandler;
 import controller.UserController;
 
-import static org.junit.Assert.*;
-
 public class UserTest {
-    UserManager um = new UserManager();
+    LoginHandler um = new LoginHandler();
     UserController uc = new UserController(um);
 
     @Before

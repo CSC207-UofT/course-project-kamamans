@@ -4,18 +4,18 @@ import entities.User;
 import java.io.IOException;
 
 /**
- * UserManager handles login and account creation.
+ * LoginHandler handles login and account creation.
  */
 
-public class UserManager {
+public class LoginHandler {
     private UserList users;
-    public ViewUserProfile currentUser;
+    public ViewProfile currentUser;
     UserReadWriter userReadWriter = new UserReadWriter();
 
     /**
      * Initialize UserManager with users pointing to the current serialized user list.
      */
-    public UserManager() {
+    public LoginHandler() {
         try {
             this.users = userReadWriter.readFromFile("src/main/java/backend/database/users.ser");
         } catch (IOException e) {
@@ -64,13 +64,11 @@ public class UserManager {
      * @param password password of new user
      * @param email email address of user
      * @param phoneNumber phone number of new user
-     * @return User representing this new user
      */
-    public User createAccount(String username, String password, String email, String phoneNumber) {
+    public void createAccount(String username, String password, String email, String phoneNumber) {
         User newUser = new User(username, password, email, phoneNumber);
         users.addUser(newUser);
         saveSettings();
-        return newUser;
     }
 
     public void deleteAccount(String username) {
@@ -85,7 +83,7 @@ public class UserManager {
      */
     public boolean loginAttempt(String username, String password) {
         User user = users.getUser(username);
-        currentUser = new ViewUserProfile(user); // currentUser points to the user who is logged in
+        currentUser = new ViewProfile(user); // currentUser points to a ViewProfile for the user who is logged in
         return user.passwordMatches(password);
     }
 
@@ -93,9 +91,9 @@ public class UserManager {
      * Runs a logout (does not exit the program) by setting currentUser to null.
      */
     public void logout() {
-        this.currentUser = null; // currentUser no longer points to any specific user
+        this.currentUser = null; // currentUser no longer points to any specific ViewProfile for a user
     }
 
-    // TODO: remove this and replace instances of it with the User itself maybe?
+    // TODO: remove this and replace instances of it with the User itself?
     public String getCurrentUserUsername() { return this.currentUser.getUsername(); }
 }

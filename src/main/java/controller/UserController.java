@@ -1,95 +1,92 @@
 package controller;
 
-import entities.Flight;
-import usecases.UserManager;
+import usecases.LoginHandler;
 
 import java.util.Date;
 
 public class UserController {
-    private final UserManager userManager;
+    private final LoginHandler loginHandler;
 
-    public UserController(UserManager userManager) {
-        this.userManager = userManager;
+    public UserController(LoginHandler loginHandler) {
+        this.loginHandler = loginHandler;
     }
 
     public void createAccount(String username, String password, String email, String phoneNumber) {
-        userManager.createAccount(username, password, email, phoneNumber);
+        loginHandler.createAccount(username, password, email, phoneNumber);
     }
 
     public boolean login(String username, String password) {
         try {
-            return userManager.loginAttempt(username, password);
+            return loginHandler.loginAttempt(username, password);
         }
         catch (NullPointerException e){
             return false;
         }
     }
 
-    public void logout() {
-        userManager.logout();
-    }
+    public void logout() { loginHandler.logout(); }
 
-    public void deleteAccount(String username) { userManager.deleteAccount(username); }
+    public void deleteAccount(String username) { loginHandler.deleteAccount(username); }
 
     /**
-     * Serializes and deserializes userList. Call this at the end of changing UserProfile.
+     * Serializes and deserializes userList. Call this at the end of changing ViewProfile.
      */
-    public void saveSettings() { userManager.saveSettings(); }
+    public void saveSettings() { loginHandler.saveSettings(); }
 
-    public String getUsername() { return userManager.currentUser.getUsername(); }
-
-    public String getPassword() { return userManager.currentUser.getPassword(); }
-
-    public void setPassword(String pw) { userManager.currentUser.setPassword(pw); }
-
-    public String getEmail() { return userManager.currentUser.getEmail(); }
-
-    public void setEmail(String em) { userManager.currentUser.setEmail(em); }
-
-    public String getPhoneNumber() {
-        return userManager.currentUser.getPhoneNumber();
+    // methods below are getters and setters for various user information
+    public String getUsername() {
+        return loginHandler.currentUser.getUsername();
     }
 
-    public void setPhoneNumber(String phoneNumber) {
-        userManager.currentUser.setPhoneNumber(phoneNumber);
+    public String getPassword() {
+        return loginHandler.currentUser.getPassword();
     }
 
-    public int getAppRating() {
-        return userManager.currentUser.getAppRating();
+    public void setPassword(String pw) {
+        loginHandler.currentUser.setPassword(pw);
     }
 
-    public void setAppRating(int appRating) {
-        userManager.currentUser.setAppRating(appRating);
-    }
+    public String getEmail() { return loginHandler.currentUser.getEmail(); }
 
-    public void addFlightToHistory(Flight flight) { userManager.currentUser.addFlightToHistory(flight); }
+    public void setEmail(String e) { loginHandler.currentUser.setEmail(e); }
 
-    public String upgradeUserType() {
-        return userManager.currentUser.upgradeUserType();
-    }
+    public String getPhoneNumber() { return loginHandler.currentUser.getPhoneNumber(); }
 
-    public String downgradeUserType() {
-        return userManager.currentUser.downgradeUserType();
-    }
+    public void setPhoneNumber(String pn) { loginHandler.currentUser.setPhoneNumber(pn); }
 
-    public String getUserType() { return userManager.currentUser.getUserType(); }
+    public int getAppRating() { return loginHandler.currentUser.getAppRating(); }
 
-    // All the setters below return whether the user's profile was successfully changed
-    public String getClassType() { return userManager.currentUser.getClassType(); }
+    public void setAppRating(int appRating) { loginHandler.currentUser.setAppRating(appRating); }
 
-    public String setClassType(String classType) { return userManager.currentUser.setClassType(classType); }
+    public StringBuilder getRouteHistory() { return loginHandler.currentUser.getRouteHistory(); }
 
-    public Date getRenewalDate() { return userManager.currentUser.getRenewalDate(); }
+    public String upgradeUserType() { return loginHandler.currentUser.upgradeUserType(); }
 
-    public String setRenewalDate(Date date) { return userManager.currentUser.setRenewalDate(date); }
+    public String downgradeUserType() { return loginHandler.currentUser.downgradeUserType(); }
 
-    public String getColorScheme() { return userManager.currentUser.getColorScheme(); }
+    public String getUserType() { return loginHandler.currentUser.getUserType(); }
 
-    public String setColorScheme(String colorScheme) { return userManager.currentUser.setColorScheme(colorScheme); }
+    public String getClassType() { return loginHandler.currentUser.getClassType(); }
 
-    // TODO: all ___FavouriteAirport and ___HomeAirport methods need to be changed since we can't access Airport entity from controllers
+    public String setClassType(String classType) { return loginHandler.currentUser.setClassType(classType); }
 
-    public int getAutoLogoutTimer() { return userManager.currentUser.getAutoLogoutTimer(); }
+    public Date getRenewalDate() { return loginHandler.currentUser.getRenewalDate(); }
 
-    public String setAutoLogoutTimer(int autoLogoutTimer) { return userManager.currentUser.setAutoLogoutTimer(autoLogoutTimer); }
+    public String setRenewalDate(Date date) { return loginHandler.currentUser.setRenewalDate(date); }
+
+    public String getColorScheme() { return loginHandler.currentUser.getColorScheme(); }
+
+    public String setColorScheme(String colorScheme) { return loginHandler.currentUser.setColorScheme(colorScheme); }
+
+    public StringBuilder getFavouriteAirports() { return loginHandler.currentUser.getFavouriteAirports(); }
+
+    // TODO: add fav airport, remove fav airport
+
+    public int getAutoLogoutTimer() { return loginHandler.currentUser.getAutoLogoutTimer(); }
+
+    public String setAutoLogoutTimer(int autoLogoutTimer) { return loginHandler.currentUser.setAutoLogoutTimer(autoLogoutTimer); }
+
+    public StringBuilder getHomeAirport() { return loginHandler.currentUser.getHomeAirport(); }
+
+    // TODO: set home airport
 }

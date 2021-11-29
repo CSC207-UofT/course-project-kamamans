@@ -1,20 +1,21 @@
 package usecases;
 
 import entities.Airport;
-import entities.Flight;
+import entities.Route;
+import entities.SearchResults;
 import entities.User;
 
 import java.util.Date;
 import java.util.List;
 
 /**
- * ViewUserProfile handles editing user profile information and different methods based on user subscription status.
+ * ViewProfile handles editing user profile information and different methods based on user subscription status.
  */
 
-public class ViewUserProfile {
+public class ViewProfile {
     private final User currentUser;
 
-    public ViewUserProfile(User user) {
+    public ViewProfile(User user) {
         currentUser = user;
     }
 
@@ -52,9 +53,17 @@ public class ViewUserProfile {
         currentUser.setAppRating(appRating);
     }
 
-    public void addFlightToHistory(Flight flight) { currentUser.addFlightToHistory(flight); }
+    public void addRouteToHistory(Route route) { currentUser.addRouteToHistory(route); }
 
-    public List<Flight> getFlightHistory() { return currentUser.getFlightHistory(); }
+    /**
+     * Return the users route history in a json parseable string using the method in SearchResults.
+     * @return StringBuilder of the users route history in json parseable String format
+     */
+    public StringBuilder getRouteHistory() {
+        List<Route> routeHistory = currentUser.getRouteHistory();
+        SearchResults routeHistoryResults = new SearchResults(routeHistory);
+        return routeHistoryResults.routesToString();
+        }
 
     public String upgradeUserType() {
         return currentUser.upgradeUserType();
@@ -91,8 +100,32 @@ public class ViewUserProfile {
 
     public String setColorScheme(String colorScheme) { return isValidRequest(currentUser.user.setColorScheme(colorScheme)); }
 
-    public List<Airport> getFavouriteAirports() {
-        return currentUser.user.getFavouriteAirports();
+    /**
+     * Returns airports as a JSON parseable string.
+     * @param airport airport to be converted
+     * @return airport as a JSON parseable string
+     */
+    public StringBuilder airportToString(Airport airport) {
+        StringBuilder returnString = new StringBuilder("{");
+        returnString.append("\"iataCode\": " + "\""+airport.getIataCode()+"\"" + ",");
+        returnString.append("\"city\":" + "\""+airport.getCity()+"\"");
+        returnString.append("}");
+        return returnString;
+    }
+    /**
+     * Return a StringBuilder representing this users favourite airports
+     * @return
+     */
+    public StringBuilder getFavouriteAirports() {
+        StringBuilder returnString = new StringBuilder("[");
+        List<Airport> favAirports = currentUser.user.getFavouriteAirports();
+
+        for (Airport airport : favAirports) {
+            returnString.append(airportToString(airport));
+        };
+
+        returnString.append("]");
+        return returnString;
     }
 
     public String addFavouriteAirport(Airport airport) { return isValidRequest(currentUser.user.addFavouriteAirport(airport)); }
@@ -105,8 +138,8 @@ public class ViewUserProfile {
         return isValidRequest(currentUser.user.setAutoLogoutTimer(autoLogoutTimer));
     }
 
-    public Airport getHomeAirport() {
-        return currentUser.user.getHomeAirport();
+    public StringBuilder getHomeAirport() {
+        return airportToString(currentUser.user.getHomeAirport());
     }
 
     public String setHomeAirport(Airport airport) { return isValidRequest(currentUser.user.setHomeAirport(airport)); }
