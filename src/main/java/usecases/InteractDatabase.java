@@ -143,10 +143,14 @@ public class InteractDatabase {
         URL url = new URL(endpoint);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 
-        byte[] encodedKey = Base64.encodeBase64(key.getBytes(StandardCharsets.UTF_8));
-        String keyHeaderValue = "Basic " + new String(encodedKey);
-//        connection.setRequestProperty("Authorization", key);
-        connection.setRequestProperty("Authorization", keyHeaderValue);
+//        byte[] encodedKey = Base64.encodeBase64(key.getBytes(StandardCharsets.UTF_8));
+//        String keyHeaderValue = "Basic " + new String(encodedKey);
+
+//        One of these two:
+        // Encoded
+        connection.setRequestProperty("Authorization", key);
+        // Not Encoded
+//        connection.setRequestProperty("Authorization", keyHeaderValue);
 
         // Request Setup
         connection.setRequestMethod("GET");
@@ -368,7 +372,7 @@ public class InteractDatabase {
         }
     }
 
-    public static void updateDB() throws IOException, JSONException {
+    public static void updateDB() throws IOException, JSONException, ClassNotFoundException {
         String key = "8a0423ec6b7b5e44ae6bab41e07f150b";
         // Airports
         JSONObject allAirports = new JSONObject(getEndpoint("https://api.aviationstack.com/v1/airports", key));
@@ -381,16 +385,14 @@ public class InteractDatabase {
         JSONObject allPlanes = new JSONObject(getEndpoint("https://api.aviationstack.com/v1/airplanes", key));
         int p_quantity = allPlanes.getJSONObject("pagination").getInt("total");
         JSONArray j_planes = allPlanes.getJSONArray("data");
-        for (int i = 0; i < a_quantity; i = i + 1) {
+        for (int i = 0; i < p_quantity; i = i + 1) {
             postPlane(new Plane(j_planes.getJSONObject(i).getString("production_line"), 300, 50, 250, true));
 //            Plane p1 = new Plane(j_planes.getJSONObject(i).getString("production_line"), 300, 50, 250, true);
 //            postPlane(p1);
-
-
         }
     }
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, JSONException, ClassNotFoundException {
 //                System.out.println(getEndpoint("https://www.reddit.com/r/javascript.json"));
 //
 //                //Initialize
