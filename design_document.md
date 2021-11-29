@@ -34,7 +34,7 @@ in later sections.
 The first major design decision was how we handle both the logging in and signup up of
 users. We wanted to make sure that the user classes were adhering to a design structure
 that adhered to the SOLID design principles. From our frontend, UserController initiates the
-process and delegates tasks to userSettings. UserSettings then delegates more tasks such as
+process and delegates tasks to userManager. UserSettings then delegates more tasks such as
 serializing data and using the UserManager class. At this point, users are organized by
 individual UserManager’s that store any relevant information and organize the structure of
 our BaseUser’s, BasicUser’s, and PremiumUser’s.
