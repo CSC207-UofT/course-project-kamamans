@@ -51,10 +51,17 @@ public class UserSettings {
      */
     public UserManager createAccount(String username, String password, String email, String phoneNumber) {
         UserManager newUser = new UserManager(username, password, email, phoneNumber);
-        this.users.addUser(newUser);
-        this.serializeUsers();
-        this.users = deserializeUsers();
-        return newUser;
+
+        boolean vacant = users.getUser(username) == null;
+        if (vacant) {
+            this.users.addUser(newUser);
+            this.serializeUsers();
+            this.users = deserializeUsers();
+            return newUser;
+        } else {
+            // username is already taken
+            return null;
+        }
     }
 
     public void deleteAccount(String username) {
