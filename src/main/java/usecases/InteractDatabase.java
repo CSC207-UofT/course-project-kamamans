@@ -355,6 +355,56 @@ public class InteractDatabase {
         }
     }
 
+    public static void postRoute(Route routeToStore) throws IOException, ClassNotFoundException {
+        // Serializes <toStore>
+        ArrayList<Route> dbRoute = getRouteList();
+        dbRoute.add(routeToStore);
+
+        try {
+            FileOutputStream fos = new FileOutputStream("src/main/java/backend/database/airport.bin");
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+
+            oos.writeObject(dbRoute);
+
+            oos.close();
+            fos.close();
+        } catch (IOException i) {
+            i.printStackTrace();
+        }
+    }
+
+
+    public static ArrayList<Route> getRouteList() throws IOException, ClassNotFoundException {
+        // Returns list of Object
+        ArrayList<Route> outputList = new ArrayList<>();
+
+        try {
+            FileInputStream fis = new FileInputStream("src/main/java/backend/database/route.bin");
+            ObjectInputStream ois = new ObjectInputStream(fis);
+
+            outputList = (ArrayList) ois.readObject();
+
+            ois.close();
+            fis.close();
+            return outputList;
+        } catch (IOException i) {
+            i.printStackTrace();
+            return null;
+        }
+    }
+
+    public static Route getRoute(Airport departure, Airport destination) throws IOException, ClassNotFoundException  {
+        ArrayList<Route> routeList = getRouteList();
+
+        assert routeList != null;
+        for (Route route:routeList) {
+            if (route.getDepartureAirport().equals(departure) & route.getDestinationAirport().equals(destination)) {
+                return route;
+            }
+        }
+        return null;
+    }
+
     private static void printPlanes() throws IOException, ClassNotFoundException {
         System.out.println("Plane List:");
         for (Plane plane : getPlaneList()) {
