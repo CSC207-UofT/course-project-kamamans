@@ -57,6 +57,9 @@ public class UserManager implements Serializable {
 
     public String downgradeUserType() { return this.user.downgradeUserType(); }
 
+    /**
+     * returns a string that states the type of the user account.
+     */
     public String getUserType() {
         if (this.user instanceof BasicUser) {
             return "Basic";
