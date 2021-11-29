@@ -81,19 +81,4 @@ public class PlanFlight {
         return this.user;
     }
 
-    public static void main(String[] args) {
-        // Suppose you wanted to generate the routes from vancouver ->  rift
-        // you would expect to go vancouver -> toronto -> rift
-
-        // examples of routes
-        // vancouver -> rift: vancouver -> toronto -> rift, day 2
-        // toronto -> vancouver: toronto -> vancouver,  day 1
-
-
-        Calendar today = Calendar.getInstance();
-        today.set(2021, 11, 10);
-        Airport source = new Airport("Toronto", "code1");
-        Airport destination = new Airport("Vancouver", "");
-        SearchResults output = EnterSearchRequirements(today, source, destination);
-    }
 }
