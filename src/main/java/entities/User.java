@@ -14,7 +14,7 @@ public class User implements Serializable {
     private String email;
     private String phoneNumber;
     private int appRating;
-    private List<Flight> flightHistory = new ArrayList<>();
+    private List<Flight> flightHistory;
     public BaseUserSettings user;
 
     public User(String username, String password, String email, String phoneNumber) {
@@ -23,6 +23,7 @@ public class User implements Serializable {
         this.password = password;
         this.email = email;
         this.phoneNumber = phoneNumber;
+        this.flightHistory = new ArrayList<>();
     }
 
     public String getUsername() { return this.username; }
@@ -50,6 +51,8 @@ public class User implements Serializable {
     public void addFlightToHistory(Flight flight) {
         this.flightHistory.add(flight);
     }
+
+    public List<Flight> getFlightHistory() { return this.flightHistory; }
 
     /**
      * Change the type of this User by passing in a new BaseUser (see Premium and Basic User for example usage).

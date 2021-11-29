@@ -96,6 +96,6 @@ public class UserManager {
         this.currentUser = null; // currentUser no longer points to any specific user
     }
 
-    // TODO: remove this and replace instances of it with the User itself
+    // TODO: remove this and replace instances of it with the User itself maybe?
     public String getCurrentUserUsername() { return this.currentUser.getUsername(); }
 }

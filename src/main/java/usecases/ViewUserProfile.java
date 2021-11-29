@@ -12,7 +12,7 @@ import java.util.List;
  */
 
 public class ViewUserProfile {
-    private User currentUser;
+    private final User currentUser;
 
     public ViewUserProfile(User user) {
         currentUser = user;
@@ -53,6 +53,8 @@ public class ViewUserProfile {
     }
 
     public void addFlightToHistory(Flight flight) { currentUser.addFlightToHistory(flight); }
+
+    public List<Flight> getFlightHistory() { return currentUser.getFlightHistory(); }
 
     public String upgradeUserType() {
         return currentUser.upgradeUserType();
