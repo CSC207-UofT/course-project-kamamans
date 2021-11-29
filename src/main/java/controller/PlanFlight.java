@@ -69,33 +69,6 @@ public class PlanFlight {
 
     }
 
-    private static ArrayList<Flight> availableFlights(ArrayList<Flight> flightList, Airport src, Calendar time) {
-        // Shallow Copy
-        ArrayList<Flight> output = (ArrayList<Flight>) flightList.clone(); // <- shallow copy
-
-        // remove flights with different <src>, and before given <time>
-        output.removeIf(flight -> (!flight.getSourceAirport().getIataCode().equals(src.getIataCode())));
-        output.removeIf(flight -> flight.getDate().compareTo(time) < 0);
-
-        // remove flights with same destination
-        Collections.sort(output, (f1, f2)-> f1.getDate().compareTo(f2.getDate()));
-        int i = 0;
-        while (i < output.size() - 1){
-            String iataCode = output.get(i).getDestinationAirport().getIataCode();
-            int j = i + 1;
-            while (j < output.size()) {
-                if (output.get(j).getDestinationAirport().getIataCode().equals(iataCode)) {
-                    output.remove(j);
-                    j--;
-                }
-                j++;
-            }
-            i++;
-        }
-
-        return output;
-    }
-
     public void selectFlight(Flight flightToBeSelected){
         this.selectedFlight = flightToBeSelected;
     }
