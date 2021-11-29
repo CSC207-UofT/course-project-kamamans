@@ -4,12 +4,23 @@ import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import java.nio.charset.StandardCharsets;
 import java.sql.Array;
 import java.sql.SQLOutput;
 import java.util.*;
 
+import com.fasterxml.jackson.databind.util.JSONPObject;
 import entities.*;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
+// API stuff
+// base url: https://api.aviationstack.com/v1/
+// flight, flight_status, flight_date, dep_iata, arr_iata, airline_name, airline_iata, flight_iata
+// routes, airports(city?), airlines airplanes or aircrafts?
+// key: 8a0423ec6b7b5e44ae6bab41e07f150b
+// https://www.baeldung.com/java-http-url-connection
 
 // Notes and Questions
 // idk how to write tests since I dont have access to <BasicUser>, <Flight>, <Airport> implementations
@@ -20,6 +31,7 @@ import entities.*;
 // Should id's be strings?
 public class InteractDatabase {
 
+    private static Object JSONObject;
     private Hashtable<String, UserManager> userData;
 
     private Hashtable<String, Flight> flightData;
@@ -57,6 +69,7 @@ public class InteractDatabase {
         this.userData.put(id, toAdd);
         return true;
     }
+
     // add a Flight, returns true if successful, returns false otherwise
     public boolean addFlight(String id, Flight toAdd) {
         if (this.flightData.containsKey(id)) {
@@ -65,6 +78,7 @@ public class InteractDatabase {
         this.flightData.put(id, toAdd);
         return true;
     }
+
     // add an Airport, returns true if successful, returns false otherwise
     public boolean addAirport(String id, Airport toAdd) {
         if (this.airportData.containsKey(id)) {
@@ -87,6 +101,7 @@ public class InteractDatabase {
         }
         return null;
     }
+
     // get a Flight by ID if possible
     public Flight getFlight(String id) {
         if (this.flightData.containsKey(id)) {
@@ -95,6 +110,7 @@ public class InteractDatabase {
         return null;
     }
     // get a list of Flights by Route
+
     public List<Flight> flightByRoutes(Route route) {
         return route.getFlights();
     }
@@ -119,13 +135,22 @@ public class InteractDatabase {
         return output;
     }
 
-    public static String getEndpoint(String endpoint) throws IOException {
+    public static String getEndpoint(String endpoint, String key) throws IOException {
         BufferedReader reader;
         String line;
         StringBuffer responseContent = new StringBuffer();
 
         URL url = new URL(endpoint);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+
+//        byte[] encodedKey = Base64.encodeBase64(key.getBytes(StandardCharsets.UTF_8));
+//        String keyHeaderValue = "Basic " + new String(encodedKey);
+
+//        One of these two:
+        // Encoded
+        connection.setRequestProperty("Authorization", key);
+        // Not Encoded
+//        connection.setRequestProperty("Authorization", keyHeaderValue);
 
         // Request Setup
         connection.setRequestMethod("GET");
@@ -137,6 +162,7 @@ public class InteractDatabase {
         if (status > 299) {
             // connection is not successful
             reader = new BufferedReader(new InputStreamReader(connection.getErrorStream()));
+//            System.exit();
         } else {
             // connection is successful
             reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
@@ -346,29 +372,48 @@ public class InteractDatabase {
         }
     }
 
-    public static void main(String[] args) throws IOException, ClassNotFoundException {
-        //        System.out.println(getEndpoint("https://www.reddit.com/r/javascript.json"));
+    public static void updateDB() throws IOException, JSONException, ClassNotFoundException {
+        String key = "8a0423ec6b7b5e44ae6bab41e07f150b";
+        // Airports
+        JSONObject allAirports = new JSONObject(getEndpoint("https://api.aviationstack.com/v1/airports", key));
+        int a_quantity = allAirports.getJSONObject("pagination").getInt("total");
+        JSONArray j_airports = allAirports.getJSONArray("data");
+        for (int i = 0; i < a_quantity; i = i + 1) {
+            postAirport(new Airport(j_airports.getJSONObject(i).getString("airport_name"), j_airports.getJSONObject(i).getString("iata_code")));
+        }
+        // Planes
+        JSONObject allPlanes = new JSONObject(getEndpoint("https://api.aviationstack.com/v1/airplanes", key));
+        int p_quantity = allPlanes.getJSONObject("pagination").getInt("total");
+        JSONArray j_planes = allPlanes.getJSONArray("data");
+        for (int i = 0; i < p_quantity; i = i + 1) {
+            postPlane(new Plane(j_planes.getJSONObject(i).getString("production_line"), 300, 50, 250, true));
+//            Plane p1 = new Plane(j_planes.getJSONObject(i).getString("production_line"), 300, 50, 250, true);
+//            postPlane(p1);
+        }
+    }
 
-        //        Initialize
-        //        if (initializeDatabase()) {
-        //            System.out.println("Server Initialized");
-        //        } else {
-        //            System.out.println("Server Failed to Initialize");
-        //        }
-
-        //        Write Data
-        //        Airport test1 = new Airport("toronto", "6ix");
-        //        Airport test2 = new Airport("vancouver", "lacroix");
-        //        postAirport(test1);
-        //        postAirport(test2);
+    public static void main(String[] args) throws IOException, JSONException, ClassNotFoundException {
+//                System.out.println(getEndpoint("https://www.reddit.com/r/javascript.json"));
+//
+//                //Initialize
+//                if (initializeDatabase()) {
+//                    System.out.println("Server Initialized");
+//                } else {
+//                    System.out.println("Server Failed to Initialize");
+//                }
+//
+//                //Write Data
+//                Airport test1 = new Airport("toronto", "6ix");
+//                Airport test2 = new Airport("vancouver", "lacroix");
+//                postAirport(test1);
+//                postAirport(test2);
 
         //        Read Data
         //        ArrayList<Airport> airportList = getAirport();
         //        for (Airport temp: airportList) {
         //            System.out.println(temp.getCity());
         //        }
-
-        System.out.println(getAirport("6ix").getCity());
+//        System.out.println(getAirport("6ix").getCity());
 
 
 //        System.out.println(getEndpoint("https://www.reddit.com/r/javascript.json"));
@@ -402,12 +447,17 @@ public class InteractDatabase {
 //        postPlane(test3);
 //        postPlane(test4);
 
-        // Read Data
+//
+//
+//        System.out.println(getAirport("6ix").getCity());
+        if (initializeDatabase()) { System.out.println("Server Initialized"); }
+        else { System.out.println("Server Failed to Initialize"); }
+        updateDB();
+
+//        Read Data (Test
         ArrayList<Plane> planeList = getPlaneList();
         for (Plane temp: planeList) {
             System.out.println(temp.getBrandName());
         }
-
-        System.out.println(getAirport("6ix").getCity());
     }
 }
