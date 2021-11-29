@@ -5,6 +5,9 @@ import usecases.InteractDatabase;
 
 import java.util.*;
 
+/**
+ * A class responsible for booking a user a flight
+ */
 public class PlanFlight {
     private Flight selectedFlight;
     private final String user;
@@ -74,6 +77,9 @@ public class PlanFlight {
         return new SearchResults(routeList);
     }
 
+    /**
+     *returns a list of flights that fits the provided specification
+     */
     private static ArrayList<Flight> availableFlights(ArrayList<Flight> flightList, Airport src, Calendar time) {
         // Shallow Copy
         ArrayList<Flight> output = (ArrayList<Flight>) flightList.clone(); // <- shallow copy
