@@ -447,11 +447,6 @@ public class InteractDatabase {
 //        postPlane(test3);
 //        postPlane(test4);
 
-        // Read Data
-//        ArrayList<Plane> planeList = getPlaneList();
-//        for (Plane temp: planeList) {
-//            System.out.println(temp.getBrandName());
-//        }
 //
 //        System.out.println(getAirport("6ix").getCity());
         if (initializeDatabase()) { System.out.println("Server Initialized"); }
