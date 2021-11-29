@@ -29,4 +29,24 @@ public class UserList implements Serializable {
      * @param username the username of the user to get
      */
     public UserManager getUser(String username) { return userList.get(username); }
+
+    public boolean emailExists(String email) {
+        for (UserManager account : userList.values()) {
+            if (account.getEmail().equals(email)) {
+                // the email exists
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean phoneExists(String phoneNumber) {
+        for (UserManager account : userList.values()) {
+            if (account.getPhoneNumber().equals(phoneNumber) ) {
+                // phone number exists
+                return true;
+            }
+        }
+        return false;
+    }
 }

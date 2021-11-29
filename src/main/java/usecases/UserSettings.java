@@ -52,16 +52,41 @@ public class UserSettings {
     public UserManager createAccount(String username, String password, String email, String phoneNumber) {
         UserManager newUser = new UserManager(username, password, email, phoneNumber);
 
-        boolean vacant = users.getUser(username) == null;
-        if (vacant) {
-            this.users.addUser(newUser);
-            this.serializeUsers();
-            this.users = deserializeUsers();
-            return newUser;
-        } else {
+        // Verify the given info checks out
+        boolean error = false;
+        if (users.getUser(username) != null) {
             // username is already taken
-            return null;
+            error = true;
         }
+        if (!phoneNumber.matches("^\\(\\d\\d\\d\\)-\\d\\d\\d-\\d\\d\\d$")) {
+            // phone number fails regex of form: (416)-123-4567
+            error = true;
+        }
+        if (!email.matches("^\\w+@\\w+\\.((com)|(ca))$")) {
+            // email fails regex
+            error = true;
+        }
+        if (!users.phoneExists(phoneNumber)) {
+            // phone number already exists
+            error = true;
+        }
+        if (!users.emailExists(email)) {
+            // email already exists
+            error = true;
+        }
+
+        if (error) {
+            // Something went wrong
+            return null;
+            // i think we want to throw errors back to the frontend
+            // which specify what went wrong. but idk how to do this
+        }
+
+        // All info checks out!
+        this.users.addUser(newUser);
+        this.serializeUsers();
+        this.users = deserializeUsers();
+        return newUser;
     }
 
     public void deleteAccount(String username) {
@@ -87,5 +112,4 @@ public class UserSettings {
     public String getCurrentUser(){
         return this.currentUser;
     }
-  
 }
