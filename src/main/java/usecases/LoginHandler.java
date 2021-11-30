@@ -1,17 +1,21 @@
 package usecases;
 
-import entities.BaseUser;
-import entities.UserList;
-import entities.UserManager;
-
+import entities.User;
 import java.io.IOException;
 
-public class UserSettings {
+/**
+ * LoginHandler handles login and account creation.
+ */
+
+public class LoginHandler {
     private UserList users;
-    private String currentUser;
+    public ViewProfile currentUser;
     UserReadWriter userReadWriter = new UserReadWriter();
-  
-    public UserSettings() {
+
+    /**
+     * Initialize UserManager with users pointing to the current serialized user list.
+     */
+    public LoginHandler() {
         try {
             this.users = userReadWriter.readFromFile("src/main/java/backend/database/users.ser");
         } catch (IOException e) {
@@ -21,6 +25,14 @@ public class UserSettings {
         }
     }
 
+    public void saveSettings() {
+        serializeUsers();
+        users = deserializeUsers();
+    }
+
+    /**
+     * Writes the current users to users.ser.
+     */
     public void serializeUsers() {
         try {
             userReadWriter.saveToFile("src/main/java/backend/database/users.ser", this.users);
@@ -28,10 +40,15 @@ public class UserSettings {
             System.out.println("Unable to save user list.");
         }
     }
-  
+
+    /**
+     * Reads the current user list and returns them in a UserList.
+     * @return a UserList of the current users
+     */
     public UserList deserializeUsers() {
         try {
-            return userReadWriter.readFromFile("src/main/java/backend/database/users.ser");
+            users = userReadWriter.readFromFile("src/main/java/backend/database/users.ser");
+            return users;
         } catch (IOException e) {
             System.out.println("Unable to read user list.");
             return null;
@@ -42,15 +59,14 @@ public class UserSettings {
     }
   
     /**
-     * create a new UserManager with username, password, email, and phoneNumber and add them to users
+     * Create a new UserManager with username, password, email, and phoneNumber and add them to users
      * @param username username of new user
      * @param password password of new user
      * @param email email address of user
      * @param phoneNumber phone number of new user
-     * @return UserManager representing this new user, null if failed to create account
      */
-    public UserManager createAccount(String username, String password, String email, String phoneNumber) {
-        UserManager newUser = new UserManager(username, password, email, phoneNumber);
+    public void createAccount(String username, String password, String email, String phoneNumber) {
+        User newUser = new User(username, password, email, phoneNumber);
 
         // Verify the given info checks out
         boolean error = false;
@@ -77,16 +93,13 @@ public class UserSettings {
 
         if (error) {
             // Something went wrong
-            return null;
             // i think we want to throw errors back to the frontend
             // which specify what went wrong. but idk how to do this
+        } else {
+            // everything behaving well
+            users.addUser(newUser);
+            saveSettings();
         }
-
-        // All info checks out!
-        this.users.addUser(newUser);
-        this.serializeUsers();
-        this.users = deserializeUsers();
-        return newUser;
     }
 
     public void deleteAccount(String username) {
@@ -94,22 +107,31 @@ public class UserSettings {
     }
 
     /**
-     * runs a login attempt with username and password
+     * Runs a login attempt with username and password and sets currentUser to user specified by username.
      * @param username username of this user
      * @param password password attempt for this login
      * @return whether password matches stored password for this user
      */
     public boolean loginAttempt(String username, String password) {
-        UserManager user = users.getUser(username);
-        this.currentUser = user.getUsername();
+        User user = users.getUser(username);
+        currentUser = new ViewProfile(user); // currentUser points to a ViewProfile for the user who is logged in
         return user.passwordMatches(password);
     }
 
-    public String getUserType(String username) {
-        return users.getUser(username).getUserType();
+    /**
+     * Runs a logout (does not exit the program) by setting currentUser to null.
+     */
+    public void logout() {
+        this.currentUser = null; // currentUser no longer points to any specific ViewProfile for a user
     }
 
+<<<<<<< HEAD:src/main/java/usecases/UserSettings.java
     public String getCurrentUser(){
         return this.currentUser;
     }
 }
+=======
+    // TODO: remove this and replace instances of it with the User itself?
+    public String getCurrentUserUsername() { return this.currentUser.getUsername(); }
+}
+>>>>>>> origin/main:src/main/java/usecases/LoginHandler.java

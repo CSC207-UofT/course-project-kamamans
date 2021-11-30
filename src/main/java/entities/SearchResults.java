@@ -32,7 +32,10 @@ public class SearchResults {
         potentialRoutes.sort(Comparator.comparingDouble(Route::getTotalDuration));
     }
 
-    // Turning route object into a parseable String
+    /**
+     * Returns a StringBuilder object that is parseable and contains all the information for every route
+     * in its list of routes.
+     */
     public StringBuilder routesToString() {
         StringBuilder returnString = new StringBuilder("[");
         int idCounter = 0;
