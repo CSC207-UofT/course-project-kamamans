@@ -2,22 +2,18 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Scanner;
 
-import entities.Airport;
-import entities.UserManager;
-import java.text.SimpleDateFormat;
-import java.util.List;
-import java.util.Scanner;
+import entities.User;
 
 import entities.Route;
 import usecases.InteractDatabase;
 
 public class TerminalInterface {
 
-    public static UserManager runDemoLogin(){
+    public static User runDemoLogin(){
 
         InteractDatabase db = new InteractDatabase();
 
-        UserManager currentUser = null;
+        User currentUser = null;
 
         System.out.println("Welcome to your Flight Planner! \n");
         Scanner sc = new Scanner(System.in); // System.in is a standard input stream
@@ -86,7 +82,7 @@ public class TerminalInterface {
 
     public static void main(String[] args) {
 
-        UserManager currentUser = runDemoLogin();
+        User currentUser = runDemoLogin();
         Route selectedRoute = runDemoFindRoute();
     }
 

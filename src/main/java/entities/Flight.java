@@ -1,9 +1,10 @@
 package entities;
+import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
-public class Flight {
+public class Flight implements Serializable {
     private Calendar date;
     private Plane plane;
     private double price;
