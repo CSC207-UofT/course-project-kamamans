@@ -66,19 +66,17 @@ public class AllPossibleFlights {
                 new Plane("Falcon 1", 1337, 15, 1337 - 15, true),
                 1200, 5, airportData.get("96"), airportData.get("457")));
 
-
-
     }
 
-    public Hashtable <String, Airport> getAirportData() {
+    private Hashtable <String, Airport> getAirportData() {
         return this.airportData;
     }
 
-    public Hashtable <String, Flight> getFlightData() {
+    private Hashtable <String, Flight> getFlightData() {
         return this.flightData;
     }
 
-
+//this is fine
     public static class Graph_dfs {
 
         private int v; // number of vertices in the graph
@@ -88,7 +86,7 @@ public class AllPossibleFlights {
             this.v = vertices;
             initAdj();
         }
-
+        //this is also fine
         // initialise adjacency list:
         @SuppressWarnings("unchecked")
         private void initAdj() {
@@ -104,25 +102,20 @@ public class AllPossibleFlights {
         }
 
         // Prints all flights from Airport 'a' to Airport 'b'
+    //path list should be adjlist
+        //calls dfs -- runs once
 
-        public List<Integer> printRoutes(int a, int b) {
-            boolean[] isVisited = new boolean[v];
-            ArrayList<Integer> pathList = new ArrayList<>();
 
-            // add source to path[]
-            pathList.add(a);
-
-            // Call recursive utility
-            return printRoute(a, b, isVisited, pathList);
-        }
-
-        private List<Integer> printRoute(Integer u, Integer w,
+        //Actual DFS
+        //routes is pathList
+        private void printRoute(Integer u, Integer w,
                                        boolean[] isVisited,
-                                       List<Integer> routes) {
+                                       List<Integer> routes, List<List<Integer>> allRoutes) {
 
             if (u.equals(w)) {
                 // if match found then no need to traverse more till depth
-                return routes;
+                allRoutes.add(new ArrayList<>(routes));
+                return;
             }
 
             // Mark the current node
@@ -135,8 +128,7 @@ public class AllPossibleFlights {
                     // store current node
                     // in path[]
                     routes.add(i);
-                    printRoute(i, w, isVisited, routes);
-
+                    printRoute(i, w, isVisited, routes, allRoutes);
                     // remove current node
                     // in path[]
                     routes.remove(i);
@@ -146,8 +138,10 @@ public class AllPossibleFlights {
             // Mark the current node
             isVisited[u] = false;
         }
-
     }
+    // needs adj.pb({path}) and return adj
+
+
 
     // NOTE TO READER: Run main and the output for all different paths from 5 to 3 should be:
 //            [5, 6, 3]
@@ -191,8 +185,6 @@ public class AllPossibleFlights {
             flight_keys.add(enuflight.nextElement());
         }
 
-
-
         for(String key2: flight_keys){
             Flight flight_object = (Flight) flights.get(key2);
             // Arrival and Destination Airports for each flight
@@ -205,6 +197,7 @@ public class AllPossibleFlights {
             int u = NodeID.get(arrival);
             int v = NodeID.get(departure);
             g.addEdge(v, u);
+            // call dfs with v and u
         }
 
 //        g.addEdge(0, 5);
@@ -223,17 +216,88 @@ public class AllPossibleFlights {
         System.out.println(
                 "Following are all different paths from "
                         + s + " to " + d);
+//        make this in main
+//        g.printRoutes(s, d);
+        boolean[] isVisited = new boolean[7];
+        List<Integer> pathList = new ArrayList<>();
 
-        g.printRoutes(s, d);
+        // add source to path[]
+        pathList.add(s);
+        // Call recursive utility
+        List<List<Integer>> allPaths = new ArrayList<>();
+        List<List<String>> pathsIata = new ArrayList<>();
+        List<List<Airport>> newAirports = new ArrayList<>();
+
+        g.printRoute(s, d, isVisited, pathList, allPaths);
+
+        // For Debugging Purposes:
+        for (List<Integer> allPath : allPaths) {
+            String majda = allPath.toString();
+            System.out.println(majda);
+        }
+
+        // Reverse Hashmap:
+        HashMap<Integer, String> reverseNodeID = new HashMap<>();
+        for (String key: NodeID.keySet()){
+            reverseNodeID.put(NodeID.get(key), key);
+        }
+
+        for (int a = 0; a < allPaths.size(); a++){
+            pathsIata.add(new ArrayList<>());
+        }
+
+        for (int a = 0; a < allPaths.size(); a++){
+            newAirports.add(new ArrayList<>());
+        }
+
+        // from paths get corresponding iatacodes
+        for(int t = 0; t < allPaths.size(); t ++){
+            for (int w = 0; w < allPaths.get(t).size(); w ++){
+                pathsIata.get(t).add(reverseNodeID.get(allPaths.get(t).get(w)));
+            }
+        }
+
+        //loop through iata arraylist to get airport obj
+        for(int t = 0; t < allPaths.size(); t ++){
+            for (int w = 0; w < allPaths.get(t).size(); w ++){
+                String code = pathsIata.get(t).get(w);
+                Airport airportObj = airports.get(code);
+                newAirports.get(t).add(airportObj);
+            }
+        }
+
+        //debugging
+        for(int t = 0; t < allPaths.size(); t ++){
+            for (int w = 0; w < allPaths.get(t).size(); w ++){
+                System.out.println(newAirports.get(t).get(w));
+            }
+        }
+
+        List<List<Flight>> finalRoutes = new ArrayList<>();
 
 
+            for (int i = 0; i < newAirports.size(); i++) {
+                ArrayList<Flight> temp = new ArrayList<>();
+                for (int j = 0; j < newAirports.get(i).size() - 1; j++) {
+                    String destination = newAirports.get(i).get(j + 1).getIataCode();
+                    String source = newAirports.get(i).get(j).getIataCode();
+                    for (String f : flight_keys) {
+                        Flight flight = flights.get(f);
+                        if ((flight.getSourceAirport().getIataCode() == source) &&
+                                (flight.getDestinationAirport().getIataCode() == destination)) {
+                            temp.add(flight);
+                        }
+                    }
+                }
+                finalRoutes.add(temp);
+        }
 
-//        for (String key : keys) {
-//            System.out.println(NodeID.get(key));
-//            System.out.println(key);
-//            System.out.println();
-        //}
+// prints out all flights given source and destination
+        for(int t = 0; t < finalRoutes.size(); t ++){
+            for (int w = 0; w < finalRoutes.get(t).size(); w ++){
+                System.out.println(finalRoutes.get(t).get(w));
+            }
+        }
     }
 }
-
 
