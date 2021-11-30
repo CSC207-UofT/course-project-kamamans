@@ -28,7 +28,9 @@ public class UserList implements Serializable {
      * Get the UserManager by username
      * @param username the username of the user to get
      */
-    public UserManager getUser(String username) { return userList.get(username); }
+    public UserManager getUser(String username) {
+        return userList.get(username);
+    }
 
     /**
      * Returns true if the given email exists in the system.  False otherwise

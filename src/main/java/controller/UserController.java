@@ -13,7 +13,12 @@ public class UserController {
     }
 
     public void createAccount(String username, String password, String email, String phoneNumber) {
-        userSettings.createAccount(username, password, email, phoneNumber);
+        try {
+            userSettings.createAccount(username, password, email, phoneNumber);
+        } catch (NullPointerException e) {
+            System.out.println(e);
+        }
+
     }
 
     public boolean login(String username, String password) {

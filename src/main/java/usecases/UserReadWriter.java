@@ -22,6 +22,8 @@ public class UserReadWriter {
         // serialize the Map
         output.writeObject(allUsers);
         output.close();
+        buffer.close();
+        file.close();
     }
 
     /**
@@ -37,8 +39,15 @@ public class UserReadWriter {
         InputStream buffer = new BufferedInputStream(file);
         ObjectInput input = new ObjectInputStream(buffer);
 
-        UserList users = (UserList) input.readObject();
+        System.out.println("error 1");
+        Object readout = input.readObject(); // <--- problem line
+        System.out.println("error 2");
+        UserList users = (UserList) readout;
+        System.out.println("error 3");
+
         input.close();
+        buffer.close();
+        file.close();
         return users;
     }
 }
