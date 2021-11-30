@@ -14,12 +14,24 @@ public class UserController {
         this.loginHandler = loginHandler;
     }
 
-    public void createAccount(String username, String password, String email, String phoneNumber) {
+    /**
+     * Create a new user account.
+     * username, email, and phone number must be unique
+     * email and phone number must follow respective formatting
+     * @param username
+     * @param password
+     * @param email
+     * @param phoneNumber
+     * @return true if account creation is successful.  false otherwise.
+     */
+    public boolean createAccount(String username, String password, String email, String phoneNumber) {
         try {
-            loginHandler.createAccount(username, password, email, phoneNumber);
+            return loginHandler.createAccount(username, password, email, phoneNumber);
+
         } catch (NullPointerException e) {
             System.out.println(e);
         }
+        return false;
     }
 
     public boolean login(String username, String password) {

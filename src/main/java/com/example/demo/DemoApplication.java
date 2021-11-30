@@ -46,8 +46,7 @@ public class DemoApplication {
 								@RequestParam(value = "repeatPassword") String  repeatPassword, @RequestParam(value = "email") String  email,
 								@RequestParam(value = "phoneNumber") String  phoneNumber) {
 
-		uc.createAccount(username, password, email, phoneNumber);
-		return "true";
+		return (String.valueOf(uc.createAccount(username, password, email, phoneNumber)));
 	}
 	@GetMapping("/searchFlight")
 	public String searchFlight(@RequestParam(value = "departure") String departure, @RequestParam(value = "destination") String  destination,

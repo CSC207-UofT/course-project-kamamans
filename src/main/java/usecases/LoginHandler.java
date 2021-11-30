@@ -65,7 +65,7 @@ public class LoginHandler {
      * @param email email address of user
      * @param phoneNumber phone number of new user
      */
-    public void createAccount(String username, String password, String email, String phoneNumber) {
+    public boolean createAccount(String username, String password, String email, String phoneNumber) {
         User newUser = new User(username, password, email, phoneNumber);
 
         // Verify the given info checks out
@@ -74,7 +74,7 @@ public class LoginHandler {
             // username is already taken
             error = true;
         }
-        if (!phoneNumber.matches("^\\(\\d\\d\\d\\)-\\d\\d\\d-\\d\\d\\d$")) {
+        if (!phoneNumber.matches("^\\(\\d\\d\\d\\)-\\d\\d\\d-\\d\\d\\d\\d$")) {
             // phone number fails regex of form: (416)-123-4567
             error = true;
         }
@@ -93,12 +93,12 @@ public class LoginHandler {
 
         if (error) {
             // Something went wrong
-            // i think we want to throw errors back to the frontend
-            // which specify what went wrong. but idk how to do this
+            return false;
         } else {
             // everything behaving well
-            users.addUser(newUser);
+            this.users.addUser(newUser);
             saveSettings();
+            return true;
         }
     }
 
@@ -127,4 +127,8 @@ public class LoginHandler {
 
     // TODO: remove this and replace instances of it with the User itself?
     public String getCurrentUserUsername() { return this.currentUser.getUsername(); }
+
+    public static void main(String[] args) {
+        System.out.println("416-123-4567".matches("^\\d\\d\\d-\\d\\d\\d-\\d\\d\\d$"));
+    }
 }
