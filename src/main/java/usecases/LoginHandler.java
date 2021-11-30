@@ -125,13 +125,6 @@ public class LoginHandler {
         this.currentUser = null; // currentUser no longer points to any specific ViewProfile for a user
     }
 
-<<<<<<< HEAD:src/main/java/usecases/UserSettings.java
-    public String getCurrentUser(){
-        return this.currentUser;
-    }
-}
-=======
     // TODO: remove this and replace instances of it with the User itself?
     public String getCurrentUserUsername() { return this.currentUser.getUsername(); }
 }
->>>>>>> origin/main:src/main/java/usecases/LoginHandler.java
