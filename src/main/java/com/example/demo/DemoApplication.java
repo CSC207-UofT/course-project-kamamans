@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import usecases.InteractDatabase;
 import controller.UserController;
-import usecases.UserManager;
+import usecases.LoginHandler;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -24,7 +24,7 @@ import java.io.IOException;
 @RestController
 public class DemoApplication {
 
-	private UserManager us = new UserManager();
+	private LoginHandler us = new LoginHandler();
 	private UserController uc = new UserController(us);
 	private SearchResults sr;
 	public void runDemo(String[] args)  {
