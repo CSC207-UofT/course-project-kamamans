@@ -2,6 +2,7 @@ package controller;
 
 import usecases.LoginHandler;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -24,14 +25,23 @@ public class UserController {
      * @param phoneNumber
      * @return true if account creation is successful.  false otherwise.
      */
-    public boolean createAccount(String username, String password, String email, String phoneNumber) {
+    public String createAccount(String username, String password, String email, String phoneNumber) {
         try {
-            return loginHandler.createAccount(username, password, email, phoneNumber);
+            ArrayList<String> errors = loginHandler.createAccount(username, password, email, phoneNumber);
 
+            if (errors.size() == 0) {
+                // account creation is successful
+                return "Account Created Successfully";
+            }
+
+            String output = "";
+            for (String item: errors) {
+                output = output + item + "\n";
+            }
+            return output;
         } catch (NullPointerException e) {
-            System.out.println(e);
+            return "NullPointerException";
         }
-        return false;
     }
 
     public boolean login(String username, String password) {
