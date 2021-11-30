@@ -66,11 +66,11 @@ public class UserSettings {
             // email fails regex
             error = true;
         }
-        if (!users.phoneExists(phoneNumber)) {
+        if (users.phoneExists(phoneNumber)) {
             // phone number already exists
             error = true;
         }
-        if (!users.emailExists(email)) {
+        if (users.emailExists(email)) {
             // email already exists
             error = true;
         }
