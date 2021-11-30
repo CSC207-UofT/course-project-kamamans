@@ -2,6 +2,7 @@ package usecases;
 
 import entities.User;
 import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  * LoginHandler handles login and account creation.
@@ -65,10 +66,43 @@ public class LoginHandler {
      * @param email email address of user
      * @param phoneNumber phone number of new user
      */
-    public void createAccount(String username, String password, String email, String phoneNumber) {
+    public ArrayList<String> createAccount(String username, String password, String email, String phoneNumber) {
         User newUser = new User(username, password, email, phoneNumber);
-        users.addUser(newUser);
-        saveSettings();
+
+        // Verify the given info checks out
+        ArrayList<String> errors = validateAccount(username, email, phoneNumber);
+
+        if (errors.size() == 0) {
+            // everything behaving well
+            this.users.addUser(newUser);
+            saveSettings();
+        }
+        return errors; // <-- empty list, if everything is correct
+    }
+
+    private ArrayList<String> validateAccount(String username, String email, String phoneNumber) {
+        ArrayList<String> errors = new ArrayList<String>(0);
+        if (users.getUser(username) != null) {
+            // username is already taken
+            errors.add("Account Creation Error: Username already exists");
+        }
+        if (!phoneNumber.matches("^\\(\\d\\d\\d\\)-\\d\\d\\d-\\d\\d\\d\\d$")) {
+            // phone number fails regex of form: (416)-123-4567
+            errors.add("Account Creation Error: Phone Number is incorrect format");
+        }
+        if (!email.matches("^\\w+@\\w+\\.((com)|(ca))$")) {
+            // email fails regex
+            errors.add("Account Creation Error: E-mail is incorrect format");
+        }
+        if (users.phoneExists(phoneNumber)) {
+            // phone number already exists
+            errors.add("Account Creation Error: Phone Number already exists");
+        }
+        if (users.emailExists(email)) {
+            // email already exists
+            errors.add("Account Creation Error: Email already exists");
+        }
+        return errors;
     }
 
     public void deleteAccount(String username) {
@@ -96,4 +130,5 @@ public class LoginHandler {
 
     // TODO: remove this and replace instances of it with the User itself?
     public String getCurrentUserUsername() { return this.currentUser.getUsername(); }
+
 }

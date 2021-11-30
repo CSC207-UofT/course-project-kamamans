@@ -4,13 +4,12 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
-public class Flight implements Serializable {
 /**
  * Represents a scheduled flight. Creates an object that contains the scheduled date, a plane object, the cost of
  * the flight, its duration, and the airports it is departing from and flying to.
  */
 
-public class Flight {
+public class Flight implements Serializable {
     private Calendar date;
     private Plane plane;
     private double price; //TODO: since there are two types of seats in our plane object, shouldn't there be 2 prices?
@@ -43,5 +42,6 @@ public class Flight {
         return this.sourceAirport;
     }
     public Airport getDestinationAirport(){
-        return this.destinationAirport;}
+        return this.destinationAirport;
+    }
 }

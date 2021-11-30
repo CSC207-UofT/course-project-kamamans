@@ -30,5 +30,47 @@ public class UserList implements Serializable {
      * Get the UserManager by username
      * @param username the username of the user to get
      */
-    public User getUser(String username) { return userList.get(username); }
+    public User getUser(String username) {
+        return userList.get(username);
+    }
+
+    /**
+     * Returns true if the given email exists in the system.  False otherwise
+     * @param email the email to compare
+     * @return if the email exists
+     */
+    public boolean emailExists(String email) {
+        for (User account : userList.values()) {
+            if (account.getEmail().equals(email)) {
+                // the email exists
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Returns true if the given phone number exists in the system.  False otherwise
+     * @param phoneNumber the phone number to compare
+     * @return if the phone number exists
+     */
+    public boolean phoneExists(String phoneNumber) {
+        for (User account : userList.values()) {
+            if (account.getPhoneNumber().equals(phoneNumber) ) {
+                // phone number exists
+                return true;
+            }
+        }
+        return false;
+    }
+
+    // This function is for development purposes only
+    public void printAllUsers() {
+        for (User account: userList.values()) {
+            System.out.println("user: " + account.getUsername());
+            System.out.println("pass: " + account.getPassword());
+            System.out.println("mail: " + account.getEmail());
+            System.out.println("phone: " + account.getPhoneNumber());
+        }
+    }
 }
