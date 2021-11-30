@@ -30,6 +30,7 @@ public class InteractDatabase {
 
     private Hashtable<String, Flight> flightData;
     private Hashtable<String, Airport> airportData;
+    private Hashtable<String, User> userData;
     public InteractDatabase() {
         this.userData = new Hashtable<String, User>();
         this.flightData = new Hashtable<String, Flight>();
