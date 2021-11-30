@@ -4,6 +4,9 @@ import usecases.LoginHandler;
 
 import java.util.Date;
 
+/**
+ * UserController is responsible for implementing features such as logging in a user, and creating new accounts.
+ */
 public class UserController {
     private final LoginHandler loginHandler;
 
