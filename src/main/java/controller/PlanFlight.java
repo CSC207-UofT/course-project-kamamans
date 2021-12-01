@@ -6,6 +6,9 @@ import usecases.AllPossibleFlights;
 
 import java.util.*;
 
+/**
+ * A class responsible for booking a user a flight
+ */
 public class PlanFlight {
     private Flight selectedFlight;
     private final String user;

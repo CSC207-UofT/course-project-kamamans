@@ -1,26 +1,29 @@
 package entities;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.Basic;
 
 /**
- * UserManager is responsible for common methods and attributes across all users.
+ * User is responsible for common methods and attributes across all users.
  */
 
-public class UserManager implements Serializable {
+public class User implements Serializable {
     private final String username;
     private String password;
     private String email;
     private String phoneNumber;
     private int appRating;
-    public BaseUser user;
+    private List<Route> routeHistory;
+    public BaseUserSettings user;
 
-    public UserManager(String username, String password, String email, String phoneNumber) {
-        this.user = new BasicUser(this);
+    public User(String username, String password, String email, String phoneNumber) {
+        this.user = new BasicUserSettings(this);
         this.username = username;
         this.password = password;
         this.email = email;
         this.phoneNumber = phoneNumber;
+        this.routeHistory = new ArrayList<>();
     }
 
     public String getUsername() { return this.username; }
@@ -45,11 +48,17 @@ public class UserManager implements Serializable {
         return this.password.equals(password);
     }
 
+    public void addRouteToHistory(Route route) {
+        this.routeHistory.add(route);
+    }
+
+    public List<Route> getRouteHistory() { return this.routeHistory; }
+
     /**
      * Change the type of this User by passing in a new BaseUser (see Premium and Basic User for example usage).
      * @param user a new BaseUser
      */
-    public void changeUserType(BaseUser user){
+    public void changeUserType(BaseUserSettings user){
         this.user = user;
     }
 
@@ -57,10 +66,14 @@ public class UserManager implements Serializable {
 
     public String downgradeUserType() { return this.user.downgradeUserType(); }
 
+    /**
+     * Return a String denoting UserType for functions that differ across users.
+     * @return String representing the type of user
+     */
     public String getUserType() {
-        if (this.user instanceof BasicUser) {
+        if (this.user instanceof BasicUserSettings) {
             return "Basic";
-        } else if (this.user instanceof PremiumUser) {
+        } else if (this.user instanceof PremiumUserSettings) {
             return "Premium";
         } else {
             return null;

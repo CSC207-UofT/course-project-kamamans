@@ -16,6 +16,11 @@ import java.io.Serializable;
 //            generator = "airport_sequence"
 //    )
 
+/**
+ * Represents an airport.
+ *
+ * Each airport object must include the city it is located in and its IATA code.
+ */
 
 public class Airport implements Serializable {
     private String city;

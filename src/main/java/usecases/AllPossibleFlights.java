@@ -68,11 +68,11 @@ public class AllPossibleFlights {
 
     }
 
-    private Hashtable <String, Airport> getAirportData() {
+    public Hashtable <String, Airport> getAirportData() {
         return this.airportData;
     }
 
-    private Hashtable <String, Flight> getFlightData() {
+    public Hashtable <String, Flight> getFlightData() {
         return this.flightData;
     }
 
