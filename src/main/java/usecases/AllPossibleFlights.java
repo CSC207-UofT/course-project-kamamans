@@ -139,8 +139,6 @@ public class AllPossibleFlights {
             isVisited[u] = false;
         }
     }
-    // needs adj.pb({path}) and return adj
-
 
 
     // NOTE TO READER: Run main and the output for all different paths from 5 to 3 should be:
@@ -190,8 +188,6 @@ public class AllPossibleFlights {
             // Arrival and Destination Airports for each flight
             String departure = flight_object.getSourceAirport().getIataCode();
             String arrival = flight_object.getDestinationAirport().getIataCode();
-            //System.out.println(departure);
-            //System.out.println(arrival);
 
             // let u, v be NodeID.get(source, dest)
             int u = NodeID.get(arrival);
@@ -199,14 +195,6 @@ public class AllPossibleFlights {
             g.addEdge(v, u);
             // call dfs with v and u
         }
-
-//        g.addEdge(0, 5);
-//        g.addEdge(0, 1);
-//        g.addEdge(1, 2);
-//        g.addEdge(0, 3);
-//        g.addEdge(3, 4);
-//        g.addEdge(4, 1);
-
         // arbitrary source
         int s = 5;
 
@@ -216,8 +204,7 @@ public class AllPossibleFlights {
         System.out.println(
                 "Following are all different paths from "
                         + s + " to " + d);
-//        make this in main
-//        g.printRoutes(s, d);
+
         boolean[] isVisited = new boolean[7];
         List<Integer> pathList = new ArrayList<>();
 
@@ -272,9 +259,8 @@ public class AllPossibleFlights {
                 System.out.println(newAirports.get(t).get(w));
             }
         }
-
+// final function
         List<List<Flight>> finalRoutes = new ArrayList<>();
-
 
             for (int i = 0; i < newAirports.size(); i++) {
                 ArrayList<Flight> temp = new ArrayList<>();
@@ -292,7 +278,7 @@ public class AllPossibleFlights {
                 finalRoutes.add(temp);
         }
 
-// prints out all flights given source and destination
+// prints out all flights given source and destination (Used for debugging purposes) -> make as a test?
         for(int t = 0; t < finalRoutes.size(); t ++){
             for (int w = 0; w < finalRoutes.get(t).size(); w ++){
                 System.out.println(finalRoutes.get(t).get(w));
@@ -300,4 +286,5 @@ public class AllPossibleFlights {
         }
     }
 }
+
 
