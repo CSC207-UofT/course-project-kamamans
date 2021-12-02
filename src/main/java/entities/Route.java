@@ -5,6 +5,12 @@ import usecases.InteractDatabase;
 import java.lang.reflect.Array;
 import java.util.*;
 
+/**
+ * An object representing the path which a traveller takes to a certain destination.
+ *
+ * Storing the departure and destination airports, the departure date of the first flight, and a list of one or
+ * more flights to the final destination.
+ */
 public class Route implements Serializable{
     private Airport departureAirport;
     private Airport destinationAirport;
@@ -62,6 +68,9 @@ public class Route implements Serializable{
         return d;
     }
 
+    /**
+     * returns a Hashmap that contains information of the entire route.
+     */
     public HashMap<String, Object> getInformation(Route r){
         HashMap<String, Object> info = new HashMap<String,Object>();
 
