@@ -20,46 +20,6 @@ import org.json.JSONObject;
 // https://www.baeldung.com/java-http-url-connection
 
 public class InteractDatabase {
-    public static String getEndpoint(String endpoint, String key) throws IOException {
-        BufferedReader reader;
-        String line;
-        StringBuffer responseContent = new StringBuffer();
-
-        URL url = new URL(endpoint);
-        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-
-//        byte[] encodedKey = Base64.encodeBase64(key.getBytes(StandardCharsets.UTF_8));
-//        String keyHeaderValue = "Basic " + new String(encodedKey);
-
-//        One of these two:
-        // Encoded
-        connection.setRequestProperty("Authorization", key);
-        // Not Encoded
-//        connection.setRequestProperty("Authorization", keyHeaderValue);
-
-        // Request Setup
-        connection.setRequestMethod("GET");
-        connection.setConnectTimeout(2500);
-        connection.setReadTimeout(2500);
-
-        int status = connection.getResponseCode();
-
-        if (status > 299) {
-            // connection is not successful
-            reader = new BufferedReader(new InputStreamReader(connection.getErrorStream()));
-//            System.exit();
-        } else {
-            // connection is successful
-            reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-        }
-        while ((line = reader.readLine()) != null) {
-            responseContent.append(line);
-        }
-        reader.close();
-
-        return responseContent.toString();
-    }
-
     // Airport Database:
     public static ArrayList<Airport> getAirportList() throws IOException, ClassNotFoundException {
         // Returns list of Airports
@@ -229,6 +189,46 @@ public class InteractDatabase {
         }
     }
 
+    public static String getEndpoint(String endpoint, String key) throws IOException {
+        BufferedReader reader;
+        String line;
+        StringBuffer responseContent = new StringBuffer();
+
+        URL url = new URL(endpoint);
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+
+//        byte[] encodedKey = Base64.encodeBase64(key.getBytes(StandardCharsets.UTF_8));
+//        String keyHeaderValue = "Basic " + new String(encodedKey);
+
+//        One of these two:
+        // Encoded
+        connection.setRequestProperty("Authorization", key);
+        // Not Encoded
+//        connection.setRequestProperty("Authorization", keyHeaderValue);
+
+        // Request Setup
+        connection.setRequestMethod("GET");
+        connection.setConnectTimeout(2500);
+        connection.setReadTimeout(2500);
+
+        int status = connection.getResponseCode();
+
+        if (status > 299) {
+            // connection is not successful
+            reader = new BufferedReader(new InputStreamReader(connection.getErrorStream()));
+//            System.exit();
+        } else {
+            // connection is successful
+            reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+        }
+        while ((line = reader.readLine()) != null) {
+            responseContent.append(line);
+        }
+        reader.close();
+
+        return responseContent.toString();
+    }
+
     public static void initializeDatabase() {
         // Sets the database files for ArrayList
         // Only need to run this function once to setup your "server"
@@ -327,7 +327,7 @@ public class InteractDatabase {
 
     public static void main(String[] args) throws IOException, JSONException, ClassNotFoundException {
 //        initializeDatabase();
-        printAirports();
+//        printAirports();
 //        printPlanes();
 //        printFlights();
     }
