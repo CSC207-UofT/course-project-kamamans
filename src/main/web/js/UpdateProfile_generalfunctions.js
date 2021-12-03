@@ -277,6 +277,7 @@ function destroy(wizard, options)
  **/
 function finishStep(wizard, state)
 {
+
     var currentStep = wizard.find(".steps li").eq(state.currentIndex);
 
     if (wizard.triggerHandler("finishing", [state.currentIndex]))
@@ -288,6 +289,10 @@ function finishStep(wizard, state)
     {
         currentStep.addClass("error");
     }
+
+
+
+    serializeUser();
 }
 
 /**
@@ -541,6 +546,63 @@ function initialize(options)
     /*jshint -W040 */
     var opts = $.extend(true, {}, defaults, options);
 
+    // TODO: assign user attributes here
+    let username = 'user';
+    let password = 'pass';
+    let email = '123@gmail.com';
+    let phoneNumber = '(123)-123-1234';
+
+    const user_info_content = `<div class="form-row">
+        <div class="form-holder form-holder-2">
+            <label>Username</label>
+            <input type="text" placeholder="Username" class="form-control" id="username" name="username" value=`+username+`>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-holder form-holder-2">
+            <label>Password</label>
+            <input type="text" placeholder="Password" class="form-control" id="password" name="password" value=`+password+`>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-holder form-holder-2">
+            <label>Email</label>
+            <input type="text" placeholder="example@gmail.com" class="form-control" id="email" name="email" value=`+email+`>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-holder form-holder-2">
+            <label>Phone Number</label>
+            <input type="text" placeholder="+1 (###)-###-####" class="form-control" id="phone" name="phone" value=`+phoneNumber+`>
+        </div>
+    </div>
+    `
+
+    document.getElementById('personal-information').innerHTML = user_info_content;
+
+    // TODO: Retrieve all relevant settings replacing the dictionary below
+    const user_settings = {
+        colorScheme: 'yellow',
+        homeAirport: 'Toronto',
+        favouriteAirport: 'Pearson',
+        autoLogoutTimer: 50,
+    }
+
+    let settings_content = ``
+
+    Object.entries(user_settings).forEach(([key, value]) => {
+        settings_content +=`
+            <div class="form-row">
+                <div class="form-holder form-holder-2">
+                    <label>`+key+`</label>
+                    <input type="text" class="form-control" id="setting_`+key+`" name="`+key+`" value=`+value+`>
+                </div>
+            </div>
+        `
+    })
+
+    document.getElementById('settings').innerHTML = settings_content;
+
     return this.each(function ()
     {
         var wizard = $(this);
@@ -743,6 +805,7 @@ function loadAsyncContent(wizard, options, state)
  **/
 function paginationClick(wizard, options, state, index)
 {
+
     var oldIndex = state.currentIndex;
 
     if (index >= 0 && index < state.stepCount && !(options.forceMoveForward && index < state.currentIndex))
@@ -1905,7 +1968,9 @@ var defaults = $.fn.steps.defaults = {
      * @default function (event, currentIndex, priorIndex) { }
      * @for defaults
      **/
-    onStepChanged: function (event, currentIndex, priorIndex) { },
+    onStepChanged: function (event, currentIndex, priorIndex) {
+        confirmDetailsInformation();
+    },
 
     /**
      * Fires after cancelation. 
@@ -2011,7 +2076,7 @@ var defaults = $.fn.steps.defaults = {
         /**
          * Label for the next button.
          *
-         * @property next
+         * @property next`
          * @type String
          * @default "Next"
          * @for defaults
