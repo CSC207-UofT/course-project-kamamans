@@ -142,27 +142,5 @@ function selectFlight(routeId) {
     console.log(rawData)
     console.log("Selected flight: "+routeId);
 
-
-    // Create a popup to let the user know their selection was processed
-    let flightSelectedPopup = `
-            <div id="flightSelected" class="overlay">
-                <div class="popup">
-                    <h2>Route #`+routeId+`</h2>
-                    <a class="close" href="#">&times;</a>
-                    <div class="content">
-                        <div class="">
-                            <h1>Flight successfully added to your search history.</h1>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        `;
-
-    let htmlDom = new DOMParser().parseFromString(flightSelectedPopup, "text/html");
-
-    const stack = document.body;
-
-    stack.appendChild(htmlDom.documentElement);
-
-    window.location.href = "SelectFlight.html#flightSelected";
+    window.location.href = "BookingConfirmationPage.html";
 }

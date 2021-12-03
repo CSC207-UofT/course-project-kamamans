@@ -1895,7 +1895,13 @@ var defaults = $.fn.steps.defaults = {
      * @default function (event, currentIndex, newIndex) { return true; }
      * @for defaults
      **/
-    onStepChanging: function (event, currentIndex, newIndex) { return true; },
+    onStepChanging: function (event, currentIndex, newIndex) {
+
+        document.getElementById('booking_information').innerHTML = getBookingInformation();
+
+        return true;
+
+    },
 
     /**
      * Fires after the step has change. 
@@ -1926,7 +1932,17 @@ var defaults = $.fn.steps.defaults = {
      * @default function (event, currentIndex) { return true; }
      * @for defaults
      **/
-    onFinishing: function (event, currentIndex) { return true; },
+    onFinishing: function (event, currentIndex) {
+
+        let successfullyBooked = confirmBooking(document.getElementById('first_name').value, document.
+            getElementById('last_name').value, document.getElementById('phone').
+            value, document.getElementById('your_email_1').value, [document.
+            getElementById('date').value, document.getElementById('month').value, document.
+            getElementById('year').value],document.getElementById('address').value);
+
+        return successfullyBooked;
+
+    },
 
     /**
      * Fires after completion. 

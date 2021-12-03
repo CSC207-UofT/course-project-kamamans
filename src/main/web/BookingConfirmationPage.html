@@ -84,15 +84,15 @@
 											<option value="December">December</option>
 										</select>
 										<select name="year" id="year" class="form-control">
-											<option value="2018" selected>2003</option>
-											<option value="2017">2002</option>
-											<option value="2016">2001</option>
-											<option value="2015">2000</option>
-											<option value="2014">1999</option>
-											<option value="2013">1998</option>
-											<option value="2013">1997</option>
-											<option value="2013">1996</option>
-											<option value="2013">1995</option>
+											<option value="2003" selected>2003</option>
+											<option value="2002">2002</option>
+											<option value="2001">2001</option>
+											<option value="2000">2000</option>
+											<option value="1999">1999</option>
+											<option value="1998">1998</option>
+											<option value="1997">1997</option>
+											<option value="1996">1996</option>
+											<option value="1995">1995</option>
 										</select>
 									</div>
 								</div>
@@ -112,44 +112,23 @@
 			            	<span class="step-text">Booking</span>
 			            </h2>
 			            <section>
-			                <div class="inner">
+			                <div class="inner" id="booking_information">
 			                	<div class="form-heading">
 			                		<h3>Booking Infomation</h3>
 			                		<span>2/3</span>
 			                	</div>
-		                		<div class="form-images">
-		                			<img src="images/bookingconfirmationplaceholder.jpg" alt="bookingconfirmationplaceholder">
-		                		</div>
-								<div class="form-row">
-									<div class="form-holder form-holder-2">
-										<label for="flight" class="special-label-1">Choose a Flight </label>
-										<select name="flight" id="flight" class="form-control">
-											<option value="Flight One" selected>Flight One</option>
-											<option value="Flight Two">Flight Two</option>
-											<option value="Flight Three">Flight Three</option>
-										</select>
-										<span class="select-btn">
-											<i class="zmdi zmdi-chevron-down"></i>
-										</span>
-									</div>
-								</div>
-								<div class="form-row">
-									<div class="form-holder">
-										<label for="Date" class="special-label-1">Flight Departure</label>
-										<input type="text" name="day" class="day" id="day" placeholder="15 / 08 / 2018">
-									</div>
-								</div>
 							</div>
 			            </section>
 			            <!-- SECTION 3 -->
 			            <h2>
 			            	<p class="step-icon"><span>3</span></p>
-			            	<span class="step-text">Confirm</span>
+			            	<span class="step-text">Confirm
+							</span>
 			            </h2>
 			            <section>
 			                <div class="inner">
 			                	<div class="form-heading">
-			                		<h3>Comfirm Details</h3>
+			                		<h3>Confirm Details</h3>
 			                		<span>3/3</span>
 			                	</div>
 								<div class="table-responsive">
@@ -160,7 +139,7 @@
 												<td id="fullname-val"></td>
 											</tr>
 											<tr class="space-row">
-												<th>Flight ID:</th>
+												<th>Route ID:</th>
 												<td id="Flight-val"></td>
 											</tr>
 											<tr class="space-row">
@@ -189,5 +168,6 @@
 	<script src="js/BookingConfirmation_generalfunctions.js"></script>
 	<script src="js/BookingConfirmation_uifunctions.js"></script>
 	<script src="js/BookingConfirmation_mainfunctions.js"></script>
+	<script src="js/ConfirmBooking.js"></script>
 </body>
 </html>
