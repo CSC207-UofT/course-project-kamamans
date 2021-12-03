@@ -597,8 +597,6 @@ function insertStep(wizard, options, state, index, step)
         throwError(_indexOutOfRangeErrorMessage);
     }
 
-    // TODO: Validate step object
-
     // Change data
     step = $.extend({}, stepModel, step);
     insertStepToCache(wizard, index, step);
@@ -1897,8 +1895,6 @@ var defaults = $.fn.steps.defaults = {
      **/
     onStepChanging: function (event, currentIndex, newIndex) {
 
-        document.getElementById('booking_information').innerHTML = getBookingInformation();
-
         return true;
 
     },
@@ -1911,7 +1907,13 @@ var defaults = $.fn.steps.defaults = {
      * @default function (event, currentIndex, priorIndex) { }
      * @for defaults
      **/
-    onStepChanged: function (event, currentIndex, priorIndex) { },
+    onStepChanged: function (event, currentIndex, priorIndex) {
+
+        document.getElementById('booking-information').innerHTML = getBookingInformation();
+
+        document.getElementById('confirm-details').innerHTML = getDetails();
+
+    },
 
     /**
      * Fires after cancelation. 
