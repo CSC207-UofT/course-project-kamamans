@@ -27,3 +27,7 @@ function searchForFlights(departure, destination, date){
     }
 
 }
+
+function viewProfile() {
+    window.location.href = "UpdateProfilePage.html";
+}

@@ -5,21 +5,18 @@ function httpGet(theUrl){
     return xmlHttp.responseText;
 }
 
-let url = 'http://localhost:8080/getPotentialFlights'
-let jsondata = httpGet(url);
-
-let rawData = JSON.parse(jsondata);
 
 function displayFlights(){
 
-    console.log(rawData)
+    // TODO: Get raw data for user's flight history
+    const rawData = [{"departureAirport": {"city": "Toronto", "iataCode": "001"}, "destinationAirport": {"city": "Vancouver", "iataCode": "003"}, "departureDate": "12/15/2021", "flights": [{"departureDate": "12/18/2021", "plane": {"brandName": "boeing", "seatCount": 100, "firstClassSeats": 10, "economySeats": 80, "hasVacantSeats": true}, "price": 2.0, "duration": 5.0, "sourceAirport": {"city": "Toronto", "iataCode": "code1"}, "destinationAirport": {"city": "Vancouver", "iataCode": "code2"} }], "price": 2.0, "duration": 5.0, "id": "0"}];
     // Parsing through the placeholder data and turning into html content
 
-    let searchResults = `<div class="container" id="div-container">`
+    let content = `<div class="container" id="div-container">`
     let flightDetails;
 
     for (let i = 0; i < rawData.length; i++){
-        searchResults += `<div class="col-xs-12 col-md-6">
+        content += `<div class="col-xs-12 col-md-6">
             <div class="prod-info-main prod-wrap clearfix">
                 <div class="row">
                     <div class="col-md-4 col-sm-12 col-xs-12">
@@ -41,14 +38,14 @@ function displayFlights(){
                             <span class="tag1"></span>
                         </div>
                         <div class="description">
-                            <p>This route has `+rawData[i]['flights'].length+` total flight(s). The first flight
-                            departs on `+rawData[i]['departureDate']+` and lands in `+
+                            <p>This route had `+rawData[i]['flights'].length+` total flight(s). The first flight
+                            departed on `+rawData[i]['departureDate']+` and landed in `+
                             rawData[i]['flights'][0]['destinationAirport']['city']+`.</p>
                         </div>
                         <div class="product-info smart-form">
                             <div class="row">
                                 <div class="col-md-12">
-                                    <button type="button" class="btn btn-danger" onClick="selectFlight(`+rawData[i]['id']+`)">Select Flight</button>
+                                    <button type="button" class="btn btn-danger" onClick="deleteFlight(`+rawData[i]['id']+`)">Delete Flight</button>
                                     <a type="button" href="#popup`+i+`" class="btn btn-info">More info</a>
                                 </div>
                             </div>
@@ -73,7 +70,7 @@ function displayFlights(){
             `;
         }
 
-        searchResults += `
+        content += `
             <div id="popup`+i+`" class="overlay">
                 <div class="popup">
                     <h2>Route #`+rawData[i]['id']+`</h2>
@@ -108,7 +105,7 @@ function displayFlights(){
 
 
 
-    let htmlDom = new DOMParser().parseFromString(searchResults, "text/html");
+    let htmlDom = new DOMParser().parseFromString(content, "text/html");
 
     const stack = document.body;
 
@@ -117,30 +114,13 @@ function displayFlights(){
 
 displayFlights();
 
-function sortByPrice() {
-    // TODO Get the price sorted data here and assign it to rawData (I moved it outside the function)
-    console.log("Sorting by price.");
-    displayFlights();
+function deleteFlight(routeId) {
+    // TODO: Delete this flight from the user's history
+    // TODO: make sure the list displayed updates with the deleted flight
+    alert('Route '+routeId+' deleted!');
+
 }
 
-function sortByDuration() {
-    // TODO Get the duration sorted data here
-    console.log("Sorting by duration.");
-    displayFlights()
-}
-
-function returnToSearch() {
-    window.location.href = "SearchFlight.html";
-}
-
-function selectFlight(routeId) {
-    let url = 'http://localhost:8080/selectFlight?id='+routeId
-    let jsondata = httpGet(url);
-
-
-    const rawData = JSON.parse(jsondata);
-    console.log(rawData)
-    console.log("Selected flight: "+routeId);
-
-    window.location.href = "BookingConfirmationPage.html";
+function returnToProfile() {
+    window.location.href = "UpdateProfilePage.html";
 }
