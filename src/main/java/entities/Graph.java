@@ -20,29 +20,6 @@ public class Graph {
         this.matrix[src][dest] = 1;
     }
 
-
-    public String toString() {
-        String output = "  ";
-
-        for (int node = 0; node < this.node_count; node++) {
-            output += node + " ";
-        }
-        output += "\n-";
-        for (int node = 0; node < this.node_count; node++) {
-            output += "--";
-        }
-        output += "\n";
-
-        for (int r = 0; r < this.node_count; r++) {
-            String line = r + "|";
-            for (int c = 0; c < this.node_count; c++) {
-                line += this.matrix[r][c] + " ";
-            }
-            output += line + "\n";
-        }
-        return output;
-    }
-
     /**
      * Return all possible paths from <src> to <dest>
      * @param src
@@ -87,6 +64,29 @@ public class Graph {
                 ArrayList<ArrayList<Integer>> paths_from_target = recursivePaths(target, dest, copy_visited, copy_path);
                 output.addAll(paths_from_target);
             }
+        }
+        return output;
+    }
+
+    // TODO: Delete this.  This method is only for development purposes
+    public String toString() {
+        String output = "  ";
+
+        for (int node = 0; node < this.node_count; node++) {
+            output += node + " ";
+        }
+        output += "\n-";
+        for (int node = 0; node < this.node_count; node++) {
+            output += "--";
+        }
+        output += "\n";
+
+        for (int r = 0; r < this.node_count; r++) {
+            String line = r + "|";
+            for (int c = 0; c < this.node_count; c++) {
+                line += this.matrix[r][c] + " ";
+            }
+            output += line + "\n";
         }
         return output;
     }
