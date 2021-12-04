@@ -70,7 +70,7 @@ public class AllPossibleFlights {
     private ArrayList<Flight> flightFromInt (ArrayList<Integer> integerPaths) {
         ArrayList<Flight> output = new ArrayList<Flight>();
         for (int i = 1; i < integerPaths.size(); i++) {
-            output.add(this.reverseFlight[i-1][i]);
+            output.add(this.reverseFlight[integerPaths.get(i-1)][integerPaths.get(i)]);
         }
         return output;
     }
