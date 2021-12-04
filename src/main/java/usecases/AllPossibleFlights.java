@@ -4,6 +4,7 @@ import entities.Airport;
 import entities.Flight;
 import entities.Plane;
 
+import java.io.IOException;
 import java.util.*;
 
 public class AllPossibleFlights {
@@ -14,58 +15,19 @@ public class AllPossibleFlights {
         this.flightData = new Hashtable<String, Flight>();
         this.airportData = new Hashtable<String, Airport>();
 
+        // I tried to preserve the hashtable form.  this is a good place to consider future reefactoring
 
-        // Mock Data (Airport) -> the keys are the airports' IATA code:
-        this.airportData.put("252", new Airport("Montreal", "252")); //A
-        this.airportData.put("76", new Airport("Toronto", "76")); //B
+        // Pull in airport data from the file
+        for (Airport airport : InteractDatabase.getAirportList()) {
+            this.airportData.put(airport.getIataCode(), airport);
+        }
 
-        this.airportData.put("251256342", new Airport("Vancouver", "251256342")); //C
-        this.airportData.put("12443", new Airport("Quebec City", "12443")); //D
-
-        this.airportData.put("457", new Airport("Mumbai", "457")); //E
-        this.airportData.put("9856", new Airport("Paris", "9856")); //F
-        this.airportData.put("96", new Airport("Paris", "96")); //G
-
-
-        // Mock Data (Flight -> source, destination):
-        this.flightData.put("1", new Flight(
-                new GregorianCalendar(2021, Calendar.DECEMBER, 30),
-                new Plane("Boeing 747", 223, 7, 223 - 7, true),
-                300, 8, airportData.get("252"), airportData.get("76")));
-
-        this.flightData.put("2", new Flight(
-                new GregorianCalendar(2022, Calendar.JUNE, 5),
-                new Plane("Apollo 11", 1738, 12, 1738 - 12, true),
-                600, 13, airportData.get("76"), airportData.get("251256342")));
-
-        this.flightData.put("3.5", new Flight(
-                new GregorianCalendar(2022, Calendar.APRIL, 4),
-                new Plane("Falcon 1", 1337, 15, 1337 - 15, true),
-                1200, 5, airportData.get("251256342"), airportData.get("12443")));
-
-        this.flightData.put("3", new Flight(
-                new GregorianCalendar(2022, Calendar.APRIL, 4),
-                new Plane("Falcon 1", 1337, 15, 1337 - 15, true),
-                1200, 5, airportData.get("12443"), airportData.get("457")));
-
-        this.flightData.put("4", new Flight(
-                new GregorianCalendar(2022, Calendar.APRIL, 4),
-                new Plane("Falcon 1", 1337, 15, 1337 - 15, true),
-                1200, 5, airportData.get("252"), airportData.get("9856")));
-        this.flightData.put("5", new Flight(
-                new GregorianCalendar(2022, Calendar.APRIL, 4),
-                new Plane("Falcon 1", 1337, 15, 1337 - 15, true),
-                1200, 5, airportData.get("252"), airportData.get("12443")));
-
-        this.flightData.put("6", new Flight(
-                new GregorianCalendar(2022, Calendar.APRIL, 4),
-                new Plane("Falcon 1", 1337, 15, 1337 - 15, true),
-                1200, 5, airportData.get("251256342"), airportData.get("96")));
-        this.flightData.put("7", new Flight(
-                new GregorianCalendar(2022, Calendar.APRIL, 4),
-                new Plane("Falcon 1", 1337, 15, 1337 - 15, true),
-                1200, 5, airportData.get("96"), airportData.get("457")));
-
+        // Pull in the Flight data from the file
+        int flightCount = 0;
+        for (Flight flight : InteractDatabase.getFlightList()) {
+            flightCount++;
+            this.flightData.put(Integer.toString(flightCount), flight);
+        }
     }
 
     public Hashtable <String, Airport> getAirportData() {

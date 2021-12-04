@@ -21,7 +21,7 @@ import org.json.JSONObject;
 
 public class InteractDatabase {
     // Airport Database:
-    public static ArrayList<Airport> getAirportList() throws IOException, ClassNotFoundException {
+    public static ArrayList<Airport> getAirportList() {
         // Returns list of Airports
         try {
             FileInputStream fis = new FileInputStream("src/main/java/backend/database/airport.ser");
@@ -34,6 +34,11 @@ public class InteractDatabase {
             return outputList;
         } catch (IOException i) {
             i.printStackTrace();
+            System.out.println("IOException: Error in getAirportList()");
+            return null;
+        } catch (ClassNotFoundException i) {
+            i.printStackTrace();
+            System.out.println("ClassNotFoundException:  Error in getAirportList()");
             return null;
         }
     }
@@ -133,7 +138,7 @@ public class InteractDatabase {
     }
 
     // Flight Database:
-    public static ArrayList<Flight> getFlightList() throws IOException, ClassNotFoundException {
+    public static ArrayList<Flight> getFlightList() {
         // Returns list of Flights
         try {
             FileInputStream fis = new FileInputStream("src/main/java/backend/database/flight.ser");
@@ -146,6 +151,11 @@ public class InteractDatabase {
             return outputList;
         } catch (IOException i) {
             i.printStackTrace();
+            System.out.println("IOException: Error in getFlightList()");
+            return null;
+        } catch (ClassNotFoundException i) {
+            i.printStackTrace();
+            System.out.println("IOException: Error in getFlightList()");
             return null;
         }
     }
