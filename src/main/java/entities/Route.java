@@ -93,4 +93,18 @@ public class Route implements Serializable{
         info.put("duration", r.getTotalDuration());
         return info;
     }
+
+    // to string is for testing purposes
+    // this is invoked in the frontend.
+    // feel free to modify this as you see fit
+    public String toString() {
+        String output = "";
+        for (Flight flight : this.flights) {
+            output += flight.getSourceAirport().getCity();
+            output += " -> ";
+            output += flight.getDestinationAirport().getCity();
+            output += "\n";
+        }
+        return output;
+    }
 }
