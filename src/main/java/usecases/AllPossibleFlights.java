@@ -10,7 +10,7 @@ public class AllPossibleFlights {
     private Hashtable<Integer, Airport> airportData;
     private Hashtable<String, Integer> reverseAirport;
     private ArrayList<Flight> flightData;
-    private Hashtable<int[], Flight> reverseFlight;
+    private Flight[][] reverseFlight;
     private Graph graph;
 
 
@@ -36,12 +36,11 @@ public class AllPossibleFlights {
 
         // Construct reverseFlight and graph
         this.graph = new Graph(airportCount);
-        this.reverseFlight = new Hashtable<int[], Flight>();
+        this.reverseFlight = new Flight[airportCount][airportCount];
         for (Flight flight : this.flightData) {
             int src = this.reverseAirport.get(flight.getSourceAirport().getIataCode());
             int dest = this.reverseAirport.get(flight.getDestinationAirport().getIataCode());
-            int[] key = new int[] {src, dest};
-            this.reverseFlight.put(key, flight);
+            this.reverseFlight[src][dest] = flight;
             this.graph.addEdge(src, dest);
         }
     }
@@ -71,8 +70,7 @@ public class AllPossibleFlights {
     private ArrayList<Flight> flightFromInt (ArrayList<Integer> integerPaths) {
         ArrayList<Flight> output = new ArrayList<Flight>();
         for (int i = 1; i < integerPaths.size(); i++) {
-            int[] key = new int[] {integerPaths.get(i-1), integerPaths.get(i)};
-            output.add(this.reverseFlight.get(key));
+            output.add(this.reverseFlight[i-1][i]);
         }
         return output;
     }
