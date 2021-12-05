@@ -17,10 +17,10 @@ function signUp(id, psw, psw_repeat, email, phone) {
     let signUpResult;
 
     // TODO: To be replaced with java
-    if(done==="true"){
+    if(done==="Account Created Successfully"){
         signUpResult = null;
     } else {
-        signUpResult = "There was an error signing up.";
+        signUpResult = done;
     }
 
     if(signUpResult === null) {

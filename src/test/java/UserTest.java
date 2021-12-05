@@ -1,45 +1,36 @@
-import entities.BasicUser;
 import org.junit.Before;
 import org.junit.Test;
-import entities.UserManager;
-
 import static org.junit.Assert.*;
 
+
+import usecases.LoginHandler;
+import controller.UserController;
+
 public class UserTest {
-    UserManager userManager;
+    LoginHandler um = new LoginHandler();
+    UserController uc = new UserController(um);
 
     @Before
-    public void setUp() throws Exception {
-        userManager = new UserManager("user", "pw", "email@example.com", "123456789");
-    }
-
-    @Test(timeout = 50)
-    public void TestBasicUserClassType() {
-        assertEquals(BasicUser.INVALID_REQUEST, userManager.user.setClassType("Economy"));
+    public void setUp() {
+        uc.createAccount("user01", "1234", "user01@gmail.com", "1234");
     }
 
     @Test(timeout = 50)
     public void TestBasicUserDowngrade() {
-        assertEquals("User Type is already Basic.", userManager.downgradeUserType());
+        assertEquals("User Type is already Basic.", uc.downgradeUserType());
     }
 
     @Test(timeout = 50)
     public void TestBasicUserUpgrade() {
-        assertEquals("User Type upgraded to Premium.", userManager.upgradeUserType());
-        System.out.println(userManager.user.toString());
+        assertEquals("User Type upgraded to Premium.", uc.upgradeUserType());
     }
 
     @Test(timeout = 50)
     public void TestPremiumUserDowngrade() {
-        assertEquals("User Type upgraded to Premium.", userManager.upgradeUserType());
-        assertEquals("User Type downgraded to Basic.", userManager.downgradeUserType());
+        assertEquals("User Type upgraded to Premium.", uc.upgradeUserType());
+        assertEquals("User Type downgraded to Basic.", uc.downgradeUserType());
     }
 
-    @Test(timeout = 50)
-    public void TestPremiumUserFeatures() {
-        userManager.upgradeUserType();
-        assertEquals("Class Type changed to Economy.", userManager.user.setClassType("Economy"));
-    }
 
     @Test(timeout = 50)
     public void TestLogin() {
