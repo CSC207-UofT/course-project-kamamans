@@ -33,3 +33,23 @@ $(function () {
         buttonText: '<i class="zmdi zmdi-chevron-down"></i>',
     });
 });
+
+function confirmBooking(route){
+    const url= 'http://localhost:8080/confirmBooking?route='+route
+    const done = httpGet(url)
+    let signInResult;
+
+    // TODO: To be replaced with java
+    if(done==="true"){
+        signInResult = null;
+    } else {
+        signInResult = "There was an error logging in.";
+    }
+
+    if(signInResult === null) {
+        window.location.href = "SearchFlight.html";
+    } else {
+        window.alert(signInResult);
+    }
+
+}

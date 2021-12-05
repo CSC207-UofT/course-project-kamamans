@@ -121,11 +121,11 @@
 		                		</div>
 								<div class="form-row">
 									<div class="form-holder form-holder-2">
-										<label for="flight" class="special-label-1">Choose a Flight </label>
-										<select name="flight" id="flight" class="form-control">
-											<option value="Flight One" selected>Flight One</option>
-											<option value="Flight Two">Flight Two</option>
-											<option value="Flight Three">Flight Three</option>
+										<label for="route" class="special-label-1">Select a Route </label>
+										<select name="flight" id="route" class="form-control">
+											<option value="Route One" selected>Route One</option>
+											<option value="Route Two">Route Two</option>
+											<option value="Route Three">Route Three</option>
 										</select>
 										<span class="select-btn">
 											<i class="zmdi zmdi-chevron-down"></i>
@@ -142,8 +142,8 @@
 			            </section>
 			            <!-- SECTION 3 -->
 			            <h2>
-			            	<p class="step-icon" ><span>3</span></p>
-			            	<span class="step-text">Confirm</span>
+			            	<p class="step-icon" onclick="confirmBooking(document.getElementById('route').value)">
+								<span>3</span></p> <span class="step-text">Confirm</span>
 			            </h2>
 			            <section>
 			                <div class="inner">
