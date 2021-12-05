@@ -37,19 +37,18 @@ $(function () {
 function confirmBooking(route){
     const url= 'http://localhost:8080/confirmBooking?route='+route
     const done = httpGet(url)
-    let signInResult;
+    let updatedRouteHistory;
 
-    // TODO: To be replaced with java
     if(done==="true"){
-        signInResult = null;
+        updatedRouteHistory = null;
     } else {
-        signInResult = "There was an error logging in.";
+        updatedRouteHistory = "Unable to save route to route history. Please try again.";
     }
 
-    if(signInResult === null) {
+    if(updatedRouteHistory === null) {
         window.location.href = "SearchFlight.html";
     } else {
-        window.alert(signInResult);
+        window.alert(updatedRouteHistory);
     }
 
 }
