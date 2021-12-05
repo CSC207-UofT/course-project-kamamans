@@ -34,3 +34,23 @@ $(function () {
         }
     });
 });
+
+function updateInformation(phone, email){
+    // update user information with filled in items
+
+    const url= 'http://localhost:8080/updateProfile?phone='+phone+'&email='+email
+    const done = httpGet(url)
+    let updatedProfileResults;
+
+    if(done==="true"){
+        updatedProfileResults = null;
+    } else {
+        updatedProfileResults = "There was an error updating your information.";
+    }
+
+    if(updatedProfileResults === null) {
+        window.location.href = "SearchFlight.html";
+    } else {
+        window.alert(updatedProfileResults);
+    }
+}

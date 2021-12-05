@@ -48,6 +48,18 @@ public class DemoApplication {
 
 		return uc.createAccount(username, password, email, phoneNumber);
 	}
+
+	@GetMapping("/UpdateProfilePage")
+	public String updateProfile(@RequestParam(value = "phone") String phone, @RequestParam(value = "email") String email){
+		try{
+			uc.setPhoneNumber(phone);
+			uc.setEmail(email);
+			return ("true");
+		} catch (NullPointerException e){
+			return("false");
+		}
+	}
+
 	@GetMapping("/searchFlight")
 	public String searchFlight(@RequestParam(value = "departure") String departure, @RequestParam(value = "destination") String  destination,
 								@RequestParam(value = "date") String  date)  {
