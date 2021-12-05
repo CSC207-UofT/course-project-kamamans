@@ -1,7 +1,9 @@
 package controller;
 
+import usecases.InteractDatabase;
 import usecases.LoginHandler;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -109,7 +111,25 @@ public class UserController {
 
     public StringBuilder getFavouriteAirports() { return loginHandler.currentUser.getFavouriteAirports(); }
 
-    // TODO: add fav airport, remove fav airport
+    public String addFavouriteAirport(String iataCode) {
+        InteractDatabase db = new InteractDatabase();
+        try {
+            return loginHandler.currentUser.addFavouriteAirport(db.getAirportByIata(iataCode));
+        } catch (IOException | ClassNotFoundException e) {
+            System.out.println(e.getStackTrace());
+            return "Error occurred while adding favourite airport.";
+        }
+    }
+
+    public String removeFavouriteAirport(String iataCode) {
+        InteractDatabase db = new InteractDatabase();
+        try {
+            return loginHandler.currentUser.removeFavouriteAirport(db.getAirportByIata(iataCode));
+        } catch (IOException | ClassNotFoundException e) {
+            System.out.println(e.getStackTrace());
+            return "Error occurred while removing favourite airport.";
+        }
+    }
 
     public int getAutoLogoutTimer() { return loginHandler.currentUser.getAutoLogoutTimer(); }
 
@@ -117,5 +137,13 @@ public class UserController {
 
     public StringBuilder getHomeAirport() { return loginHandler.currentUser.getHomeAirport(); }
 
-    // TODO: set home airport
+    public String setHomeAirport(String iataCode) {
+        InteractDatabase db = new InteractDatabase();
+        try {
+            return loginHandler.currentUser.setHomeAirport(db.getAirportByIata(iataCode));
+        } catch (IOException | ClassNotFoundException e) {
+            System.out.println(e.getStackTrace());
+            return "Error occurred while setting home airport.";
+        }
+    }
 }
