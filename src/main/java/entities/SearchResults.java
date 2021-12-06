@@ -4,6 +4,12 @@ import java.text.SimpleDateFormat;
 import java.util.Comparator;
 import java.util.List;
 
+/**
+ * An object that returns search results and information on results.
+ *
+ * Includes returning potential routes sorted by price, duration, location etc.
+ */
+
 public class SearchResults {
 
     private List<Route> potentialRoutes;
@@ -36,7 +42,10 @@ public class SearchResults {
      * Returns a StringBuilder object that is parseable and contains all the information for every route
      * in its list of routes.
      */
-    public StringBuilder routesToString() {
+    public StringBuilder routesToString(User u) {
+        if(this.potentialRoutes.isEmpty()){
+            return new StringBuilder("");
+        }
         StringBuilder returnString = new StringBuilder("[");
         int idCounter = 0;
         for (Route route: potentialRoutes){
@@ -99,8 +108,17 @@ public class SearchResults {
             returnString.append("\"duration\": "+route.getTotalDuration()+", ");
 
             // Adding id
-            returnString.append("\"id\": \""+idCounter+"\"");
-            idCounter++;
+            while(route.getRouteID() == -1){
+                if(!u.existingRouteId.contains(idCounter)){
+                    route.setRouteID(idCounter);
+                }
+                idCounter++;
+            }
+
+
+
+            returnString.append("\"id\": \""+route.getRouteID()+"\"");
+
 
 
             returnString.append("},");

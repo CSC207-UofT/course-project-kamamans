@@ -3,12 +3,6 @@
  * Copyright (c) 2014 Rafael Staib (http://www.jquery-steps.com)
  * Licensed under MIT http://www.opensource.org/licenses/MIT
  */
-function httpGet(theUrl){
-    const xmlHttp = new XMLHttpRequest();
-    xmlHttp.open( "GET", theUrl, false ); // false for synchronous request
-    xmlHttp.send( null );
-    return xmlHttp.responseText;
-}
 ;(function ($, undefined)
 {
 $.fn.extend({
@@ -283,7 +277,6 @@ function destroy(wizard, options)
  **/
 function finishStep(wizard, state)
 {
-
     var currentStep = wizard.find(".steps li").eq(state.currentIndex);
 
     if (wizard.triggerHandler("finishing", [state.currentIndex]))
@@ -295,10 +288,6 @@ function finishStep(wizard, state)
     {
         currentStep.addClass("error");
     }
-
-
-
-    serializeUser();
 }
 
 /**
@@ -549,72 +538,8 @@ function increaseCurrentIndexBy(state, increaseBy)
  **/
 function initialize(options)
 {
-
     /*jshint -W040 */
     var opts = $.extend(true, {}, defaults, options);
-    let url = 'http://localhost:8080/getUserData'
-    let jsondata = httpGet(url);
-    let rawData = JSON.parse(jsondata);
-    console.log(rawData)
-    let username = rawData.userName;
-    let password = rawData.password;
-    let email = rawData.email;
-    let phoneNumber = rawData.phoneNumber;
-
-
-    const user_info_content = `<div class="form-row">
-        <div class="form-holder form-holder-2">
-            <label>Username</label>
-            <input readonly type="text" placeholder="Username" class="form-control" id="username" name="username" value=`+username+`>
-        </div>
-    </div>
-    <div class="form-row">
-        <div class="form-holder form-holder-2">
-            <label>Password</label>
-            <input type="text" placeholder="Password" class="form-control" id="password" name="password" value=`+password+`>
-        </div>
-    </div>
-    <div class="form-row">
-        <div class="form-holder form-holder-2">
-            <label>Email</label>
-            <input type="text" placeholder="example@gmail.com" class="form-control" id="email" name="email" value=`+email+`>
-        </div>
-    </div>
-    <div class="form-row">
-        <div class="form-holder form-holder-2">
-            <label>Phone Number</label>
-            <input type="text" placeholder="+1 (###)-###-####" class="form-control" id="phone" name="phone" value=`+phoneNumber+`>
-        </div>
-    </div>
-    `
-
-    document.getElementById('personal-information').innerHTML = user_info_content;
-
-    let url2 = 'http://localhost:8080/getUserSettings'
-    let jsondata2 = httpGet(url2);
-    let rawData2 = JSON.parse(jsondata2);
-    console.log(rawData2)
-    const user_settings = {
-        colorScheme: rawData2.colorScheme,
-        homeAirport: rawData2.homeAirport,
-        favouriteAirport: rawData2.favouriteAirport,
-        autoLogoutTimer: rawData2.autoLogoutTimer,
-    }
-
-    let settings_content = ``
-
-    Object.entries(user_settings).forEach(([key, value]) => {
-        settings_content +=`
-            <div class="form-row">
-                <div class="form-holder form-holder-2">
-                    <label>`+key+`</label>
-                    <input type="text" class="form-control" id="setting_`+key+`" name="`+key+`" value=`+value+`>
-                </div>
-            </div>
-        `
-    })
-
-    document.getElementById('settings').innerHTML = settings_content;
 
     return this.each(function ()
     {
@@ -671,6 +596,7 @@ function insertStep(wizard, options, state, index, step)
     {
         throwError(_indexOutOfRangeErrorMessage);
     }
+
     // Change data
     step = $.extend({}, stepModel, step);
     insertStepToCache(wizard, index, step);
@@ -815,7 +741,6 @@ function loadAsyncContent(wizard, options, state)
  **/
 function paginationClick(wizard, options, state, index)
 {
-
     var oldIndex = state.currentIndex;
 
     if (index >= 0 && index < state.stepCount && !(options.forceMoveForward && index < state.currentIndex))
@@ -1968,7 +1893,11 @@ var defaults = $.fn.steps.defaults = {
      * @default function (event, currentIndex, newIndex) { return true; }
      * @for defaults
      **/
-    onStepChanging: function (event, currentIndex, newIndex) { return true; },
+    onStepChanging: function (event, currentIndex, newIndex) {
+
+        return true;
+
+    },
 
     /**
      * Fires after the step has change. 
@@ -1979,7 +1908,11 @@ var defaults = $.fn.steps.defaults = {
      * @for defaults
      **/
     onStepChanged: function (event, currentIndex, priorIndex) {
-        confirmDetailsInformation();
+
+        document.getElementById('booking-information').innerHTML = getBookingInformation();
+
+        document.getElementById('confirm-details').innerHTML = getDetails();
+
     },
 
     /**
@@ -2001,7 +1934,17 @@ var defaults = $.fn.steps.defaults = {
      * @default function (event, currentIndex) { return true; }
      * @for defaults
      **/
-    onFinishing: function (event, currentIndex) { return true; },
+    onFinishing: function (event, currentIndex) {
+
+        let successfullyBooked = confirmBooking(document.getElementById('first_name').value, document.
+            getElementById('last_name').value, document.getElementById('phone').
+            value, document.getElementById('your_email_1').value, [document.
+            getElementById('date').value, document.getElementById('month').value, document.
+            getElementById('year').value],document.getElementById('address').value);
+
+        return successfullyBooked;
+
+    },
 
     /**
      * Fires after completion. 
@@ -2086,7 +2029,7 @@ var defaults = $.fn.steps.defaults = {
         /**
          * Label for the next button.
          *
-         * @property next`
+         * @property next
          * @type String
          * @default "Next"
          * @for defaults

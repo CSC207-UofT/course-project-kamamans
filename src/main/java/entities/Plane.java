@@ -1,7 +1,8 @@
 package entities;
 
+import org.json.*;
+
 import java.io.Serializable;
-import java.util.ArrayList;
 
 /**
  * Creates a plane object that stores the brand name of the plane, total seat count, number of first class seats,
@@ -49,4 +50,12 @@ public class Plane implements Serializable {
         return this.hasVacantSeats;
     }
 
+    public Plane(String planeJSON) throws JSONException{
+        JSONObject obj = new JSONObject(planeJSON);
+        brandName = obj.getString("brandName");
+        seatCount = obj.getInt("seatCount");
+        firstClassSeats = obj.getInt("firstClassSeats");
+        economySeats = obj.getInt("economySeats");
+        hasVacantSeats = obj.getBoolean("hasVacantSeats");
+    }
 }

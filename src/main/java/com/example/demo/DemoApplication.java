@@ -27,6 +27,7 @@ public class DemoApplication {
 	private LoginHandler us = new LoginHandler();
 	private UserController uc = new UserController(us);
 	private SearchResults sr;
+	private Route selectedRoute;
 	public void runDemo(String[] args)  {
 
 		SpringApplication.run(DemoApplication.class, args);
@@ -47,17 +48,6 @@ public class DemoApplication {
 								@RequestParam(value = "phoneNumber") String  phoneNumber) {
 
 		return uc.createAccount(username, password, email, phoneNumber);
-	}
-
-	@GetMapping("/UpdateProfilePage")
-	public String updateProfile(@RequestParam(value = "phone") String phone, @RequestParam(value = "email") String email){
-		try{
-			uc.setPhoneNumber(phone);
-			uc.setEmail(email);
-			return ("true");
-		} catch (NullPointerException e){
-			return("false");
-		}
 	}
 
 	@GetMapping("/searchFlight")
@@ -82,14 +72,13 @@ public class DemoApplication {
 			Airport departureAirport = InteractDatabase.getAirportByName(departure);
 
 			Airport destinationAirport = InteractDatabase.getAirportByName(destination);
-			if(departureAirport == null){
+			if (departureAirport == null){
 				return("Departure airport not found");
 			}
-			if(destinationAirport == null){
+			if (destinationAirport == null){
 				return("Destination airport not found");
 			}
 			this.sr = PlanFlight.EnterSearchRequirements(cal, departureAirport, destinationAirport);
-			System.out.println(this.sr.routesToString());
 
 			return null;
 		} catch (IOException | ClassNotFoundException e) {
@@ -97,16 +86,79 @@ public class DemoApplication {
 		}
 
 	}
+
 	@GetMapping("/getPotentialFlights")
 	public String getPotentialFlights() {
-		System.out.println(this.sr.routesToString().toString());
-		return this.sr.routesToString().toString();
+		System.out.println(this.sr.routesToString(uc.getCurrentUser()).toString());
+		return this.sr.routesToString(uc.getCurrentUser()).toString();
+	}
+	@GetMapping("/getPotentialFlightsByDuration")
+	public String getPotentialFlightsByDuration() {
+		sr.sortByDuration();
+		System.out.println(this.sr.routesToString(uc.getCurrentUser()).toString());
+		return this.sr.routesToString(uc.getCurrentUser()).toString();
+	}
+	@GetMapping("/getPotentialFlightsByPrice")
+	public String getPotentialFlightsByPrice() {
+		sr.sortByPrice();
+		System.out.println(this.sr.routesToString(uc.getCurrentUser()).toString());
+		return this.sr.routesToString(uc.getCurrentUser()).toString();
 	}
 	@GetMapping("/selectFlight")
 	public String selectFlight(@RequestParam(value = "id") String id) {
-		Route selectedRoute = this.sr.getPotentialRoutes().get(Integer.parseInt(id));
-
+		 for (Route r : this.sr.getPotentialRoutes()){
+			 if (r.getRouteID() == Integer.parseInt(id)){
+				 this.selectedRoute = r;
+			 }
+		 }
+		 System.out.println("selected flight");
 		return("true");
+	}
+	@GetMapping("/getSelectedFlight")
+	public String getSelectedFlight() {
+		System.out.println(this.selectedRoute.routeToString().toString());
+		return(this.selectedRoute.routeToString().toString());
+	}
+	@GetMapping("/bookFlight")
+	public String bookFlight(@RequestParam(value = "firstName") String firstName, @RequestParam(value = "lastName") String lastName,
+							 @RequestParam(value = "phoneNumber") String phoneNumber, @RequestParam(value = "email") String email,
+							 @RequestParam(value = "dateOfBirth") String dateOfBirth) {
+
+		uc.addRouteToHistory(this.selectedRoute);
+		System.out.println("booked flight with id = "+this.selectedRoute.getRouteID());
+		return "it worked!!!";
+	}
+	@GetMapping("/getUserData")
+	public String getUserData() {
+		return uc.getUserDataJson();
+	}
+	@GetMapping("/getUserSettings")
+	public String getUserSettings() {
+		System.out.println(uc.getUserSettingsJson());
+		return uc.getUserSettingsJson();
+	}
+	@GetMapping("/UpdateAndSaveUserInformation")
+	public String UpdateAndSaveUserSettings(@RequestParam(value = "username") String username, @RequestParam(value = "password") String  password,
+											@RequestParam(value = "email") String  email,
+											@RequestParam(value = "phoneNumber") String  phoneNumber) {
+		System.out.println(password+email+phoneNumber);
+		uc.setPassword(password);
+		uc.setEmail(email);
+		uc.setPhoneNumber(phoneNumber);
+		uc.saveSettings();
+		return ("true");
+	}
+	@GetMapping("/viewRouteHistory")
+	public String viewRouteHistory() {
+		System.out.println(uc.getRouteHistory());
+		System.out.println(uc.getRouteHistory().toString());
+		return uc.getRouteHistory().toString();
+	}
+	@GetMapping("/deleteRoute")
+	public String viewRouteHistory(@RequestParam(value = "id") String id) {
+		uc.removeRoutebyID(id);
+		System.out.println("deleted route");
+		return "removed route";
 	}
 
 }
