@@ -27,6 +27,7 @@ public class DemoApplication {
 	private LoginHandler us = new LoginHandler();
 	private UserController uc = new UserController(us);
 	private SearchResults sr;
+	private Route selectedRoute;
 	public void runDemo(String[] args)  {
 
 		SpringApplication.run(DemoApplication.class, args);
@@ -90,11 +91,44 @@ public class DemoApplication {
 		System.out.println(this.sr.routesToString().toString());
 		return this.sr.routesToString().toString();
 	}
+	@GetMapping("/getPotentialFlightsByDuration")
+	public String getPotentialFlightsByDuration() {
+		sr.sortByDuration();
+		System.out.println(this.sr.routesToString().toString());
+		return this.sr.routesToString().toString();
+	}
+	@GetMapping("/getPotentialFlightsByPrice")
+	public String getPotentialFlightsByPrice() {
+		sr.sortByPrice();
+		System.out.println(this.sr.routesToString().toString());
+		return this.sr.routesToString().toString();
+	}
 	@GetMapping("/selectFlight")
 	public String selectFlight(@RequestParam(value = "id") String id) {
-		Route selectedRoute = this.sr.getPotentialRoutes().get(Integer.parseInt(id));
-
+		 this.selectedRoute = this.sr.getPotentialRoutes().get(Integer.parseInt(id));
+		 System.out.println("selected flight");
 		return("true");
+	}
+	@GetMapping("/getSelectedFlight")
+	public String getSelectedFlight() {
+		System.out.println(this.selectedRoute.toString());
+		return(this.selectedRoute.routeToString().toString());
+	}
+	@GetMapping("/bookFlight")
+	public String bookFlight(@RequestParam(value = "firstName") String firstName, @RequestParam(value = "lastName") String lastName,
+							 @RequestParam(value = "phoneNumber") String phoneNumber, @RequestParam(value = "email") String email,
+							 @RequestParam(value = "dateOfBirth") String dateOfBirth) {
+		System.out.println("booked flight");
+		return "true";
+	}
+	@GetMapping("/getUserData")
+	public String getUserData() {
+		return uc.getUserDataJson();
+	}
+	@GetMapping("/getUserSettings")
+	public String getUserSettings() {
+		System.out.println(uc.getUserSettingsJson());
+		return uc.getUserSettingsJson();
 	}
 
 }

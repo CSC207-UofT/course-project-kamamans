@@ -1,12 +1,27 @@
+function httpGet(theUrl){
+    const xmlHttp = new XMLHttpRequest();
+    xmlHttp.open( "GET", theUrl, false ); // false for synchronous request
+    xmlHttp.send( null );
+    return xmlHttp.responseText;
+}
+
 function confirmBooking(first_name, last_name, phone_num, email, date_of_birth, address){
+    let error = ''
+    let url = 'http://localhost:8080/bookFlight?firstName='
+        +first_name+'&lastName='+last_name+'&phoneNumber='+phone_num+'&email='+email+'&dateOfBirth='+date_of_birth+'&address='+address
+    const done = httpGet(url)
+    let signInResult;
 
-    // TODO: Add Java code --> Return false if unsuccessful
-
+    if(done==="true"){
+        signInResult = null;
+    } else {
+        let error = done
+    }
     let successfullyBooked = true;
 
     // TODO: Error text to tell the user the invalid input if any
 
-    let error = ''
+
 
     console.log(first_name);
     console.log(last_name);
@@ -29,21 +44,13 @@ function confirmBooking(first_name, last_name, phone_num, email, date_of_birth, 
 function getBookingInformation() {
     let flightDetails;
 
-    // TODO Put the raw route data in here
-    let rawData = {
-        "departureAirport": {"city": "Toronto", "iataCode": "001"},
-        "destinationAirport": {"city": "Vancouver", "iataCode": "003"},
-        "departureDate": "12/15/2021",
-        "flights": [
-            {"departureDate": "12/18/2021",
-                "plane": {"brandName": "boeing", "seatCount": 100, "firstClassSeats": 10, "economySeats": 80, "hasVacantSeats": true},
-                "price": 2.0,
-                "duration": 5.0,
-                "sourceAirport": {"city": "Toronto", "iataCode": "001"},
-                "destinationAirport": {"city": "Vancouver", "iataCode": "003"} }],
-        "price": 2.0,
-        "duration": 5.0,
-        "id": "0"};
+    let url = 'http://localhost:8080/getSelectedFlight'
+    let jsondata = httpGet(url);
+    let thing = JSON.parse(jsondata);
+
+
+
+    let rawData = thing[0]
 
     flightDetails = ``;
     for (let j = 0; j < rawData['flights'].length; j++){
@@ -86,12 +93,21 @@ function getBookingInformation() {
 
 function getDetails() {
 
-    // TODO Get the route details here too and fill in the required values below
 
     let route_id = '5'
     let destination = 'toronto'
     let departure = 'vancouver'
     let departure_date = '05/05/21'
+
+    let url = 'http://localhost:8080/getSelectedFlight'
+    let jsondata = httpGet(url);
+    let data = JSON.parse(jsondata)[0];
+    console.log(data)
+
+    route_id = data.id;
+    destination = data.destinationAirport['city'];
+    departure = data.departureAirport['city'];
+    departure_date = data.departureDate;
 
     const details = `<table class="table">
         <tbody>

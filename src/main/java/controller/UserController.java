@@ -109,6 +109,49 @@ public class UserController {
 
     public StringBuilder getFavouriteAirports() { return loginHandler.currentUser.getFavouriteAirports(); }
 
+    public String getUserDataJson () {
+        String s = "{" +
+                "\"userName\":" +
+                "\"" +
+                getUsername() +
+                "\"," +
+                "\"password\":" +
+                "\"" +
+                getPassword() +
+                "\"," +
+                "\"email\":" +
+                "\"" +
+                getEmail() +
+                "\"," +
+                "\"phoneNumber\":" +
+                "\"" +
+                getPhoneNumber() +
+                "\"" +
+                "}";
+        return s;
+    }
+    public String getUserSettingsJson () {
+        String s = "{" +
+                "\"colorScheme\":" +
+                "\"" +
+                "Blue" +
+                "\"," +
+                "\"homeAirport\":" +
+                "\"" +
+                "Toronto" +
+                "\"," +
+                "\"favouriteAirport\":" +
+                "\"" +
+                "None" +
+                "\"," +
+                "\"autoLogoutTimer\":" +
+                "\"" +
+                10 +
+                "\"" +
+                "}";
+        return s;
+    }
+
     // TODO: add fav airport, remove fav airport
 
     public int getAutoLogoutTimer() { return loginHandler.currentUser.getAutoLogoutTimer(); }

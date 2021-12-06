@@ -11,7 +11,6 @@ import java.util.*;
 public class PlanFlight {
     private Flight selectedFlight;
     private final String user;
-
     public PlanFlight(String user){
         this.user = user;
     }
@@ -36,7 +35,7 @@ public class PlanFlight {
         Calendar day2 = Calendar.getInstance();
         day2.set(2021, 11, 19);
         Calendar day3 = Calendar.getInstance();
-        day3.set(2021, 11, 20);
+        day3.set(2021, 12, 5);
 
         flights.add(new Flight(day0, basic, 1, 5, nyc, vancouver));
         flights.add(new Flight(day1, basic, 2, 5, toronto, vancouver));
@@ -45,6 +44,13 @@ public class PlanFlight {
         flights.add(new Flight(day2, basic, 5, 5, vancouver, toronto));
         flights.add(new Flight(day3, basic, 6, 5, nyc, toronto));
         flights.add(new Flight(day3, basic, 7, 5, nyc, vancouver));
+        flights.add(new Flight(day2, basic, 5, 5, vancouver, toronto));
+        flights.add(new Flight(day3, basic, 6, 5, toronto, vancouver));
+        flights.add(new Flight(day3, basic, 7, 3, toronto, vancouver));
+        flights.add(new Flight(day2, basic, 5, 2, toronto, vancouver));
+        flights.add(new Flight(day3, basic, 6, 3, toronto, vancouver));
+        flights.add(new Flight(day3, basic, 7, 1, nyc, vancouver));
+
         // ^^^ all this is to generate a flight list
 
 

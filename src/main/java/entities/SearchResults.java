@@ -99,8 +99,12 @@ public class SearchResults {
             returnString.append("\"duration\": "+route.getTotalDuration()+", ");
 
             // Adding id
-            returnString.append("\"id\": \""+idCounter+"\"");
-            idCounter++;
+            if (route.getRouteID() == -1){
+                route.setRouteID(idCounter);
+                idCounter++;
+            }
+            returnString.append("\"id\": \""+route.getRouteID()+"\"");
+
 
 
             returnString.append("},");

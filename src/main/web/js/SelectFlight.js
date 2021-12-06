@@ -118,13 +118,19 @@ function displayFlights(){
 displayFlights();
 
 function sortByPrice() {
-    // TODO Get the price sorted data here and assign it to rawData (I moved it outside the function)
+    let url = 'http://localhost:8080/getPotentialFlightsByPrice'
+    let jsondata = httpGet(url);
+    document.location.reload(true)
+    let rawData = JSON.parse(jsondata);
     console.log("Sorting by price.");
     displayFlights();
 }
 
 function sortByDuration() {
-    // TODO Get the duration sorted data here
+    let url = 'http://localhost:8080/getPotentialFlightsByDuration'
+    let jsondata = httpGet(url);
+    document.location.reload(true)
+    let rawData = JSON.parse(jsondata);
     console.log("Sorting by duration.");
     displayFlights()
 }
@@ -136,8 +142,6 @@ function returnToSearch() {
 function selectFlight(routeId) {
     let url = 'http://localhost:8080/selectFlight?id='+routeId
     let jsondata = httpGet(url);
-
-
     const rawData = JSON.parse(jsondata);
     console.log(rawData)
     console.log("Selected flight: "+routeId);

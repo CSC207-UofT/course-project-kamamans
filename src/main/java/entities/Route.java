@@ -3,6 +3,7 @@ import java.io.Serializable;
 import usecases.InteractDatabase;
 
 import java.lang.reflect.Array;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -16,6 +17,7 @@ public class Route implements Serializable{
     private Airport destinationAirport;
     private Calendar departureDate;
     private List<Flight> flights;
+    private int routeID = -1;
 
     public Route (Airport departureAirport, Airport destinationAirport, Calendar departureDate, List<Flight> flights) {
         this.departureAirport = departureAirport;
@@ -67,6 +69,12 @@ public class Route implements Serializable{
         }
         return d;
     }
+    public int getRouteID() {
+        return this.routeID;
+    }
+    public void setRouteID(int routeID) {
+        this.routeID = routeID;
+    }
 
     /**
      * returns a Hashmap that contains information of the entire route.
@@ -92,5 +100,78 @@ public class Route implements Serializable{
 
         info.put("duration", r.getTotalDuration());
         return info;
+    }
+    public StringBuilder routeToString() {
+        StringBuilder returnString = new StringBuilder("[");
+
+
+        returnString.append("{");
+
+        // Adding departure airport
+        returnString.append("\"departureAirport\": {\"city\": \"" + getDepartureAirport().getCity() + "\", \"iataCode\": \"" +
+                getDepartureAirport().getIataCode() + "\"}, ");
+
+        // Adding destination airport
+        returnString.append("\"destinationAirport\": {\"city\": \"" + getDestinationAirport().getCity() + "\", \"iataCode\": \"" +
+                getDestinationAirport().getIataCode() + "\"}, ");
+
+        // Adding departure date
+        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+        returnString.append("\"departureDate\": \"" + sdf.format(getDepartureDate().getTime()) + "\", ");
+
+        // Adding flights
+        returnString.append("\"flights\": [");
+        for (Flight flight : getFlights()) {
+
+            returnString.append("{");
+
+            // Adding departure date
+            returnString.append("\"departureDate\": \"" + sdf.format(flight.getDate().getTime()) + "\", ");
+
+            //Adding plane details
+            returnString.append("\"plane\": {");
+            returnString.append("\"brandName\": \"" + flight.getPlane().getBrandName() + "\", ");
+            returnString.append("\"seatCount\": " + flight.getPlane().getSeatCount() + ", ");
+            returnString.append("\"firstClassSeats\": " + flight.getPlane().getFirstClassSeats() + ", ");
+            returnString.append("\"economySeats\": " + flight.getPlane().getEconomySeats() + ", ");
+            returnString.append("\"hasVacantSeats\": " + flight.getPlane().getHasVacantSeats());
+            returnString.append("}, ");
+
+            // Adding price
+            returnString.append("\"price\": " + flight.getPrice() + ", ");
+
+            // Adding duration
+            returnString.append("\"duration\": " + flight.getDuration() + ", ");
+
+            // Adding source airport
+            returnString.append("\"sourceAirport\": {");
+            returnString.append("\"city\": \"" + flight.getSourceAirport().getCity() + "\", \"iataCode\": \"" +
+                    flight.getSourceAirport().getIataCode());
+            returnString.append("\"}, \"destinationAirport\": {");
+            returnString.append("\"city\": \"" + flight.getDestinationAirport().getCity() + "\", \"iataCode\": \"" +
+                    flight.getDestinationAirport().getIataCode());
+            returnString.append("\"} ");
+            returnString.append("},");
+        }
+        returnString.setLength(returnString.length() - 1);
+        returnString.append("], ");
+
+        // Adding price
+        returnString.append("\"price\": " + getPriceofFlights() + ", ");
+
+        // Adding duration
+        returnString.append("\"duration\": " + getTotalDuration() + ", ");
+
+        // Adding id
+        returnString.append("\"id\": \"" + getRouteID() + "\"");
+
+
+
+        returnString.append("},");
+
+        returnString.setLength(returnString.length() - 1);
+        returnString.append("]");
+
+        return returnString;
     }
 }

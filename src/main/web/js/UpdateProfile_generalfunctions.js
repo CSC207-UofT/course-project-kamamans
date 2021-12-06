@@ -3,6 +3,12 @@
  * Copyright (c) 2014 Rafael Staib (http://www.jquery-steps.com)
  * Licensed under MIT http://www.opensource.org/licenses/MIT
  */
+function httpGet(theUrl){
+    const xmlHttp = new XMLHttpRequest();
+    xmlHttp.open( "GET", theUrl, false ); // false for synchronous request
+    xmlHttp.send( null );
+    return xmlHttp.responseText;
+}
 ;(function ($, undefined)
 {
 $.fn.extend({
@@ -543,14 +549,18 @@ function increaseCurrentIndexBy(state, increaseBy)
  **/
 function initialize(options)
 {
+
     /*jshint -W040 */
     var opts = $.extend(true, {}, defaults, options);
+    let url = 'http://localhost:8080/getUserData'
+    let jsondata = httpGet(url);
+    let rawData = JSON.parse(jsondata);
+    console.log(rawData)
+    let username = rawData.userName;
+    let password = rawData.password;
+    let email = rawData.email;
+    let phoneNumber = rawData.phoneNumber;
 
-    // TODO: assign user attributes here
-    let username = 'user';
-    let password = 'pass';
-    let email = '123@gmail.com';
-    let phoneNumber = '(123)-123-1234';
 
     const user_info_content = `<div class="form-row">
         <div class="form-holder form-holder-2">
@@ -580,12 +590,15 @@ function initialize(options)
 
     document.getElementById('personal-information').innerHTML = user_info_content;
 
-    // TODO: Retrieve all relevant settings replacing the dictionary below
+    let url2 = 'http://localhost:8080/getUserSettings'
+    let jsondata2 = httpGet(url2);
+    let rawData2 = JSON.parse(jsondata2);
+    console.log(rawData2)
     const user_settings = {
-        colorScheme: 'yellow',
-        homeAirport: 'Toronto',
-        favouriteAirport: 'Pearson',
-        autoLogoutTimer: 50,
+        colorScheme: rawData2.colorScheme,
+        homeAirport: rawData2.homeAirport,
+        favouriteAirport: rawData2.favouriteAirport,
+        autoLogoutTimer: rawData2.autoLogoutTimer,
     }
 
     let settings_content = ``
@@ -658,9 +671,6 @@ function insertStep(wizard, options, state, index, step)
     {
         throwError(_indexOutOfRangeErrorMessage);
     }
-
-    // TODO: Validate step object
-
     // Change data
     step = $.extend({}, stepModel, step);
     insertStepToCache(wizard, index, step);
