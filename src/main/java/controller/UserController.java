@@ -1,7 +1,11 @@
 package controller;
 
+import org.json.JSONException;
+import usecases.InteractDatabase;
 import usecases.LoginHandler;
 
+import java.io.IOException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -19,10 +23,10 @@ public class UserController {
      * Create a new user account.
      * username, email, and phone number must be unique
      * email and phone number must follow respective formatting
-     * @param username
-     * @param password
-     * @param email
-     * @param phoneNumber
+     * @param username unique name of the user
+     * @param password password of the user
+     * @param email unique email of the user
+     * @param phoneNumber unique phone number of the user
      * @return true if account creation is successful.  false otherwise.
      */
     public String createAccount(String username, String password, String email, String phoneNumber) {
@@ -154,16 +158,54 @@ public class UserController {
 
     // TODO: add fav airport, remove fav airport
 
+    public String addFavouriteAirport(String iataCode) {
+        InteractDatabase db = new InteractDatabase();
+        try {
+            return loginHandler.currentUser.addFavouriteAirport(db.getAirportByIata(iataCode));
+        } catch (IOException | ClassNotFoundException e) {
+            return "Error occurred while adding favourite airport.";
+        }
+    }
+
+    public String removeFavouriteAirport(String iataCode) {
+        InteractDatabase db = new InteractDatabase();
+        try {
+            return loginHandler.currentUser.removeFavouriteAirport(db.getAirportByIata(iataCode));
+        } catch (IOException | ClassNotFoundException e) {
+            return "Error occurred while removing favourite airport.";
+        }
+    }
+
     public int getAutoLogoutTimer() { return loginHandler.currentUser.getAutoLogoutTimer(); }
 
     public String setAutoLogoutTimer(int autoLogoutTimer) { return loginHandler.currentUser.setAutoLogoutTimer(autoLogoutTimer); }
 
     public StringBuilder getHomeAirport() { return loginHandler.currentUser.getHomeAirport(); }
 
+
     // TODO: set home airport
 
     public void removeRoutebyID(String id) {
         loginHandler.currentUser.removeRoutebyID(id);
         saveSettings();
+    }
+    public String setHomeAirport(String iataCode) {
+        InteractDatabase db = new InteractDatabase();
+        try {
+            return loginHandler.currentUser.setHomeAirport(db.getAirportByIata(iataCode));
+        } catch (IOException | ClassNotFoundException e) {
+            return "Error occurred while setting home airport.";
+        }
+    }
+
+    public String addRouteToHistory(String routeJSON) {
+        try {
+            loginHandler.currentUser.addRouteToHistory(routeJSON);
+            saveSettings();
+            return "Successfully saved route to User history.";
+        } catch (JSONException | ParseException e) {
+            return "Unable to save route to User history.";
+        }
+
     }
 }

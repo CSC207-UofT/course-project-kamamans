@@ -4,6 +4,12 @@ import java.text.SimpleDateFormat;
 import java.util.Comparator;
 import java.util.List;
 
+/**
+ * An object that returns search results and information on results.
+ *
+ * Includes returning potential routes sorted by price, duration, location etc.
+ */
+
 public class SearchResults {
 
     private List<Route> potentialRoutes;

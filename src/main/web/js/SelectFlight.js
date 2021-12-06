@@ -70,6 +70,7 @@ function displayFlights(){
                 rawData[i]['flights'][j]['sourceAirport']['iataCode']+`) &rarr; `+
                 rawData[i]['flights'][j]['destinationAirport']['city']+` (`+
                 rawData[i]['flights'][j]['destinationAirport']['iataCode']+`)
+                <br />
             `;
         }
 

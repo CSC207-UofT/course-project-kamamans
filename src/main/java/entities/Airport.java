@@ -1,8 +1,9 @@
 package entities;
 
+import org.json.*;
+
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.List;
 
 
 /**
@@ -25,6 +26,12 @@ public class Airport implements Serializable {
         this.iataCode = "";
     }
 
+    public Airport(String airportJSON) throws JSONException {
+        JSONObject obj = new JSONObject(airportJSON);
+        city = obj.getString("city");
+        iataCode = obj.getString("iataCode");
+    }
+
     public void setCity(String city){
         this.city = city;
     }
@@ -39,5 +46,17 @@ public class Airport implements Serializable {
 
     public String getIataCode(){
         return this.iataCode;
+    }
+
+    /**
+     * Returns airports as a JSON parseable string.
+     * @return airport as a JSON parseable string
+     */
+    public StringBuilder airportToString() {
+        StringBuilder returnString = new StringBuilder("{");
+        returnString.append("\"iataCode\": " + "\""+iataCode+"\"" + ",");
+        returnString.append("\"city\":" + "\""+city+"\"");
+        returnString.append("}");
+        return returnString;
     }
 }

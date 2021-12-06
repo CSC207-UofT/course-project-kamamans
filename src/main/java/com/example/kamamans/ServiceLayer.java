@@ -6,6 +6,12 @@ import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+/**
+ * A Service Layer following Clean Architecture.
+ *
+ * Returns airports, adds new airports and delete airports from airport repository databases.
+ */
+
 @Service
 public class ServiceLayer {
 

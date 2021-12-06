@@ -1,8 +1,10 @@
 package entities;
+import org.json.*;
+
 import java.io.Serializable;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
 
 /**
  * Represents a scheduled flight. Creates an object that contains the scheduled date, a plane object, the cost of
@@ -43,5 +45,17 @@ public class Flight implements Serializable {
     }
     public Airport getDestinationAirport(){
         return this.destinationAirport;
+    }
+
+    public Flight(String flightJSON) throws JSONException, ParseException    {
+        JSONObject obj = new JSONObject(flightJSON);
+
+        date = Calendar.getInstance();
+        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+        date.setTime(sdf.parse(obj.getString("departureDate")));
+
+        JSONObject plane = obj.getJSONObject("plane");
+        price = obj.getInt("price");
+        duration = obj.getInt("duration");
     }
 }

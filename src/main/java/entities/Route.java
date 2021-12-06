@@ -1,10 +1,12 @@
 package entities;
 import java.io.Serializable;
-import usecases.InteractDatabase;
+
 
 import java.lang.reflect.Array;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import org.json.*;
 
 /**
  * An object representing the path which a traveller takes to a certain destination.
@@ -24,6 +26,23 @@ public class Route implements Serializable{
         this.destinationAirport = destinationAirport;
         this.departureDate = departureDate;
         this.flights = flights;
+    }
+
+    public Route(String routeJSON) throws JSONException, ParseException {
+        JSONObject obj = new JSONObject(routeJSON);
+        departureAirport = new Airport(obj.getString("departureAirport"));
+        destinationAirport = new Airport(obj.getString("destinationAirport"));
+
+        departureDate = Calendar.getInstance();
+        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+        departureDate.setTime(sdf.parse(obj.getString("departureDate")));
+
+        JSONArray flightsArray = obj.getJSONArray("flights");
+        List<Flight> flightsList = new ArrayList<>();
+        for (int i = 0; i < flightsArray.length(); i++) {
+            Flight flight = new Flight(flightsArray.getString(i));
+            flightsList.add(flight);
+        }
     }
 
     public Airport getDepartureAirport() {
@@ -173,5 +192,6 @@ public class Route implements Serializable{
         returnString.append("]");
 
         return returnString;
+
     }
 }

@@ -49,6 +49,7 @@ public class DemoApplication {
 
 		return uc.createAccount(username, password, email, phoneNumber);
 	}
+
 	@GetMapping("/searchFlight")
 	public String searchFlight(@RequestParam(value = "departure") String departure, @RequestParam(value = "destination") String  destination,
 								@RequestParam(value = "date") String  date)  {
@@ -71,14 +72,13 @@ public class DemoApplication {
 			Airport departureAirport = InteractDatabase.getAirportByName(departure);
 
 			Airport destinationAirport = InteractDatabase.getAirportByName(destination);
-			if(departureAirport == null){
+			if (departureAirport == null){
 				return("Departure airport not found");
 			}
-			if(destinationAirport == null){
+			if (destinationAirport == null){
 				return("Destination airport not found");
 			}
 			this.sr = PlanFlight.EnterSearchRequirements(cal, departureAirport, destinationAirport);
-			System.out.println(this.sr.routesToString());
 
 			return null;
 		} catch (IOException | ClassNotFoundException e) {
@@ -86,6 +86,7 @@ public class DemoApplication {
 		}
 
 	}
+
 	@GetMapping("/getPotentialFlights")
 	public String getPotentialFlights() {
 		System.out.println(this.sr.routesToString().toString());
