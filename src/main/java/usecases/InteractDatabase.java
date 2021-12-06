@@ -63,10 +63,10 @@ public class InteractDatabase {
         }
     }
 
-    public static Airport getAirportByIata(String iataCode) throws IOException, ClassNotFoundException  {
+    public static Airport getAirportByIata(String iataCode) throws IOException, ClassNotFoundException {
         ArrayList<Airport> airportList = getAirportList();
 
-        for (Airport airport:airportList) {
+        for (Airport airport : airportList) {
             if (airport.getIataCode().equals(iataCode)) {
                 return airport;
             }
@@ -126,10 +126,10 @@ public class InteractDatabase {
         }
     }
 
-    public static Plane getPlane(String brandName) throws IOException, ClassNotFoundException  {
+    public static Plane getPlane(String brandName) throws IOException, ClassNotFoundException {
         ArrayList<Plane> planeList = getPlaneList();
 
-        for (Plane plane:planeList) {
+        for (Plane plane : planeList) {
             if (plane.getBrandName().equals(brandName)) {
                 return plane;
             }
@@ -270,9 +270,9 @@ public class InteractDatabase {
             System.out.println("Successfully reset Airports");
 
             // Plane Data Creation
-            Plane p1 = new Plane("Boeing 747", 223, 7, 223-7, true);
-            Plane p2 = new Plane("Apollo 11", 1738, 12, 1738-12, true);
-            Plane p3 = new Plane("Falcon 1", 1337, 15, 1337-15, true);
+            Plane p1 = new Plane("Boeing 747", 223, 7, 223 - 7, true);
+            Plane p2 = new Plane("Apollo 11", 1738, 12, 1738 - 12, true);
+            Plane p3 = new Plane("Falcon 1", 1337, 15, 1337 - 15, true);
             planes.add(p1);
             planes.add(p2);
             planes.add(p3);
@@ -365,14 +365,14 @@ public class InteractDatabase {
         }
     }
 
-    private static void printFlights() throws  IOException, ClassNotFoundException {
+    private static void printFlights() throws IOException, ClassNotFoundException {
         System.out.println("Flight List");
         for (Flight flight : getFlightList()) {
             System.out.println("-----");
             System.out.println("source: " + flight.getSourceAirport().getCity());
             System.out.println("dest: " + flight.getDestinationAirport().getCity());
             Calendar date = flight.getDate();
-            String month = "" + (date.get(Calendar.MONTH)+1);
+            String month = "" + (date.get(Calendar.MONTH) + 1);
             String day = "" + date.get(Calendar.DAY_OF_MONTH);
             String year = "" + date.get(Calendar.YEAR);
             System.out.println("date: " + month + "/" + day + "/" + year);

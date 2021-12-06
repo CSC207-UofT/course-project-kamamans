@@ -8,6 +8,7 @@ import java.util.Optional;
 
 /**
  * A Service Layer following Clean Architecture.
+ * Class a part of framework and drivers.
  *
  * Returns airports, adds new airports and delete airports from airport repository databases.
  */
