@@ -132,11 +132,4 @@ public class LoginHandler {
     // TODO: remove this and replace instances of it with the User itself?
     public String getCurrentUserUsername() { return this.currentUser.getUsername(); }
 
-    /**
-     * Adds route to route history
-     * @param route
-     */
-    public void addRoutes(Route route) {
-        currentUser.addRouteToHistory(route);
-    }
 }

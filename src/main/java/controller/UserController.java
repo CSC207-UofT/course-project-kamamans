@@ -98,8 +98,6 @@ public class UserController {
 
     public StringBuilder getRouteHistory() { return loginHandler.currentUser.getRouteHistory(); }
 
-    public void addRouteHistory(Route route) {loginHandler.addRoutes(route);}
-
     public String upgradeUserType() { return loginHandler.currentUser.upgradeUserType(); }
 
     public String downgradeUserType() { return loginHandler.currentUser.downgradeUserType(); }
