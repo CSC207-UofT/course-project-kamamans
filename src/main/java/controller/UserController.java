@@ -159,18 +159,16 @@ public class UserController {
     // TODO: add fav airport, remove fav airport
 
     public String addFavouriteAirport(String iataCode) {
-        InteractDatabase db = new InteractDatabase();
         try {
-            return loginHandler.currentUser.addFavouriteAirport(db.getAirportByIata(iataCode));
+            return loginHandler.currentUser.addFavouriteAirport(InteractDatabase.getAirportByIata(iataCode));
         } catch (IOException | ClassNotFoundException e) {
             return "Error occurred while adding favourite airport.";
         }
     }
 
     public String removeFavouriteAirport(String iataCode) {
-        InteractDatabase db = new InteractDatabase();
         try {
-            return loginHandler.currentUser.removeFavouriteAirport(db.getAirportByIata(iataCode));
+            return loginHandler.currentUser.removeFavouriteAirport(InteractDatabase.getAirportByIata(iataCode));
         } catch (IOException | ClassNotFoundException e) {
             return "Error occurred while removing favourite airport.";
         }
@@ -190,9 +188,8 @@ public class UserController {
         saveSettings();
     }
     public String setHomeAirport(String iataCode) {
-        InteractDatabase db = new InteractDatabase();
         try {
-            return loginHandler.currentUser.setHomeAirport(db.getAirportByIata(iataCode));
+            return loginHandler.currentUser.setHomeAirport(InteractDatabase.getAirportByIata(iataCode));
         } catch (IOException | ClassNotFoundException e) {
             return "Error occurred while setting home airport.";
         }

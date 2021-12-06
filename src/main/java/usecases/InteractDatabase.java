@@ -287,25 +287,25 @@ public class InteractDatabase {
 
             // Flight Data Creation
             GregorianCalendar date = new GregorianCalendar(2021, Calendar.DECEMBER, 6);
-            Flight f1 = new Flight(date, p1, 1, 2, a1, a2);
-            Flight f2 = new Flight(date, p2, 3, 4, a1, a3);
-            Flight f3 = new Flight(date, p3, 5, 6, a1, a4);
+            Flight f1 = new Flight(date, p1, 10, 2, a1, a2);
+            Flight f2 = new Flight(date, p2, 3, 7, a1, a3);
+            Flight f3 = new Flight(date, p3, 5, 3, a1, a4);
 
             Flight f4 = new Flight(date, p1, 1, 2, a2, a1);
             Flight f5 = new Flight(date, p2, 3, 4, a2, a3);
-            Flight f6 = new Flight(date, p3, 5, 6, a2, a5);
+            Flight f6 = new Flight(date, p3, 2, 2, a2, a5);
 
             Flight f7 = new Flight(date, p1, 1, 2, a3, a1);
-            Flight f8 = new Flight(date, p2, 3, 4, a3, a2);
-            Flight f9 = new Flight(date, p3, 5, 6, a3, a6);
+            Flight f8 = new Flight(date, p2, 6, 4, a3, a2);
+            Flight f9 = new Flight(date, p3, 5, 5, a3, a6);
 
             Flight f10 = new Flight(date, p1, 1, 2, a4, a2);
-            Flight f11 = new Flight(date, p2, 3, 4, a4, a5);
-            Flight f12 = new Flight(date, p3, 5, 6, a4, a6);
+            Flight f11 = new Flight(date, p2, 2, 4, a4, a5);
+            Flight f12 = new Flight(date, p3, 5, 1, a4, a6);
 
-            Flight f13 = new Flight(date, p1, 1, 2, a5, a1);
+            Flight f13 = new Flight(date, p1, 7, 2, a5, a1);
             Flight f14 = new Flight(date, p2, 3, 4, a5, a4);
-            Flight f15 = new Flight(date, p3, 5, 6, a5, a6);
+            Flight f15 = new Flight(date, p3, 2, 2, a5, a6);
 
             Flight f16 = new Flight(date, p1, 1, 2, a6, a3);
             Flight f17 = new Flight(date, p2, 3, 4, a6, a4);

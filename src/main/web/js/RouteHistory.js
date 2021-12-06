@@ -8,10 +8,13 @@ function httpGet(theUrl){
 
 function displayFlights(){
 
-    // TODO: Get raw data for user's flight history
-    const rawData = [{"departureAirport": {"city": "Toronto", "iataCode": "001"}, "destinationAirport": {"city": "Vancouver", "iataCode": "003"}, "departureDate": "12/15/2021", "flights": [{"departureDate": "12/18/2021", "plane": {"brandName": "boeing", "seatCount": 100, "firstClassSeats": 10, "economySeats": 80, "hasVacantSeats": true}, "price": 2.0, "duration": 5.0, "sourceAirport": {"city": "Toronto", "iataCode": "code1"}, "destinationAirport": {"city": "Vancouver", "iataCode": "code2"} }], "price": 2.0, "duration": 5.0, "id": "0"}];
-    // Parsing through the placeholder data and turning into html content
+    let url = 'http://localhost:8080/viewRouteHistory'
+    let jsondata = httpGet(url);
+    let rawData2 = JSON.parse(jsondata);
 
+    let rawData = [{"departureAirport": {"city": "Toronto", "iataCode": "001"}, "destinationAirport": {"city": "Vancouver", "iataCode": "003"}, "departureDate": "12/15/2021", "flights": [{"departureDate": "12/18/2021", "plane": {"brandName": "boeing", "seatCount": 100, "firstClassSeats": 10, "economySeats": 80, "hasVacantSeats": true}, "price": 2.0, "duration": 5.0, "sourceAirport": {"city": "Toronto", "iataCode": "code1"}, "destinationAirport": {"city": "Vancouver", "iataCode": "code2"} }], "price": 2.0, "duration": 5.0, "id": "0"}];
+    // Parsing through the placeholder data and turning into html content
+    rawData = rawData2
     let content = `<div class="container" id="div-container">`
     let flightDetails;
 

@@ -5,13 +5,14 @@ function httpGet(theUrl){
     return xmlHttp.responseText;
 }
 
-function confirmBooking(first_name, last_name, phone_num, email, date_of_birth, address){
+function confirmBooking(first_name, last_name, phone_num, email, date_of_birth, address, id){
     let error = ''
     let url = 'http://localhost:8080/bookFlight?firstName='
-        +first_name+'&lastName='+last_name+'&phoneNumber='+phone_num+'&email='+email+'&dateOfBirth='+date_of_birth+'&address='+address
+        +first_name+'&lastName='+last_name+'&phoneNumber='+phone_num+'&email='+email+'&dateOfBirth='+date_of_birth+'&address='+address+'&id='+id
     const done = httpGet(url)
+    console.log(done)
     let signInResult;
-
+    console.log("here")
     if(done==="true"){
         signInResult = null;
     } else {

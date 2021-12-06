@@ -49,7 +49,9 @@ public class User implements Serializable {
     }
 
     public void addRouteToHistory(Route route) {
+        System.out.println("hehexd:"+route);
         this.routeHistory.add(route);
+
     }
 
     public void removeRoutebyID(String id) {
