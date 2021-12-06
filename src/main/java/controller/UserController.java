@@ -1,6 +1,7 @@
 package controller;
 
 import entities.Route;
+import entities.User;
 import org.json.JSONException;
 import usecases.InteractDatabase;
 import usecases.LoginHandler;
@@ -62,6 +63,9 @@ public class UserController {
 
     public void deleteAccount(String username) { loginHandler.deleteAccount(username); }
 
+    public User getCurrentUser (){
+        return loginHandler.currentUser.getCurrentUser();
+    }
     /**
      * Serializes and deserializes userList. Call this at the end of changing ViewProfile.
      */
@@ -116,19 +120,62 @@ public class UserController {
 
     public StringBuilder getFavouriteAirports() { return loginHandler.currentUser.getFavouriteAirports(); }
 
+    public String getUserDataJson () {
+        String s = "{" +
+                "\"userName\":" +
+                "\"" +
+                getUsername() +
+                "\"," +
+                "\"password\":" +
+                "\"" +
+                getPassword() +
+                "\"," +
+                "\"email\":" +
+                "\"" +
+                getEmail() +
+                "\"," +
+                "\"phoneNumber\":" +
+                "\"" +
+                getPhoneNumber() +
+                "\"" +
+                "}";
+        return s;
+    }
+    public String getUserSettingsJson () {
+        String s = "{" +
+                "\"colorScheme\":" +
+                "\"" +
+                "Blue" +
+                "\"," +
+                "\"homeAirport\":" +
+                "\"" +
+                "Toronto" +
+                "\"," +
+                "\"favouriteAirport\":" +
+                "\"" +
+                "None" +
+                "\"," +
+                "\"autoLogoutTimer\":" +
+                "\"" +
+                10 +
+                "\"" +
+                "}";
+        return s;
+    }
+
+    // TODO: add fav airport, remove fav airport
+
     public String addFavouriteAirport(String iataCode) {
-        InteractDatabase db = new InteractDatabase();
         try {
-            return loginHandler.currentUser.addFavouriteAirport(db.getAirportByIata(iataCode));
+            return loginHandler.currentUser.addFavouriteAirport(InteractDatabase.getAirportByIata(iataCode));
         } catch (IOException | ClassNotFoundException e) {
             return "Error occurred while adding favourite airport.";
         }
     }
 
     public String removeFavouriteAirport(String iataCode) {
-        InteractDatabase db = new InteractDatabase();
         try {
-            return loginHandler.currentUser.removeFavouriteAirport(db.getAirportByIata(iataCode));
+            return loginHandler.currentUser.removeFavouriteAirport(InteractDatabase.getAirportByIata(iataCode));
         } catch (IOException | ClassNotFoundException e) {
             return "Error occurred while removing favourite airport.";
         }
@@ -140,16 +187,22 @@ public class UserController {
 
     public StringBuilder getHomeAirport() { return loginHandler.currentUser.getHomeAirport(); }
 
+
+    // TODO: set home airport
+
+    public void removeRoutebyID(String id) {
+        loginHandler.currentUser.removeRoutebyID(id);
+        saveSettings();
+    }
     public String setHomeAirport(String iataCode) {
-        InteractDatabase db = new InteractDatabase();
         try {
-            return loginHandler.currentUser.setHomeAirport(db.getAirportByIata(iataCode));
+            return loginHandler.currentUser.setHomeAirport(InteractDatabase.getAirportByIata(iataCode));
         } catch (IOException | ClassNotFoundException e) {
             return "Error occurred while setting home airport.";
         }
     }
 
-    public String addRouteToHistory(String routeJSON) {
+    public String addRouteToHistory(Route routeJSON) {
         try {
             loginHandler.currentUser.addRouteToHistory(routeJSON);
             saveSettings();
@@ -157,5 +210,6 @@ public class UserController {
         } catch (JSONException | ParseException e) {
             return "Unable to save route to User history.";
         }
+
     }
 }

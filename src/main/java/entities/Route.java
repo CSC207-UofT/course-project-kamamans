@@ -1,6 +1,8 @@
 package entities;
 import java.io.Serializable;
 
+
+import java.lang.reflect.Array;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -17,6 +19,7 @@ public class Route implements Serializable{
     private Airport destinationAirport;
     private Calendar departureDate;
     private List<Flight> flights;
+    private int routeID = -1;
 
     public Route (Airport departureAirport, Airport destinationAirport, Calendar departureDate, List<Flight> flights) {
         this.departureAirport = departureAirport;
@@ -26,14 +29,15 @@ public class Route implements Serializable{
     }
 
     public Route(String routeJSON) throws JSONException, ParseException {
+        System.out.println("hi: " + routeJSON);
         JSONObject obj = new JSONObject(routeJSON);
         departureAirport = new Airport(obj.getString("departureAirport"));
         destinationAirport = new Airport(obj.getString("destinationAirport"));
-
+        System.out.println(departureAirport);
         departureDate = Calendar.getInstance();
         SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
         departureDate.setTime(sdf.parse(obj.getString("departureDate")));
-
+        System.out.println(departureDate);
         JSONArray flightsArray = obj.getJSONArray("flights");
         List<Flight> flightsList = new ArrayList<>();
         for (int i = 0; i < flightsArray.length(); i++) {
@@ -85,6 +89,12 @@ public class Route implements Serializable{
         }
         return d;
     }
+    public int getRouteID() {
+        return this.routeID;
+    }
+    public void setRouteID(int routeID) {
+        this.routeID = routeID;
+    }
 
     /**
      * returns a Hashmap that contains information of the entire route.
@@ -111,18 +121,78 @@ public class Route implements Serializable{
         info.put("duration", r.getTotalDuration());
         return info;
     }
+    public StringBuilder routeToString() {
+        StringBuilder returnString = new StringBuilder("[");
 
-    // to string is for testing purposes
-    // this is invoked in the frontend.
-    // feel free to modify this as you see fit
-    public String toString() {
-        String output = "";
-        for (Flight flight : this.flights) {
-            output += flight.getSourceAirport().getCity();
-            output += " -> ";
-            output += flight.getDestinationAirport().getCity();
-            output += "\n";
+
+        returnString.append("{");
+
+        // Adding departure airport
+        returnString.append("\"departureAirport\": {\"city\": \"" + getDepartureAirport().getCity() + "\", \"iataCode\": \"" +
+                getDepartureAirport().getIataCode() + "\"}, ");
+
+        // Adding destination airport
+        returnString.append("\"destinationAirport\": {\"city\": \"" + getDestinationAirport().getCity() + "\", \"iataCode\": \"" +
+                getDestinationAirport().getIataCode() + "\"}, ");
+
+        // Adding departure date
+        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+        returnString.append("\"departureDate\": \"" + sdf.format(getDepartureDate().getTime()) + "\", ");
+
+        // Adding flights
+        returnString.append("\"flights\": [");
+        for (Flight flight : getFlights()) {
+
+            returnString.append("{");
+
+            // Adding departure date
+            returnString.append("\"departureDate\": \"" + sdf.format(flight.getDate().getTime()) + "\", ");
+
+            //Adding plane details
+            returnString.append("\"plane\": {");
+            returnString.append("\"brandName\": \"" + flight.getPlane().getBrandName() + "\", ");
+            returnString.append("\"seatCount\": " + flight.getPlane().getSeatCount() + ", ");
+            returnString.append("\"firstClassSeats\": " + flight.getPlane().getFirstClassSeats() + ", ");
+            returnString.append("\"economySeats\": " + flight.getPlane().getEconomySeats() + ", ");
+            returnString.append("\"hasVacantSeats\": " + flight.getPlane().getHasVacantSeats());
+            returnString.append("}, ");
+
+            // Adding price
+            returnString.append("\"price\": " + flight.getPrice() + ", ");
+
+            // Adding duration
+            returnString.append("\"duration\": " + flight.getDuration() + ", ");
+
+            // Adding source airport
+            returnString.append("\"sourceAirport\": {");
+            returnString.append("\"city\": \"" + flight.getSourceAirport().getCity() + "\", \"iataCode\": \"" +
+                    flight.getSourceAirport().getIataCode());
+            returnString.append("\"}, \"destinationAirport\": {");
+            returnString.append("\"city\": \"" + flight.getDestinationAirport().getCity() + "\", \"iataCode\": \"" +
+                    flight.getDestinationAirport().getIataCode());
+            returnString.append("\"} ");
+            returnString.append("},");
         }
-        return output;
+        returnString.setLength(returnString.length() - 1);
+        returnString.append("], ");
+
+        // Adding price
+        returnString.append("\"price\": " + getPriceofFlights() + ", ");
+
+        // Adding duration
+        returnString.append("\"duration\": " + getTotalDuration() + ", ");
+
+        // Adding id
+        returnString.append("\"id\": \"" + getRouteID() + "\"");
+
+
+
+        returnString.append("},");
+
+        returnString.setLength(returnString.length() - 1);
+        returnString.append("]");
+
+        return returnString;
+
     }
 }
