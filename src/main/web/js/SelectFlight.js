@@ -5,15 +5,13 @@ function httpGet(theUrl){
     return xmlHttp.responseText;
 }
 
+let url = 'http://localhost:8080/getPotentialFlights'
+let jsondata = httpGet(url);
 
-
+let rawData = JSON.parse(jsondata);
 
 function displayFlights(){
-    let url = 'http://localhost:8080/getPotentialFlights'
-    let jsondata = httpGet(url);
 
-
-    const rawData = JSON.parse(jsondata);
     console.log(rawData)
     // Parsing through the placeholder data and turning into html content
 
@@ -120,13 +118,15 @@ function displayFlights(){
 displayFlights();
 
 function sortByPrice() {
-    // TODO Get the price sorted data here
+    // TODO Get the price sorted data here and assign it to rawData (I moved it outside the function)
     console.log("Sorting by price.");
+    displayFlights();
 }
 
 function sortByDuration() {
     // TODO Get the duration sorted data here
     console.log("Sorting by duration.");
+    displayFlights()
 }
 
 function returnToSearch() {
@@ -142,27 +142,5 @@ function selectFlight(routeId) {
     console.log(rawData)
     console.log("Selected flight: "+routeId);
 
-
-    // Create a popup to let the user know their selection was processed
-    let flightSelectedPopup = `
-            <div id="flightSelected" class="overlay">
-                <div class="popup">
-                    <h2>Route #`+routeId+`</h2>
-                    <a class="close" href="#">&times;</a>
-                    <div class="content">
-                        <div class="">
-                            <h1>Flight successfully added to your search history.</h1>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        `;
-
-    let htmlDom = new DOMParser().parseFromString(flightSelectedPopup, "text/html");
-
-    const stack = document.body;
-
-    stack.appendChild(htmlDom.documentElement);
-
-    window.location.href = "SelectFlight.html#flightSelected";
+    window.location.href = "BookingConfirmationPage.html";
 }

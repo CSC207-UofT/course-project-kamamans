@@ -1,10 +1,17 @@
 package entities;
 import java.io.Serializable;
-import usecases.InteractDatabase;
 
-import java.lang.reflect.Array;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
+import org.json.*;
 
+/**
+ * An object representing the path which a traveller takes to a certain destination.
+ *
+ * Storing the departure and destination airports, the departure date of the first flight, and a list of one or
+ * more flights to the final destination.
+ */
 public class Route implements Serializable{
     private Airport departureAirport;
     private Airport destinationAirport;
@@ -16,6 +23,23 @@ public class Route implements Serializable{
         this.destinationAirport = destinationAirport;
         this.departureDate = departureDate;
         this.flights = flights;
+    }
+
+    public Route(String routeJSON) throws JSONException, ParseException {
+        JSONObject obj = new JSONObject(routeJSON);
+        departureAirport = new Airport(obj.getString("departureAirport"));
+        destinationAirport = new Airport(obj.getString("destinationAirport"));
+
+        departureDate = Calendar.getInstance();
+        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+        departureDate.setTime(sdf.parse(obj.getString("departureDate")));
+
+        JSONArray flightsArray = obj.getJSONArray("flights");
+        List<Flight> flightsList = new ArrayList<>();
+        for (int i = 0; i < flightsArray.length(); i++) {
+            Flight flight = new Flight(flightsArray.getString(i));
+            flightsList.add(flight);
+        }
     }
 
     public Airport getDepartureAirport() {
@@ -62,6 +86,9 @@ public class Route implements Serializable{
         return d;
     }
 
+    /**
+     * returns a Hashmap that contains information of the entire route.
+     */
     public HashMap<String, Object> getInformation(Route r){
         HashMap<String, Object> info = new HashMap<String,Object>();
 
@@ -83,5 +110,19 @@ public class Route implements Serializable{
 
         info.put("duration", r.getTotalDuration());
         return info;
+    }
+
+    // to string is for testing purposes
+    // this is invoked in the frontend.
+    // feel free to modify this as you see fit
+    public String toString() {
+        String output = "";
+        for (Flight flight : this.flights) {
+            output += flight.getSourceAirport().getCity();
+            output += " -> ";
+            output += flight.getDestinationAirport().getCity();
+            output += "\n";
+        }
+        return output;
     }
 }
