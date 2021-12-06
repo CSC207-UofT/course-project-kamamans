@@ -2,6 +2,7 @@ package usecases;
 
 import entities.Route;
 import entities.User;
+
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -45,6 +46,7 @@ public class LoginHandler {
 
     /**
      * Reads the current user list and returns them in a UserList.
+     *
      * @return a UserList of the current users
      */
     public UserList deserializeUsers() {
@@ -59,12 +61,13 @@ public class LoginHandler {
             return null;
         }
     }
-  
+
     /**
      * Create a new UserManager with username, password, email, and phoneNumber and add them to users
-     * @param username username of new user
-     * @param password password of new user
-     * @param email email address of user
+     *
+     * @param username    username of new user
+     * @param password    password of new user
+     * @param email       email address of user
      * @param phoneNumber phone number of new user
      */
     public ArrayList<String> createAccount(String username, String password, String email, String phoneNumber) {
@@ -112,6 +115,7 @@ public class LoginHandler {
 
     /**
      * Runs a login attempt with username and password and sets currentUser to user specified by username.
+     *
      * @param username username of this user
      * @param password password attempt for this login
      * @return whether password matches stored password for this user
@@ -130,6 +134,8 @@ public class LoginHandler {
     }
 
     // TODO: remove this and replace instances of it with the User itself?
-    public String getCurrentUserUsername() { return this.currentUser.getUsername(); }
+    public String getCurrentUserUsername() {
+        return this.currentUser.getUsername();
+    }
 
 }

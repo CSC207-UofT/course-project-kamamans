@@ -8,9 +8,15 @@ import usecases.InteractDatabase;
 import usecases.LoginHandler;
 import usecases.UserReadWriter;
 
+/**
+ * Class that represented Presenter
+ * Currently replaced with GUI of HTML and JS code
+ * Kept for ease of testing
+ */
+
 public class TerminalInterface {
 
-    public static void runDemoLogin(){
+    public static void runDemoLogin() {
         LoginHandler us = new LoginHandler();
         UserController uc = new UserController(us);
 
@@ -21,7 +27,7 @@ public class TerminalInterface {
 
         System.out.println("Example User: user1, 111");
 
-        while(!loggedIn){
+        while (!loggedIn) {
             System.out.println("Username: ");
             String username = sc.nextLine();              // reads string as username
             System.out.println("Password: ");
@@ -36,7 +42,9 @@ public class TerminalInterface {
             }
         }
         System.out.println("Successfully logged in!");
-    };
+    }
+
+    ;
 
     public static void runDemoFindRoute() {
         // The actual program will have users enter a search query where the database returns appropriate routes
@@ -52,9 +60,9 @@ public class TerminalInterface {
         Airport a3 = new Airport("Vancouver", "003");
 
         // Plane Data
-        Plane p1 = new Plane("Boeing 747", 223, 7, 223-7, true);
-        Plane p2 = new Plane("Apollo 11", 1738, 12, 1738-12, true);
-        Plane p3 = new Plane("Falcon 1", 1337, 15, 1337-15, true);
+        Plane p1 = new Plane("Boeing 747", 223, 7, 223 - 7, true);
+        Plane p2 = new Plane("Apollo 11", 1738, 12, 1738 - 12, true);
+        Plane p3 = new Plane("Falcon 1", 1337, 15, 1337 - 15, true);
 
         // Flight Data
         GregorianCalendar feb14 = new GregorianCalendar(2022, Calendar.FEBRUARY, 14);
@@ -85,7 +93,7 @@ public class TerminalInterface {
 
         SimpleDateFormat fmt = new SimpleDateFormat("dd-MMM-yyyy");
 
-        for (int i = 0; i < routes.size(); i++){
+        for (int i = 0; i < routes.size(); i++) {
             System.out.println(i + ": " + routes.get(i).getDepartureAirport().getCity() + ", " +
                     routes.get(i).getDestinationAirport().getCity() + ", " +
                     fmt.format(routes.get(i).getDepartureDate().getTime()));
@@ -94,14 +102,14 @@ public class TerminalInterface {
         String selection = "";
         boolean validSelection = false;
 
-        while (!validSelection){
+        while (!validSelection) {
             System.out.println("Enter route #: ");
             selection = sc.nextLine();
             try {
                 if (Integer.parseInt(selection) >= 0 && Integer.parseInt(selection) < routes.size()) {
                     validSelection = true;
                 }
-            } catch (Exception ignored){
+            } catch (Exception ignored) {
 
             }
         }

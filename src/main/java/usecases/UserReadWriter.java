@@ -4,13 +4,18 @@ import entities.User;
 
 import java.io.*;
 
+/**
+ * Class a part of Application Business Rules
+ * As name implies, reads and writes users into server and file allowing for continuing state of program
+ */
+
 public class UserReadWriter {
 
     /**
      * Writes the users to file at filePath.
      *
      * @param filePath the file to write the records to
-     * @param allUsers    contains list of user managers to be serialized
+     * @param allUsers contains list of user managers to be serialized
      * @throws IOException if allUsers was not saved
      */
     public void saveToFile(String filePath, Object allUsers) throws IOException {
@@ -28,7 +33,7 @@ public class UserReadWriter {
      *
      * @param filePath the file to read records from
      * @return list of user managers
-     * @throws IOException if unable to read user list
+     * @throws IOException            if unable to read user list
      * @throws ClassNotFoundException if file is not on class path
      */
     public UserList readFromFile(String filePath) throws IOException, ClassNotFoundException {
@@ -47,7 +52,7 @@ public class UserReadWriter {
     /**
      * Resets all user data.
      * This is irreversible and idempotent.
-     *
+     * <p>
      * Generates two users, "user1" and "user2"
      */
     private void resetUsers() {
@@ -93,7 +98,7 @@ public class UserReadWriter {
         UserReadWriter urw = new UserReadWriter();
 
         // reset user data
-         urw.resetUsers();
+        urw.resetUsers();
 
 //        UserList userData = new UserList();
 //        userData.addUser(new User("user1", "111", "test@email.com", "(416)-111-2222"));

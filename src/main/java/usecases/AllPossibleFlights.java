@@ -1,9 +1,13 @@
 package usecases;
 
 import entities.*;
-
 import java.io.IOException;
 import java.util.*;
+
+/**
+ * Class a part of Application Business Rules
+ * Collects all possible flights from pulling flight data from server
+ */
 
 public class AllPossibleFlights {
     private Calendar departureDate;
