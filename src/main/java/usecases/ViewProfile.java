@@ -130,7 +130,7 @@ public class ViewProfile {
     /**
      * Return a StringBuilder representing this users favourite airports
      *
-     * @return
+     * @return String user's favourite airports
      */
     public StringBuilder getFavouriteAirports() {
         StringBuilder returnString = new StringBuilder("[");
