@@ -375,14 +375,14 @@ public class InteractDatabase {
     public static void updateDB() throws IOException, JSONException, ClassNotFoundException {
         String key = "8a0423ec6b7b5e44ae6bab41e07f150b";
         // Airports
-        JSONObject allAirports = new JSONObject(getEndpoint("https://api.aviationstack.com/v1/airports", key));
+        JSONObject allAirports = new JSONObject(getEndpoint("http://api.aviationstack.com/v1/airports", key));
         int a_quantity = allAirports.getJSONObject("pagination").getInt("total");
         JSONArray j_airports = allAirports.getJSONArray("data");
         for (int i = 0; i < a_quantity; i = i + 1) {
             postAirport(new Airport(j_airports.getJSONObject(i).getString("airport_name"), j_airports.getJSONObject(i).getString("iata_code")));
         }
         // Planes
-        JSONObject allPlanes = new JSONObject(getEndpoint("https://api.aviationstack.com/v1/airplanes", key));
+        JSONObject allPlanes = new JSONObject(getEndpoint("http://api.aviationstack.com/v1/airplanes", key));
         int p_quantity = allPlanes.getJSONObject("pagination").getInt("total");
         JSONArray j_planes = allPlanes.getJSONArray("data");
         for (int i = 0; i < p_quantity; i = i + 1) {
