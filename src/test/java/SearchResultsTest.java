@@ -1,6 +1,4 @@
-import entities.Route;
-import entities.Airport;
-import entities.SearchResults;
+import entities.*;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -8,6 +6,8 @@ import java.util.ArrayList;
 import static org.junit.Assert.*;
 import usecases.InteractDatabase;
 
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 public class SearchResultsTest {
@@ -21,9 +21,39 @@ public class SearchResultsTest {
 
     @Before
     public void setUpRoutes(){
-        r1 = db.getRoutes().get(0);
-        r2 = db.getRoutes().get(1);
-        r3 = db.getRoutes().get(2);
+        // Airport Data
+        Airport a1 = new Airport("Toronto", "001");
+        Airport a2 = new Airport("Montreal", "002");
+        Airport a3 = new Airport("Vancouver", "003");
+
+        // Plane Data
+        Plane p1 = new Plane("Boeing 747", 223, 7, 223-7, true);
+        Plane p2 = new Plane("Apollo 11", 1738, 12, 1738-12, true);
+        Plane p3 = new Plane("Falcon 1", 1337, 15, 1337-15, true);
+
+        // Flight Data
+        GregorianCalendar feb14 = new GregorianCalendar(2022, Calendar.FEBRUARY, 14);
+        Flight f1 = new Flight(feb14, p1, 1, 2, a1, a2);
+        Flight f2 = new Flight(feb14, p2, 3, 4, a2, a3);
+        Flight f3 = new Flight(feb14, p3, 5, 6, a3, a1);
+
+        // Route Data
+        ArrayList<Flight> list1 = new ArrayList<>();
+        list1.add(f1);
+        list1.add(f2);
+        Route r1 = new Route(a1, a3, feb14, list1); // Toronto --> Montreal --> Vancouver
+
+        ArrayList<Flight> list2 = new ArrayList<>();
+        list2.add(f2);
+        list2.add(f3);
+        Route r2 = new Route(a2, a1, feb14, list2); // Montreal --> Vancouver --> Toronto
+
+        ArrayList<Flight> list3 = new ArrayList<>();
+        list3.add(f3);
+        list3.add(f1);
+        Route r3 = new Route(a3, a2, feb14, list3); // Vancouver --> Toronto --> Montreal
+
+        // Save routes for testing
         routes.add(r1);
         routes.add(r2);
         routes.add(r3);
