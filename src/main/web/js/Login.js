@@ -11,7 +11,6 @@ function verifyInformation(username, password){
     const done = httpGet(url)
     let signInResult;
 
-    // TODO: To be replaced with java
     if(done==="true"){
         signInResult = null;
     } else {

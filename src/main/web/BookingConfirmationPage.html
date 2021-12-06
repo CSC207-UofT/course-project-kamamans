@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Kamamans Booking Confirmation</title>
+	<!-- Mobile Specific Metas -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<!-- Font-->
+	<link rel="stylesheet" type="text/css" href="css/opensans-font.css">
+	<!-- datepicker -->
+	<link rel="stylesheet" type="text/css" href="css/bookingconfirmationUI.css">
+	<!-- Main Style Css -->
+    <link rel="stylesheet" href="css/alternate_style.css"/>
+</head>
+<body>
+	<div class="page-content">
+		<div class="wizard-heading">Form Booking Wizard</div>
+		<div class="wizard-v6-content">
+			<div class="wizard-form">
+		        <form class="form-register" id="form-register" action="#" method="post">
+		        	<div id="form-total">
+		        		<!-- SECTION 1 -->
+			            <h2>
+			            	<p class="step-icon"><span>1</span></p>
+			            	<span class="step-text">Personal Info</span>
+			            </h2>
+			            <section>
+			                <div class="inner">
+			                	<div class="form-heading">
+			                		<h3>Personal Info</h3>
+			                		<span>1/3</span>
+			                	</div>
+								<div class="form-row">
+									<div class="form-holder">
+										<label class="form-row-inner">
+											<input type="text" class="form-control" id="first_name" name="first_name" required>
+											<span class="label">First Name</span>
+										</label>
+									</div>
+									<div class="form-holder">
+										<label class="form-row-inner">
+											<input type="text" class="form-control" id="last_name" name="last_name" required>
+											<span class="label">Last Name</span>
+										</label>
+									</div>
+								</div>
+								<div class="form-row">
+									<div class="form-holder">
+										<label class="form-row-inner">
+											<input type="text" class="form-control" id="phone" name="phone" required>
+											<span class="label">Phone Number</span>
+										</label>
+									</div>
+									<div class="form-holder">
+										<label class="form-row-inner">
+											<input type="text" name="your_email_1" id="your_email_1" class="form-control"  required>
+											<span class="label">E-Mail</span>
+										</label>
+									</div>
+								</div>
+								<div class="form-row form-row-date">
+									<div class="form-holder form-holder-2">
+										<label for="date" class="special-label">Date of Birth:</label>
+										<select name="date" id="date" class="form-control">
+											<option value="15" selected>15</option>
+											<option value="16">16</option>
+											<option value="17">17</option>
+											<option value="18">18</option>
+											<option value="19">19</option>
+										</select>
+										<select name="month" id="month" class="form-control">
+											<option value="January" selected>January</option>
+											<option value="February">February</option>
+											<option value="March">March</option>
+											<option value="April">April</option>
+											<option value="May">May</option>
+											<option value="June">June</option>
+											<option value="July">July</option>
+											<option value="August">August</option>
+											<option value="September">September</option>
+											<option value="October">October</option>
+											<option value="November">November</option>
+											<option value="December">December</option>
+										</select>
+										<select name="year" id="year" class="form-control">
+											<option value="2018" selected>2003</option>
+											<option value="2017">2002</option>
+											<option value="2016">2001</option>
+											<option value="2015">2000</option>
+											<option value="2014">1999</option>
+											<option value="2013">1998</option>
+											<option value="2013">1997</option>
+											<option value="2013">1996</option>
+											<option value="2013">1995</option>
+										</select>
+									</div>
+								</div>
+								<div class="form-row">
+									<div class="form-holder form-holder-2">
+										<label class="form-row-inner">
+											<input type="text" class="form-control" id="address" name="address" required>
+											<span class="label">Address Location</span>
+										</label>
+									</div>
+								</div>
+							</div>
+			            </section>
+						<!-- SECTION 2 -->
+			            <h2>
+			            	<p class="step-icon"><span>2</span></p>
+			            	<span class="step-text">Booking</span>
+			            </h2>
+			            <section>
+			                <div class="inner">
+			                	<div class="form-heading">
+			                		<h3>Booking Infomation</h3>
+			                		<span>2/3</span>
+			                	</div>
+		                		<div class="form-images">
+		                			<img src="images/bookingconfirmationplaceholder.jpg" alt="bookingconfirmationplaceholder">
+		                		</div>
+								<div class="form-row">
+									<div class="form-holder form-holder-2">
+										<label for="route" class="special-label-1">Select a Route </label>
+										<select name="flight" id="route" class="form-control">
+											<option value="Route One" selected>Route One</option>
+											<option value="Route Two">Route Two</option>
+											<option value="Route Three">Route Three</option>
+										</select>
+										<span class="select-btn">
+											<i class="zmdi zmdi-chevron-down"></i>
+										</span>
+									</div>
+								</div>
+								<div class="form-row">
+									<div class="form-holder">
+										<label for="Date" class="special-label-1">Flight Departure</label>
+										<input type="text" name="day" class="day" id="day" placeholder="15 / 08 / 2018">
+									</div>
+								</div>
+							</div>
+			            </section>
+			            <!-- SECTION 3 -->
+			            <h2>
+			            	<p class="step-icon" onclick="confirmBooking(document.getElementById('route').value)">
+								<span>3</span></p> <span class="step-text">Confirm</span>
+			            </h2>
+			            <section>
+			                <div class="inner">
+			                	<div class="form-heading">
+			                		<h3>Comfirm Details</h3>
+			                		<span>3/3</span>
+			                	</div>
+								<div class="table-responsive">
+									<table class="table">
+										<tbody>
+											<tr class="space-row">
+												<th>Full Name:</th>
+												<td id="fullname-val"></td>
+											</tr>
+											<tr class="space-row">
+												<th>Flight ID:</th>
+												<td id="Flight-val"></td>
+											</tr>
+											<tr class="space-row">
+												<th>Departure:</th>
+												<td id="Departure-val"></td>
+											</tr>
+											<tr class="space-row">
+												<th>Seat #:</th>
+												<td id="Seat-#-val"></td>
+											</tr>
+											<tr class="space-row">
+												<th>Price:</th>
+												<td id="price-val">N/A</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+			            </section>
+		        	</div>
+		        </form>
+			</div>
+		</div>
+	</div>
+	<script src="js/BookingConfirmation_randomfunctions.js"></script>
+	<script src="js/BookingConfirmation_generalfunctions.js"></script>
+	<script src="js/BookingConfirmation_uifunctions.js"></script>
+	<script src="js/BookingConfirmation_mainfunctions.js"></script>
+</body>
+</html>
