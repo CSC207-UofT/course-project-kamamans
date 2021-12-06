@@ -71,7 +71,7 @@ public class Route implements Serializable{
     }
 
     public List<Flight> getFlights() {
-        return flights;
+        return this.flights;
     }
 
     public double getPriceofFlights(){
@@ -170,7 +170,7 @@ public class Route implements Serializable{
             returnString.append("\"}, \"destinationAirport\": {");
             returnString.append("\"city\": \"" + flight.getDestinationAirport().getCity() + "\", \"iataCode\": \"" +
                     flight.getDestinationAirport().getIataCode());
-            returnString.append("\"} ");
+            returnString.append("\"}");
             returnString.append("},");
         }
         returnString.setLength(returnString.length() - 1);
