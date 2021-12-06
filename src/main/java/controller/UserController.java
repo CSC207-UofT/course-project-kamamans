@@ -1,5 +1,6 @@
 package controller;
 
+import entities.Route;
 import usecases.LoginHandler;
 
 import java.util.ArrayList;
@@ -88,6 +89,8 @@ public class UserController {
     public void setAppRating(int appRating) { loginHandler.currentUser.setAppRating(appRating); }
 
     public StringBuilder getRouteHistory() { return loginHandler.currentUser.getRouteHistory(); }
+
+    public void addRouteHistory(Route route) {loginHandler.addRoutes(route);}
 
     public String upgradeUserType() { return loginHandler.currentUser.upgradeUserType(); }
 

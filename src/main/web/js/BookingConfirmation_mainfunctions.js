@@ -52,3 +52,7 @@ function confirmBooking(route){
     }
 
 }
+
+function viewRoutes(){
+
+}

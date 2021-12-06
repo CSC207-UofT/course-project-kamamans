@@ -53,13 +53,18 @@ public class DemoApplication {
 
     // TODO: Complete saving route history
     @GetMapping("/confirmBooking")
-    public String confirmBooking(@RequestParam(value = "route") String route) {
+    public String confirmBooking(@RequestParam(value = "route") Route route) {
         try{
-            uc.getRouteHistory();
-            return ("true"); //TODO: add route to RouteHistory
+            uc.addRouteHistory(route);
+            return ("true");
         } catch (NullPointerException e){
             return("false");
         }
+    }
+
+    @GetMapping("/viewRoutes")
+    public SearchResults displayRoutes(){
+        return sr;
     }
 
     @GetMapping("/searchFlight")
