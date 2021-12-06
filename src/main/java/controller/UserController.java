@@ -14,6 +14,7 @@ import java.util.Date;
 /**
  * UserController is responsible for implementing features such as logging in a user, and creating new accounts.
  */
+
 public class UserController {
     private final LoginHandler loginHandler;
 
@@ -25,9 +26,10 @@ public class UserController {
      * Create a new user account.
      * username, email, and phone number must be unique
      * email and phone number must follow respective formatting
-     * @param username unique name of the user
-     * @param password password of the user
-     * @param email unique email of the user
+     *
+     * @param username    unique name of the user
+     * @param password    password of the user
+     * @param email       unique email of the user
      * @param phoneNumber unique phone number of the user
      * @return true if account creation is successful.  false otherwise.
      */
@@ -41,7 +43,7 @@ public class UserController {
             }
 
             String output = "";
-            for (String item: errors) {
+            for (String item : errors) {
                 output = output + item + "\n";
             }
             return output;
@@ -53,23 +55,29 @@ public class UserController {
     public boolean login(String username, String password) {
         try {
             return loginHandler.loginAttempt(username, password);
-        }
-        catch (NullPointerException e){
+        } catch (NullPointerException e) {
             return false;
         }
     }
 
-    public void logout() { loginHandler.logout(); }
+    public void logout() {
+        loginHandler.logout();
+    }
 
-    public void deleteAccount(String username) { loginHandler.deleteAccount(username); }
+    public void deleteAccount(String username) {
+        loginHandler.deleteAccount(username);
+    }
 
-    public User getCurrentUser (){
+    public User getCurrentUser() {
         return loginHandler.currentUser.getCurrentUser();
     }
+
     /**
      * Serializes and deserializes userList. Call this at the end of changing ViewProfile.
      */
-    public void saveSettings() { loginHandler.saveSettings(); }
+    public void saveSettings() {
+        loginHandler.saveSettings();
+    }
 
     // methods below are getters and setters for various user information
     public String getUsername() {
@@ -84,41 +92,75 @@ public class UserController {
         loginHandler.currentUser.setPassword(pw);
     }
 
-    public String getEmail() { return loginHandler.currentUser.getEmail(); }
+    public String getEmail() {
+        return loginHandler.currentUser.getEmail();
+    }
 
-    public void setEmail(String e) { loginHandler.currentUser.setEmail(e); }
+    public void setEmail(String e) {
+        loginHandler.currentUser.setEmail(e);
+    }
 
-    public String getPhoneNumber() { return loginHandler.currentUser.getPhoneNumber(); }
+    public String getPhoneNumber() {
+        return loginHandler.currentUser.getPhoneNumber();
+    }
 
-    public void setPhoneNumber(String pn) { loginHandler.currentUser.setPhoneNumber(pn); }
+    public void setPhoneNumber(String pn) {
+        loginHandler.currentUser.setPhoneNumber(pn);
+    }
 
-    public int getAppRating() { return loginHandler.currentUser.getAppRating(); }
+    public int getAppRating() {
+        return loginHandler.currentUser.getAppRating();
+    }
 
-    public void setAppRating(int appRating) { loginHandler.currentUser.setAppRating(appRating); }
+    public void setAppRating(int appRating) {
+        loginHandler.currentUser.setAppRating(appRating);
+    }
 
-    public StringBuilder getRouteHistory() { return loginHandler.currentUser.getRouteHistory(); }
+    public StringBuilder getRouteHistory() {
+        return loginHandler.currentUser.getRouteHistory();
+    }
 
-    public String upgradeUserType() { return loginHandler.currentUser.upgradeUserType(); }
+    public String upgradeUserType() {
+        return loginHandler.currentUser.upgradeUserType();
+    }
 
-    public String downgradeUserType() { return loginHandler.currentUser.downgradeUserType(); }
+    public String downgradeUserType() {
+        return loginHandler.currentUser.downgradeUserType();
+    }
 
-    public String getUserType() { return loginHandler.currentUser.getUserType(); }
+    public String getUserType() {
+        return loginHandler.currentUser.getUserType();
+    }
 
-    public String getClassType() { return loginHandler.currentUser.getClassType(); }
+    public String getClassType() {
+        return loginHandler.currentUser.getClassType();
+    }
 
-    public String setClassType(String classType) { return loginHandler.currentUser.setClassType(classType); }
+    public String setClassType(String classType) {
+        return loginHandler.currentUser.setClassType(classType);
+    }
 
-    public Date getRenewalDate() { return loginHandler.currentUser.getRenewalDate(); }
+    public Date getRenewalDate() {
+        return loginHandler.currentUser.getRenewalDate();
+    }
 
-    public String setRenewalDate(Date date) { return loginHandler.currentUser.setRenewalDate(date); }
+    public String setRenewalDate(Date date) {
+        return loginHandler.currentUser.setRenewalDate(date);
+    }
 
-    public String getColorScheme() { return loginHandler.currentUser.getColorScheme(); }
+    public String getColorScheme() {
+        return loginHandler.currentUser.getColorScheme();
+    }
 
-    public String setColorScheme(String colorScheme) { return loginHandler.currentUser.setColorScheme(colorScheme); }
+    public String setColorScheme(String colorScheme) {
+        return loginHandler.currentUser.setColorScheme(colorScheme);
+    }
 
-    public StringBuilder getFavouriteAirports() { return loginHandler.currentUser.getFavouriteAirports(); }
+    public StringBuilder getFavouriteAirports() {
+        return loginHandler.currentUser.getFavouriteAirports();
+    }
 
-    public String getUserDataJson () {
+    public String getUserDataJson() {
         String s = "{" +
                 "\"userName\":" +
                 "\"" +
@@ -139,7 +181,8 @@ public class UserController {
                 "}";
         return s;
     }
-    public String getUserSettingsJson () {
+
+    public String getUserSettingsJson() {
         String s = "{" +
                 "\"colorScheme\":" +
                 "\"" +
@@ -179,11 +222,17 @@ public class UserController {
         }
     }
 
-    public int getAutoLogoutTimer() { return loginHandler.currentUser.getAutoLogoutTimer(); }
+    public int getAutoLogoutTimer() {
+        return loginHandler.currentUser.getAutoLogoutTimer();
+    }
 
-    public String setAutoLogoutTimer(int autoLogoutTimer) { return loginHandler.currentUser.setAutoLogoutTimer(autoLogoutTimer); }
+    public String setAutoLogoutTimer(int autoLogoutTimer) {
+        return loginHandler.currentUser.setAutoLogoutTimer(autoLogoutTimer);
+    }
 
-    public StringBuilder getHomeAirport() { return loginHandler.currentUser.getHomeAirport(); }
+    public StringBuilder getHomeAirport() {
+        return loginHandler.currentUser.getHomeAirport();
+    }
 
 
     // TODO: set home airport
@@ -192,6 +241,7 @@ public class UserController {
         loginHandler.currentUser.removeRoutebyID(id);
         saveSettings();
     }
+
     public String setHomeAirport(String iataCode) {
         try {
             return loginHandler.currentUser.setHomeAirport(InteractDatabase.getAirportByIata(iataCode));
