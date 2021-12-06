@@ -55,6 +55,8 @@ public class ViewProfile {
 
     public void addRouteToHistory(Route route) { currentUser.addRouteToHistory(route); }
 
+    public void removeRoutebyID(String id) { currentUser.removeRoutebyID(id); }
+
     /**
      * Return the users route history in a json parseable string using the method in SearchResults.
      * @return StringBuilder of the users route history in json parseable String format

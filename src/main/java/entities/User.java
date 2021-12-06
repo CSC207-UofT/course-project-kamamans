@@ -52,6 +52,15 @@ public class User implements Serializable {
         this.routeHistory.add(route);
     }
 
+    public void removeRoutebyID(String id) {
+        for (Route route : routeHistory) {
+            if (route.getRouteID() == id) {
+                routeHistory.remove(route);
+                return;
+            }
+        }
+    }
+
     public List<Route> getRouteHistory() { return this.routeHistory; }
 
     /**

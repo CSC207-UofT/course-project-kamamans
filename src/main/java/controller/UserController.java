@@ -161,4 +161,9 @@ public class UserController {
     public StringBuilder getHomeAirport() { return loginHandler.currentUser.getHomeAirport(); }
 
     // TODO: set home airport
+
+    public void removeRoutebyID(String id) {
+        loginHandler.currentUser.removeRoutebyID(id);
+        saveSettings();
+    }
 }
