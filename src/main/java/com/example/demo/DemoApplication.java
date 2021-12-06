@@ -135,6 +135,21 @@ public class DemoApplication {
 		System.out.println(uc.getUserSettingsJson());
 		return uc.getUserSettingsJson();
 	}
+	@GetMapping("/UpdateAndSaveUserInformation")
+	public String UpdateAndSaveUserSettings(@RequestParam(value = "username") String username, @RequestParam(value = "password") String  password,
+											@RequestParam(value = "email") String  email,
+											@RequestParam(value = "phoneNumber") String  phoneNumber) {
+		System.out.println(password+email+phoneNumber);
+		uc.setPassword(password);
+		uc.setEmail(email);
+		uc.setPhoneNumber(phoneNumber);
+		uc.saveSettings();
+		return ("true");
+	}
+	@GetMapping("/addFlightToHistory")
+	public String addFlightToHistory(@RequestParam(value = "RouteId") String RouteId) {
+		return "true";
+	}
 
 }
 

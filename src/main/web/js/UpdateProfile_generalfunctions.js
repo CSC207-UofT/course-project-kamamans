@@ -565,7 +565,7 @@ function initialize(options)
     const user_info_content = `<div class="form-row">
         <div class="form-holder form-holder-2">
             <label>Username</label>
-            <input type="text" placeholder="Username" class="form-control" id="username" name="username" value=`+username+`>
+            <input readonly type="text" placeholder="Username" class="form-control" id="username" name="username" value=`+username+`>
         </div>
     </div>
     <div class="form-row">
