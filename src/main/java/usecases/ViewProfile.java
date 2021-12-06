@@ -4,7 +4,9 @@ import entities.Airport;
 import entities.Route;
 import entities.SearchResults;
 import entities.User;
+import org.json.JSONException;
 
+import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
 
@@ -53,7 +55,10 @@ public class ViewProfile {
         currentUser.setAppRating(appRating);
     }
 
-    public void addRouteToHistory(Route route) { currentUser.addRouteToHistory(route); }
+    public void addRouteToHistory(String routeJSON) throws JSONException, ParseException {
+        Route route = new Route(routeJSON);
+        currentUser.addRouteToHistory(route);
+    }
 
     /**
      * Return the users route history in a json parseable string using the method in SearchResults.
@@ -101,18 +106,6 @@ public class ViewProfile {
     public String setColorScheme(String colorScheme) { return isValidRequest(currentUser.user.setColorScheme(colorScheme)); }
 
     /**
-     * Returns airports as a JSON parseable string.
-     * @param airport airport to be converted
-     * @return airport as a JSON parseable string
-     */
-    public StringBuilder airportToString(Airport airport) {
-        StringBuilder returnString = new StringBuilder("{");
-        returnString.append("\"iataCode\": " + "\""+airport.getIataCode()+"\"" + ",");
-        returnString.append("\"city\":" + "\""+airport.getCity()+"\"");
-        returnString.append("}");
-        return returnString;
-    }
-    /**
      * Return a StringBuilder representing this users favourite airports
      * @return
      */
@@ -121,7 +114,7 @@ public class ViewProfile {
         List<Airport> favAirports = currentUser.user.getFavouriteAirports();
 
         for (Airport airport : favAirports) {
-            returnString.append(airportToString(airport));
+            returnString.append(airport.airportToString());
         };
 
         returnString.append("]");
@@ -139,7 +132,7 @@ public class ViewProfile {
     }
 
     public StringBuilder getHomeAirport() {
-        return airportToString(currentUser.user.getHomeAirport());
+        return currentUser.user.getHomeAirport().airportToString();
     }
 
     public String setHomeAirport(Airport airport) { return isValidRequest(currentUser.user.setHomeAirport(airport)); }
