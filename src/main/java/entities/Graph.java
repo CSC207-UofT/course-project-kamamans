@@ -16,6 +16,11 @@ public class Graph {
         this.matrix = new int[vertices][vertices];
     }
 
+    /**
+     * Add a new directed edge to graph
+     * @param src starting point of edge
+     * @param dest ending point of edge
+     */
     public void addEdge(int src, int dest) {
         this.matrix[src][dest] = 1;
     }
@@ -37,11 +42,11 @@ public class Graph {
         ArrayList<Integer> path = new ArrayList<Integer>();
         path.add(src);
 
-        ArrayList<ArrayList<Integer>> output = recursivePaths(src, dest, visited, path);
+        ArrayList<ArrayList<Integer>> output = allPathsHelper(src, dest, visited, path);
         return output;
     }
 
-    private ArrayList<ArrayList<Integer>> recursivePaths (int src, int dest, boolean[] visited, ArrayList<Integer> path) {
+    private ArrayList<ArrayList<Integer>> allPathsHelper (int src, int dest, boolean[] visited, ArrayList<Integer> path) {
         ArrayList<ArrayList<Integer>> output = new ArrayList<ArrayList<Integer>>();
 
         // Base Case
@@ -61,35 +66,55 @@ public class Graph {
                 copy_path.add(target);
 
                 // <paths_from_target> contains all the possible paths from <target> to <dest>
-                ArrayList<ArrayList<Integer>> paths_from_target = recursivePaths(target, dest, copy_visited, copy_path);
+                ArrayList<ArrayList<Integer>> paths_from_target = allPathsHelper(target, dest, copy_visited, copy_path);
                 output.addAll(paths_from_target);
             }
         }
         return output;
     }
 
-    // TODO: Delete this.  This method is only for development purposes
-    public String toString() {
-        String output = "  ";
-
-        for (int node = 0; node < this.node_count; node++) {
-            output += node + " ";
-        }
-        output += "\n-";
-        for (int node = 0; node < this.node_count; node++) {
-            output += "--";
-        }
-        output += "\n";
-
-        for (int r = 0; r < this.node_count; r++) {
-            String line = r + "|";
-            for (int c = 0; c < this.node_count; c++) {
-                line += this.matrix[r][c] + " ";
-            }
-            output += line + "\n";
-        }
-        return output;
+    /**
+     * Provide number of nodes
+     * @return Integer representing the number of nodes
+     */
+    public int getNodeCount() {
+        return this.node_count;
     }
+
+    /**
+     * Matrix value at point
+     * @param x first index
+     * @param y second index
+     * @return value matrix at (x, y)
+     */
+    public int getMatrixElement (int x, int y) {
+        return this.matrix[x][y];
+    }
+
+    /**
+     * Determines if this graph is equal to another
+     * @param toCompare
+     * @return true if both graphs are equal, false otherwise
+     */
+    public boolean equals(Graph toCompare) {
+        if (toCompare == null) {
+            return false;
+        }
+        if (this.node_count != toCompare.getNodeCount()) {
+            return false;
+        }
+        for (int i = 0; i < this.node_count; i++) {
+            for (int j = 0; j < this.node_count; j++) {
+                if (this.matrix[i][j] != toCompare.getMatrixElement(i, j)) {
+                    return false;
+                }
+
+            }
+        }
+        return true;
+    }
+
+
 }
 
 
