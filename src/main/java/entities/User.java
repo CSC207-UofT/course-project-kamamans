@@ -54,7 +54,7 @@ public class User implements Serializable {
 
     public void removeRoutebyID(String id) {
         for (Route route : routeHistory) {
-            if (route.getRouteID() == id) {
+            if (String.valueOf(route.getRouteID()).equals(id)) {
                 routeHistory.remove(route);
                 return;
             }
