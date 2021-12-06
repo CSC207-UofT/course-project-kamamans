@@ -16,24 +16,6 @@ public class GraphTest {
     public void setUp() {
         this.g0 = new Graph(0);
         this.g1 = new Graph(5);
-
-//        g1.addEdge(0, 1);
-//        g1.addEdge(0, 2);
-//        g1.addEdge(0, 3);
-//
-//        g1.addEdge(1, 2);
-//        g1.addEdge(1, 4);
-//
-//        g1.addEdge(2, 3);
-//        g1.addEdge(2, 4);
-//        g1.addEdge(2, 5);
-//
-//        g1.addEdge(3, 0);
-//        g1.addEdge(3, 4);
-//
-//        g1.addEdge(4, 0);
-//        g1.addEdge(4, 1);
-//        g1.addEdge(4, 2);
     }
 
     @Test(timeout = 50)
