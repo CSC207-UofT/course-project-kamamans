@@ -16,6 +16,11 @@ public class Graph {
         this.matrix = new int[vertices][vertices];
     }
 
+    /**
+     * Add a new directed edge to graph
+     * @param src starting point of edge
+     * @param dest ending point of edge
+     */
     public void addEdge(int src, int dest) {
         this.matrix[src][dest] = 1;
     }
