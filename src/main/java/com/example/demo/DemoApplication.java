@@ -106,12 +106,17 @@ public class DemoApplication {
 	@GetMapping("/selectFlight")
 	public String selectFlight(@RequestParam(value = "id") String id) {
 		 this.selectedRoute = this.sr.getPotentialRoutes().get(Integer.parseInt(id));
+		 for (Route r : this.sr.getPotentialRoutes()){
+			 if (r.getRouteID() == Integer.parseInt(id)){
+				 this.selectedRoute = r;
+			 }
+		 }
 		 System.out.println("selected flight");
 		return("true");
 	}
 	@GetMapping("/getSelectedFlight")
 	public String getSelectedFlight() {
-		System.out.println(this.selectedRoute.toString());
+		System.out.println(this.selectedRoute.routeToString().toString());
 		return(this.selectedRoute.routeToString().toString());
 	}
 	@GetMapping("/bookFlight")
