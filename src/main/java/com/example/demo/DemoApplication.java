@@ -1,5 +1,6 @@
 
 package com.example.demo;
+
 import controller.PlanFlight;
 import entities.*;
 import org.springframework.boot.SpringApplication;
@@ -48,6 +49,22 @@ public class DemoApplication {
 
 		return uc.createAccount(username, password, email, phoneNumber);
 	}
+  
+  // TODO: Complete saving route history
+  @GetMapping("/confirmBooking")
+  public String confirmBooking(@RequestParam(value = "route") Route route) {
+      try{
+          uc.addRouteHistory(route);
+          return ("true");
+      } catch (NullPointerException e){
+          return("false");
+      }
+  }
+
+  @GetMapping("/viewRoutes")
+  public SearchResults displayRoutes(){
+      return sr;
+  }
 
 	@GetMapping("/searchFlight")
 	public String searchFlight(@RequestParam(value = "departure") String departure, @RequestParam(value = "destination") String  destination,

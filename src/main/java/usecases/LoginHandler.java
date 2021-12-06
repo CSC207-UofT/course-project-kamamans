@@ -1,5 +1,6 @@
 package usecases;
 
+import entities.Route;
 import entities.User;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -131,4 +132,11 @@ public class LoginHandler {
     // TODO: remove this and replace instances of it with the User itself?
     public String getCurrentUserUsername() { return this.currentUser.getUsername(); }
 
+    /**
+     * Adds route to route history
+     * @param route
+     */
+    public void addRoutes(Route route) {
+        currentUser.addRouteToHistory(route);
+    }
 }
