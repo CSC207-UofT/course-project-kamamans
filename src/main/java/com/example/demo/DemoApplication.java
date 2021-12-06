@@ -40,7 +40,6 @@ public class DemoApplication {
 			return("false");
 		}
 
-
 	}
 	@GetMapping("/createAccount")
 	public String createAccount(@RequestParam(value = "username") String username, @RequestParam(value = "password") String  password,
