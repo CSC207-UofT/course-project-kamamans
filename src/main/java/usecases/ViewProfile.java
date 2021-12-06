@@ -139,7 +139,6 @@ public class ViewProfile {
         for (Airport airport : favAirports) {
             returnString.append(airport.airportToString());
         }
-        ;
 
         returnString.append("]");
         return returnString;
