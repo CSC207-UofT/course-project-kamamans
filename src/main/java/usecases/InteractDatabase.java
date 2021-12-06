@@ -248,12 +248,18 @@ public class InteractDatabase {
         ArrayList<Flight> flights = new ArrayList<Flight>();
         try {
             // Airport Data Creation
-            Airport a1 = new Airport("Toronto", "001");
-            Airport a2 = new Airport("Montreal", "002");
-            Airport a3 = new Airport("Vancouver", "003");
+            Airport a1 = new Airport("Toronto", "000");
+            Airport a2 = new Airport("Montreal", "001");
+            Airport a3 = new Airport("Vancouver", "002");
+            Airport a4 = new Airport("London", "003");
+            Airport a5 = new Airport("Paris", "004");
+            Airport a6 = new Airport("Hong Kong", "005");
             airports.add(a1);
             airports.add(a2);
             airports.add(a3);
+            airports.add(a4);
+            airports.add(a5);
+            airports.add(a6);
 
             // Write Airport Data
             FileOutputStream fos = new FileOutputStream("src/main/java/backend/database/airport.ser");
@@ -280,12 +286,50 @@ public class InteractDatabase {
             System.out.println("Successfully reset Planes");
 
             // Flight Data Creation
-            Flight f1 = new Flight(new GregorianCalendar(2021, Calendar.DECEMBER, 30), p1, 1, 2, a1, a2);
-            Flight f2 = new Flight(new GregorianCalendar(2022, Calendar.JUNE, 5), p2, 3, 4, a2, a3);
-            Flight f3 = new Flight(new GregorianCalendar(2022, Calendar.APRIL, 4), p3, 5, 6, a3, a1);
+            GregorianCalendar date = new GregorianCalendar(2021, Calendar.DECEMBER, 6);
+            Flight f1 = new Flight(date, p1, 1, 2, a1, a2);
+            Flight f2 = new Flight(date, p2, 3, 4, a1, a3);
+            Flight f3 = new Flight(date, p3, 5, 6, a1, a4);
+
+            Flight f4 = new Flight(date, p1, 1, 2, a2, a1);
+            Flight f5 = new Flight(date, p2, 3, 4, a2, a3);
+            Flight f6 = new Flight(date, p3, 5, 6, a2, a5);
+
+            Flight f7 = new Flight(date, p1, 1, 2, a3, a1);
+            Flight f8 = new Flight(date, p2, 3, 4, a3, a2);
+            Flight f9 = new Flight(date, p3, 5, 6, a3, a6);
+
+            Flight f10 = new Flight(date, p1, 1, 2, a4, a2);
+            Flight f11 = new Flight(date, p2, 3, 4, a4, a5);
+            Flight f12 = new Flight(date, p3, 5, 6, a4, a6);
+
+            Flight f13 = new Flight(date, p1, 1, 2, a5, a1);
+            Flight f14 = new Flight(date, p2, 3, 4, a5, a4);
+            Flight f15 = new Flight(date, p3, 5, 6, a5, a6);
+
+            Flight f16 = new Flight(date, p1, 1, 2, a6, a3);
+            Flight f17 = new Flight(date, p2, 3, 4, a6, a4);
+            Flight f18 = new Flight(date, p3, 5, 6, a6, a5);
+
+
             flights.add(f1);
             flights.add(f2);
             flights.add(f3);
+            flights.add(f4);
+            flights.add(f5);
+            flights.add(f6);
+            flights.add(f7);
+            flights.add(f8);
+            flights.add(f9);
+            flights.add(f10);
+            flights.add(f11);
+            flights.add(f12);
+            flights.add(f13);
+            flights.add(f14);
+            flights.add(f15);
+            flights.add(f16);
+            flights.add(f17);
+            flights.add(f18);
 
             // Write Flight Data
             FileOutputStream fos3 = new FileOutputStream("src/main/java/backend/database/flight.ser");

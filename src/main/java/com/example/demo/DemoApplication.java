@@ -79,9 +79,7 @@ public class DemoApplication {
 			}
 			this.sr = PlanFlight.EnterSearchRequirements(cal, departureAirport, destinationAirport);
 
-			// this just returns the first route for testing purposes
-			// feel free to modify this as you please
-			return this.sr.getPotentialRoutes().get(0).toString();
+			return null;
 		} catch (IOException | ClassNotFoundException e) {
 			return("Airport not found");
 		}
