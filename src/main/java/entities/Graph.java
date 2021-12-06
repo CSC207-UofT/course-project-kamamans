@@ -42,11 +42,11 @@ public class Graph {
         ArrayList<Integer> path = new ArrayList<Integer>();
         path.add(src);
 
-        ArrayList<ArrayList<Integer>> output = recursivePaths(src, dest, visited, path);
+        ArrayList<ArrayList<Integer>> output = allPathsHelper(src, dest, visited, path);
         return output;
     }
 
-    private ArrayList<ArrayList<Integer>> recursivePaths (int src, int dest, boolean[] visited, ArrayList<Integer> path) {
+    private ArrayList<ArrayList<Integer>> allPathsHelper (int src, int dest, boolean[] visited, ArrayList<Integer> path) {
         ArrayList<ArrayList<Integer>> output = new ArrayList<ArrayList<Integer>>();
 
         // Base Case
@@ -66,7 +66,7 @@ public class Graph {
                 copy_path.add(target);
 
                 // <paths_from_target> contains all the possible paths from <target> to <dest>
-                ArrayList<ArrayList<Integer>> paths_from_target = recursivePaths(target, dest, copy_visited, copy_path);
+                ArrayList<ArrayList<Integer>> paths_from_target = allPathsHelper(target, dest, copy_visited, copy_path);
                 output.addAll(paths_from_target);
             }
         }
