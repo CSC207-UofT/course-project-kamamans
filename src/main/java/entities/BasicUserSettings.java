@@ -28,7 +28,7 @@ public class BasicUserSettings implements BaseUserSettings, Serializable {
     public boolean setRenewalDate(Date renewalDate) { return false; }
 
     public String getColorScheme() {
-        return null;
+        return "Blue";
     }
 
     public boolean setColorScheme(String colorScheme) { return false; }

@@ -5,18 +5,6 @@ import org.json.*;
 import javax.persistence.*;
 import java.io.Serializable;
 
-@Entity(name="airports")
-@Table
-//    @Id
-//    @SequenceGenerator(
-//            name = "airport_sequence",
-//            sequenceName = "airport_sequence",
-//            allocationSize = 1
-//    )
-//    @GeneratedValue(
-//            strategy = GenerationType.SEQUENCE,
-//            generator = "airport_sequence"
-//    )
 
 /**
  * Represents an airport.
