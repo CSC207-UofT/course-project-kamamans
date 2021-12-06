@@ -326,7 +326,7 @@ public class InteractDatabase {
     }
 
     public static void main(String[] args) throws IOException, JSONException, ClassNotFoundException {
-//        initializeDatabase();
+        initializeDatabase();
 //        printAirports();
 //        printPlanes();
 //        printFlights();

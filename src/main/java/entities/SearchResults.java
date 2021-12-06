@@ -37,6 +37,9 @@ public class SearchResults {
      * in its list of routes.
      */
     public StringBuilder routesToString() {
+        if(this.potentialRoutes.isEmpty()){
+            return new StringBuilder("");
+        }
         StringBuilder returnString = new StringBuilder("[");
         int idCounter = 0;
         for (Route route: potentialRoutes){
