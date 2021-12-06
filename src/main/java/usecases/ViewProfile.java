@@ -55,17 +55,13 @@ public class ViewProfile {
         currentUser.setAppRating(appRating);
     }
 
-    public void addRouteToHistory(String routeJSON) throws JSONException, ParseException {
-        try{
-            System.out.println("Route:"+routeJSON);
-            int i = (routeJSON.length()-1);
-            Route route = new Route(routeJSON.substring(1,i));
-            System.out.println("Route2:"+route.toString());
-            currentUser.addRouteToHistory(route);
-        }catch (Exception e){
-            System.out.println(e);
-        }
+    public void addRouteToHistory(Route routeJSON) throws JSONException, ParseException {
+            currentUser.addRouteToHistory(routeJSON);
 
+
+    }
+    public User getCurrentUser(){
+        return this.currentUser;
     }
 
     public void removeRoutebyID(String id) { currentUser.removeRoutebyID(id); }
@@ -77,7 +73,7 @@ public class ViewProfile {
     public StringBuilder getRouteHistory() {
         List<Route> routeHistory = currentUser.getRouteHistory();
         SearchResults routeHistoryResults = new SearchResults(routeHistory);
-        return routeHistoryResults.routesToString();
+        return routeHistoryResults.routesToString(this.getCurrentUser());
         }
 
     public String upgradeUserType() {

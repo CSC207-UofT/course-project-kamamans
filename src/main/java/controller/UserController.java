@@ -1,5 +1,7 @@
 package controller;
 
+import entities.Route;
+import entities.User;
 import org.json.JSONException;
 import usecases.InteractDatabase;
 import usecases.LoginHandler;
@@ -61,6 +63,9 @@ public class UserController {
 
     public void deleteAccount(String username) { loginHandler.deleteAccount(username); }
 
+    public User getCurrentUser (){
+        return loginHandler.currentUser.getCurrentUser();
+    }
     /**
      * Serializes and deserializes userList. Call this at the end of changing ViewProfile.
      */
@@ -195,7 +200,7 @@ public class UserController {
         }
     }
 
-    public String addRouteToHistory(String routeJSON) {
+    public String addRouteToHistory(Route routeJSON) {
         try {
             loginHandler.currentUser.addRouteToHistory(routeJSON);
             saveSettings();

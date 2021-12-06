@@ -120,7 +120,10 @@ displayFlights();
 function deleteFlight(routeId) {
     // TODO: Delete this flight from the user's history
     // TODO: make sure the list displayed updates with the deleted flight
-    alert('Route '+routeId+' deleted!');
+    let url = 'http://localhost:8080/deleteRoute?id='+routeId
+    let jsondata = httpGet(url);
+    document.location.reload(true)
+    let rawData2 = JSON.parse(jsondata);
 
 }
 

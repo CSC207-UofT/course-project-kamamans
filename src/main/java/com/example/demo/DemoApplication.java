@@ -89,20 +89,20 @@ public class DemoApplication {
 
 	@GetMapping("/getPotentialFlights")
 	public String getPotentialFlights() {
-		System.out.println(this.sr.routesToString().toString());
-		return this.sr.routesToString().toString();
+		System.out.println(this.sr.routesToString(uc.getCurrentUser()).toString());
+		return this.sr.routesToString(uc.getCurrentUser()).toString();
 	}
 	@GetMapping("/getPotentialFlightsByDuration")
 	public String getPotentialFlightsByDuration() {
 		sr.sortByDuration();
-		System.out.println(this.sr.routesToString().toString());
-		return this.sr.routesToString().toString();
+		System.out.println(this.sr.routesToString(uc.getCurrentUser()).toString());
+		return this.sr.routesToString(uc.getCurrentUser()).toString();
 	}
 	@GetMapping("/getPotentialFlightsByPrice")
 	public String getPotentialFlightsByPrice() {
 		sr.sortByPrice();
-		System.out.println(this.sr.routesToString().toString());
-		return this.sr.routesToString().toString();
+		System.out.println(this.sr.routesToString(uc.getCurrentUser()).toString());
+		return this.sr.routesToString(uc.getCurrentUser()).toString();
 	}
 	@GetMapping("/selectFlight")
 	public String selectFlight(@RequestParam(value = "id") String id) {
@@ -123,12 +123,8 @@ public class DemoApplication {
 	public String bookFlight(@RequestParam(value = "firstName") String firstName, @RequestParam(value = "lastName") String lastName,
 							 @RequestParam(value = "phoneNumber") String phoneNumber, @RequestParam(value = "email") String email,
 							 @RequestParam(value = "dateOfBirth") String dateOfBirth) {
-		for (Route r : this.sr.getPotentialRoutes()){
-			if (r.getRouteID() == this.selectedRoute.getRouteID()){
-				System.out.println("The route to be added: "+r.routeToString().toString());
-				uc.addRouteToHistory(r.routeToString().toString());
-			}
-		}
+
+		uc.addRouteToHistory(this.selectedRoute);
 		System.out.println("booked flight with id = "+this.selectedRoute.getRouteID());
 		return "it worked!!!";
 	}
@@ -154,10 +150,15 @@ public class DemoApplication {
 	}
 	@GetMapping("/viewRouteHistory")
 	public String viewRouteHistory() {
-		System.out.println("I tried");
 		System.out.println(uc.getRouteHistory());
 		System.out.println(uc.getRouteHistory().toString());
 		return uc.getRouteHistory().toString();
+	}
+	@GetMapping("/deleteRoute")
+	public String viewRouteHistory(@RequestParam(value = "id") String id) {
+		uc.removeRoutebyID(id);
+		System.out.println("deleted route");
+		return "removed route";
 	}
 
 }

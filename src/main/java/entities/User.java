@@ -2,6 +2,7 @@ package entities;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import javax.persistence.Basic;
 
 /**
@@ -16,7 +17,7 @@ public class User implements Serializable {
     private int appRating;
     private List<Route> routeHistory;
     public BaseUserSettings user;
-
+    public List<Integer> existingRouteId = new ArrayList<>();
     public User(String username, String password, String email, String phoneNumber) {
         this.user = new BasicUserSettings(this);
         this.username = username;
@@ -49,12 +50,12 @@ public class User implements Serializable {
     }
 
     public void addRouteToHistory(Route route) {
-        System.out.println("hehexd:"+route);
         this.routeHistory.add(route);
-
+        this.existingRouteId.add(route.getRouteID());
     }
 
     public void removeRoutebyID(String id) {
+        this.existingRouteId.remove(Integer.valueOf(id));
         for (Route route : routeHistory) {
             if (String.valueOf(route.getRouteID()).equals(id)) {
                 routeHistory.remove(route);

@@ -42,7 +42,7 @@ public class SearchResults {
      * Returns a StringBuilder object that is parseable and contains all the information for every route
      * in its list of routes.
      */
-    public StringBuilder routesToString() {
+    public StringBuilder routesToString(User u) {
         if(this.potentialRoutes.isEmpty()){
             return new StringBuilder("");
         }
@@ -108,10 +108,15 @@ public class SearchResults {
             returnString.append("\"duration\": "+route.getTotalDuration()+", ");
 
             // Adding id
-            if (route.getRouteID() == -1){
-                route.setRouteID(idCounter);
+            while(route.getRouteID() == -1){
+                if(!u.existingRouteId.contains(idCounter)){
+                    route.setRouteID(idCounter);
+                }
                 idCounter++;
             }
+
+
+
             returnString.append("\"id\": \""+route.getRouteID()+"\"");
 
 
