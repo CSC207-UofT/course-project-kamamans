@@ -2,11 +2,11 @@ package entities;
 
 import org.json.*;
 
-import javax.persistence.*;
+//import javax.persistence.*;
 import java.io.Serializable;
 
-@Entity(name="airports")
-@Table
+//@Entity(name="airports")
+//@Table
 //    @Id
 //    @SequenceGenerator(
 //            name = "airport_sequence",

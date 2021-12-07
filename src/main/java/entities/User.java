@@ -2,7 +2,7 @@ package entities;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import javax.persistence.Basic;
+//import javax.persistence.Basic;
 
 /**
  * User is responsible for common methods and attributes across all users.
