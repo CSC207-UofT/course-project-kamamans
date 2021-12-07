@@ -27,23 +27,31 @@ public class PremiumUserSettings implements BaseUserSettings, Serializable {
         return true;
     }
 
-    public String getClassType() { return classType; }
+    public String getClassType() {
+        return classType;
+    }
 
-    public Date getRenewalDate() { return renewalDate; }
+    public Date getRenewalDate() {
+        return renewalDate;
+    }
 
     public boolean setRenewalDate(Date renewalDate) {
         this.renewalDate = renewalDate;
         return true;
     }
 
-    public String getColorScheme() { return colorScheme; }
+    public String getColorScheme() {
+        return colorScheme;
+    }
 
     public boolean setColorScheme(String colorScheme) {
         this.colorScheme = colorScheme;
         return true;
     }
 
-    public List<Airport> getFavouriteAirports() { return favouriteAirports; }
+    public List<Airport> getFavouriteAirports() {
+        return favouriteAirports;
+    }
 
     public boolean addFavouriteAirport(Airport favouriteAirport) {
         this.favouriteAirports.add(favouriteAirport);
@@ -55,14 +63,18 @@ public class PremiumUserSettings implements BaseUserSettings, Serializable {
         return true;
     }
 
-    public int getAutoLogoutTimer() { return autoLogoutTimer; }
+    public int getAutoLogoutTimer() {
+        return autoLogoutTimer;
+    }
 
     public boolean setAutoLogoutTimer(int autoLogoutTimer) {
         this.autoLogoutTimer = autoLogoutTimer;
         return true;
     }
 
-    public Airport getHomeAirport() { return homeAirport; }
+    public Airport getHomeAirport() {
+        return homeAirport;
+    }
 
     public boolean setHomeAirport(Airport homeAirport) {
         this.homeAirport = homeAirport;
@@ -75,6 +87,7 @@ public class PremiumUserSettings implements BaseUserSettings, Serializable {
 
     /**
      * Downgrade PremiumUser to BasicUser by creating a new BasicUser and passing it to userManager
+     *
      * @return None
      */
     public String downgradeUserType() {

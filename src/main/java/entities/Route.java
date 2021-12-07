@@ -1,4 +1,5 @@
 package entities;
+
 import java.io.Serializable;
 
 
@@ -6,6 +7,7 @@ import java.lang.reflect.Array;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+
 import org.json.*;
 
 /**
@@ -14,14 +16,14 @@ import org.json.*;
  * Storing the departure and destination airports, the departure date of the first flight, and a list of one or
  * more flights to the final destination.
  */
-public class Route implements Serializable{
+public class Route implements Serializable {
     private Airport departureAirport;
     private Airport destinationAirport;
     private Calendar departureDate;
     private List<Flight> flights;
     private int routeID = -1;
 
-    public Route (Airport departureAirport, Airport destinationAirport, Calendar departureDate, List<Flight> flights) {
+    public Route(Airport departureAirport, Airport destinationAirport, Calendar departureDate, List<Flight> flights) {
         this.departureAirport = departureAirport;
         this.destinationAirport = destinationAirport;
         this.departureDate = departureDate;
@@ -54,7 +56,7 @@ public class Route implements Serializable{
         return this.destinationAirport;
     }
 
-    public void setDepartureAirport(Airport newDepartureAirport){
+    public void setDepartureAirport(Airport newDepartureAirport) {
         this.departureAirport = newDepartureAirport;
     }
 
@@ -74,24 +76,26 @@ public class Route implements Serializable{
         return flights;
     }
 
-    public double getPriceofFlights(){
+    public double getPriceofFlights() {
         double p = 0;
-        for(Flight f: this.flights) {
+        for (Flight f : this.flights) {
             p = p + f.getPrice();
         }
         return p;
     }
 
-    public double getTotalDuration(){
+    public double getTotalDuration() {
         double d = 0;
-        for(Flight f: this.flights) {
+        for (Flight f : this.flights) {
             d = d + f.getDuration();
         }
         return d;
     }
+
     public int getRouteID() {
         return this.routeID;
     }
+
     public void setRouteID(int routeID) {
         this.routeID = routeID;
     }
@@ -99,15 +103,15 @@ public class Route implements Serializable{
     /**
      * returns a Hashmap that contains information of the entire route.
      */
-    public HashMap<String, Object> getInformation(Route r){
-        HashMap<String, Object> info = new HashMap<String,Object>();
+    public HashMap<String, Object> getInformation(Route r) {
+        HashMap<String, Object> info = new HashMap<String, Object>();
 
-        HashMap<String, Object> departureAirport = new HashMap<String,Object>();
+        HashMap<String, Object> departureAirport = new HashMap<String, Object>();
         departureAirport.put("city", r.departureAirport.getCity());
         departureAirport.put("iataCode", r.departureAirport.getIataCode());
         info.put("departureAirport", departureAirport);
 
-        HashMap<String, Object> destinationAirport = new HashMap<String,Object>();
+        HashMap<String, Object> destinationAirport = new HashMap<String, Object>();
         destinationAirport.put("city", r.destinationAirport.getCity());
         destinationAirport.put("iataCode", r.destinationAirport.getIataCode());
         info.put("destinationAirport", destinationAirport);
@@ -121,6 +125,7 @@ public class Route implements Serializable{
         info.put("duration", r.getTotalDuration());
         return info;
     }
+
     public StringBuilder routeToString() {
         StringBuilder returnString = new StringBuilder("[");
 
@@ -184,7 +189,6 @@ public class Route implements Serializable{
 
         // Adding id
         returnString.append("\"id\": \"" + getRouteID() + "\"");
-
 
 
         returnString.append("},");

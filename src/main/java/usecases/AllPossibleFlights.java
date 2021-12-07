@@ -5,6 +5,11 @@ import entities.*;
 import java.io.IOException;
 import java.util.*;
 
+/**
+ * Class a part of Application Business Rules
+ * Collects all possible flights from pulling flight data from server
+ */
+
 public class AllPossibleFlights {
     private Calendar departureDate;
     private Hashtable<Integer, Airport> airportData;
@@ -67,10 +72,10 @@ public class AllPossibleFlights {
         return new SearchResults(routePaths);
     }
 
-    private ArrayList<Flight> flightFromInt (ArrayList<Integer> integerPaths) {
+    private ArrayList<Flight> flightFromInt(ArrayList<Integer> integerPaths) {
         ArrayList<Flight> output = new ArrayList<Flight>();
         for (int i = 1; i < integerPaths.size(); i++) {
-            output.add(this.reverseFlight[integerPaths.get(i-1)][integerPaths.get(i)]);
+            output.add(this.reverseFlight[integerPaths.get(i - 1)][integerPaths.get(i)]);
         }
         return output;
     }

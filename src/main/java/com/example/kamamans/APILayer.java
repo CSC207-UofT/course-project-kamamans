@@ -4,6 +4,11 @@ import entities.Airport;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+/**
+ * APILayer is aggregated proxy of service offerings
+ * Consists of functions that bridge client and application
+ */
+
 @RestController
 
 public class APILayer {

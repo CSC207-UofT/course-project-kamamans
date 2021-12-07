@@ -1,9 +1,13 @@
 package com.example.kamamans;
 
-import entities.Airport;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+/**
+ * Class for configuring database
+ * Consists of single commandline runner that verifies airports are configured properly
+ */
 
 @Configuration
 public class DatabaseConfig {
