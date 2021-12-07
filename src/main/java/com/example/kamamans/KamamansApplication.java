@@ -12,9 +12,9 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 @EntityScan("entities")
 public class KamamansApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(KamamansApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(KamamansApplication.class, args);
+    }
 
 
 }

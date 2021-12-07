@@ -28,7 +28,7 @@ public class ServiceLayer {
 //        output[0] = new Airport("Toronto", "6ix");
 //        output[1] = new Airport("Paris", "tower");
 //        return output;
-        return  airportRepository.findAll().toArray(new Airport[0]);
+        return airportRepository.findAll().toArray(new Airport[0]);
     }
 
     public Airport[] getAirport2() {
