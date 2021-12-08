@@ -65,8 +65,6 @@ We addressed major errors that would pop up when our code is opened in IntelliJ.
 
 The testing classes that we created are for the main entities (Airport, Flight, Plane, Route, SearchResults, and User). These are all simply checking that the methods that are the basis of our program work and return the expected values. In addition, we have DemoApplicationTests and KamamansApplicationTests that now give us the ability to test the Frameworks and Drivers layer in clean architecture.
 
-(WE WILL BE FINALIZING AND PUSHING MORE TESTING BY WEDNESDAY.)
-
 ## Refactoring
 
 Pull request no.1: https://github.com/CSC207-UofT/course-project-kamamans/pull/30 
