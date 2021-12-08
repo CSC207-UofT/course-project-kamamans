@@ -175,9 +175,9 @@ public class InitializeDatabase {
 
     public static void main(String[] args) {
 //        resetTestData();
-//        AirportData.printAirports();
-//        PlaneData.printPlanes();
-//        FlightData.printFlights();
+//        AirportReadWriter.printAirports();
+//        PlaneReadWriter.printPlanes();
+        FlightReadWriter.printFlights();
     }
 
 }
