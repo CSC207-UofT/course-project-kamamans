@@ -1,9 +1,6 @@
 package entities;
 
-import org.json.*;
-
 import java.io.Serializable;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
@@ -13,12 +10,12 @@ import java.util.Calendar;
  */
 
 public class Flight implements Serializable {
-    private Calendar date;
-    private Plane plane;
-    private double price; //TODO: since there are two types of seats in our plane object, shouldn't there be 2 prices?
-    private double duration; //TODO: Assuming this will be in hours?
-    private Airport sourceAirport;
-    private Airport destinationAirport;
+    private final Calendar date;
+    private final Plane plane;
+    private final double price;
+    private final double duration;
+    private final Airport sourceAirport;
+    private final Airport destinationAirport;
 
     public Flight(Calendar date, Plane plane, double price, double duration, Airport source, Airport destination) {
         this.date = date;
@@ -53,15 +50,36 @@ public class Flight implements Serializable {
         return this.destinationAirport;
     }
 
-    public Flight(String flightJSON) throws JSONException, ParseException {
-        JSONObject obj = new JSONObject(flightJSON);
 
-        date = Calendar.getInstance();
+    public String toString() {
+
         SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
-        date.setTime(sdf.parse(obj.getString("departureDate")));
 
-        JSONObject plane = obj.getJSONObject("plane");
-        price = obj.getInt("price");
-        duration = obj.getInt("duration");
+        StringBuilder returnString = new StringBuilder();
+
+        returnString.append("{");
+
+        // Adding departure date
+        returnString.append("\"departureDate\": \"").append(sdf.format(getDate().getTime())).append("\", ");
+
+        //Adding plane details
+        returnString.append("\"plane\": ").append(getPlane()).append(", ");
+
+        // Adding price
+        returnString.append("\"price\": ").append(getPrice()).append(", ");
+        // Adding duration
+        returnString.append("\"duration\": ").append(getDuration()).append(", ");
+
+        // Adding source airport
+        returnString.append("\"sourceAirport\": ");
+        returnString.append(getSourceAirport().toString()).append(", ");
+
+        // Adding destination airport
+        returnString.append("\"destinationAirport\": ");
+        returnString.append(getDestinationAirport().toString());
+
+        returnString.append("} ");
+
+        return new String(returnString);
     }
 }

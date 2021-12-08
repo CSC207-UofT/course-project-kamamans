@@ -76,10 +76,10 @@ public class ViewProfile {
      *
      * @return StringBuilder of the users route history in json parseable String format
      */
-    public StringBuilder getRouteHistory() {
+    public String getRouteHistory() {
         List<Route> routeHistory = currentUser.getRouteHistory();
         SearchResults routeHistoryResults = new SearchResults(routeHistory);
-        return routeHistoryResults.routesToString(this.getCurrentUser());
+        return routeHistoryResults.toString(this.getCurrentUser());
     }
 
     public String upgradeUserType() {
@@ -129,19 +129,27 @@ public class ViewProfile {
 
     /**
      * Return a StringBuilder representing this users favourite airports
+<<<<<<< HEAD
      *
      * @return String user's favourite airports
+=======
+     * @return String
+>>>>>>> origin/main
      */
-    public StringBuilder getFavouriteAirports() {
+    public String getFavouriteAirports() {
         StringBuilder returnString = new StringBuilder("[");
         List<Airport> favAirports = currentUser.user.getFavouriteAirports();
 
         for (Airport airport : favAirports) {
+<<<<<<< HEAD
             returnString.append(airport.airportToString());
+=======
+            returnString.append(airport.toString());
+>>>>>>> origin/main
         }
 
         returnString.append("]");
-        return returnString;
+        return new String(returnString);
     }
 
     public String addFavouriteAirport(Airport airport) {
@@ -160,8 +168,8 @@ public class ViewProfile {
         return isValidRequest(currentUser.user.setAutoLogoutTimer(autoLogoutTimer));
     }
 
-    public StringBuilder getHomeAirport() {
-        return currentUser.user.getHomeAirport().airportToString();
+    public String getHomeAirport() {
+        return currentUser.user.getHomeAirport().toString();
     }
 
     public String setHomeAirport(Airport airport) {
