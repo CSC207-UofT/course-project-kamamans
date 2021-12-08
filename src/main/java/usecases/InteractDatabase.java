@@ -350,8 +350,7 @@ public class InteractDatabase {
         System.out.println("Airport List:");
         for (Airport port : getAirportList()) {
             System.out.println("-----");
-            System.out.println("city: " + port.getCity());
-            System.out.println("iata: " + port.getIataCode());
+            System.out.println(port);
         }
     }
 
@@ -359,9 +358,7 @@ public class InteractDatabase {
         System.out.println("Plane List:");
         for (Plane plane : getPlaneList()) {
             System.out.println("-----");
-            System.out.println("brand name: " + plane.getBrandName());
-            System.out.println("total seats: " + plane.getSeatCount());
-            System.out.println("vacant: " + plane.getHasVacantSeats());
+            System.out.println(plane);
         }
     }
 
@@ -369,13 +366,7 @@ public class InteractDatabase {
         System.out.println("Flight List");
         for (Flight flight : getFlightList()) {
             System.out.println("-----");
-            System.out.println("source: " + flight.getSourceAirport().getCity());
-            System.out.println("dest: " + flight.getDestinationAirport().getCity());
-            Calendar date = flight.getDate();
-            String month = "" + (date.get(Calendar.MONTH)+1);
-            String day = "" + date.get(Calendar.DAY_OF_MONTH);
-            String year = "" + date.get(Calendar.YEAR);
-            System.out.println("date: " + month + "/" + day + "/" + year);
+            System.out.println(flight);
         }
     }
 

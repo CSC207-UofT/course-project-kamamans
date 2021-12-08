@@ -70,11 +70,11 @@ public class ViewProfile {
      * Return the users route history in a json parseable string using the method in SearchResults.
      * @return StringBuilder of the users route history in json parseable String format
      */
-    public StringBuilder getRouteHistory() {
+    public String getRouteHistory() {
         List<Route> routeHistory = currentUser.getRouteHistory();
         SearchResults routeHistoryResults = new SearchResults(routeHistory);
-        return routeHistoryResults.routesToString(this.getCurrentUser());
-        }
+        return routeHistoryResults.toString(this.getCurrentUser());
+    }
 
     public String upgradeUserType() {
         return currentUser.upgradeUserType();
@@ -113,18 +113,18 @@ public class ViewProfile {
 
     /**
      * Return a StringBuilder representing this users favourite airports
-     * @return
+     * @return String
      */
-    public StringBuilder getFavouriteAirports() {
+    public String getFavouriteAirports() {
         StringBuilder returnString = new StringBuilder("[");
         List<Airport> favAirports = currentUser.user.getFavouriteAirports();
 
         for (Airport airport : favAirports) {
-            returnString.append(airport.airportToString());
-        };
+            returnString.append(airport.toString());
+        }
 
         returnString.append("]");
-        return returnString;
+        return new String(returnString);
     }
 
     public String addFavouriteAirport(Airport airport) { return isValidRequest(currentUser.user.addFavouriteAirport(airport)); }
@@ -137,8 +137,8 @@ public class ViewProfile {
         return isValidRequest(currentUser.user.setAutoLogoutTimer(autoLogoutTimer));
     }
 
-    public StringBuilder getHomeAirport() {
-        return currentUser.user.getHomeAirport().airportToString();
+    public String getHomeAirport() {
+        return currentUser.user.getHomeAirport().toString();
     }
 
     public String setHomeAirport(Airport airport) { return isValidRequest(currentUser.user.setHomeAirport(airport)); }
