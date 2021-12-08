@@ -99,27 +99,13 @@ public class UserController {
 
     public void setAppRating(int appRating) { loginHandler.currentUser.setAppRating(appRating); }
 
-    public StringBuilder getRouteHistory() { return loginHandler.currentUser.getRouteHistory(); }
+    public String getRouteHistory() { return loginHandler.currentUser.getRouteHistory(); }
 
     public String upgradeUserType() { return loginHandler.currentUser.upgradeUserType(); }
 
     public String downgradeUserType() { return loginHandler.currentUser.downgradeUserType(); }
 
-    public String getUserType() { return loginHandler.currentUser.getUserType(); }
-
     public String getClassType() { return loginHandler.currentUser.getClassType(); }
-
-    public String setClassType(String classType) { return loginHandler.currentUser.setClassType(classType); }
-
-    public Date getRenewalDate() { return loginHandler.currentUser.getRenewalDate(); }
-
-    public String setRenewalDate(Date date) { return loginHandler.currentUser.setRenewalDate(date); }
-
-    public String getColorScheme() { return loginHandler.currentUser.getColorScheme(); }
-
-    public String setColorScheme(String colorScheme) { return loginHandler.currentUser.setColorScheme(colorScheme); }
-
-    public Airport getFavouriteAirport() { return loginHandler.currentUser.getFavouriteAirport(); }
 
     public String getUserDataJson () {
         return "{" +

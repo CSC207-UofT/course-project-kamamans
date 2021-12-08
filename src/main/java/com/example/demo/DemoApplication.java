@@ -91,20 +91,20 @@ public class DemoApplication {
 
 	@GetMapping("/getPotentialFlights")
 	public String getPotentialFlights() {
-		System.out.println(this.sr.routesToString(uc.getCurrentUser()).toString());
-		return this.sr.routesToString(uc.getCurrentUser()).toString();
+		System.out.println(this.sr.toString(uc.getCurrentUser()));
+		return this.sr.toString(uc.getCurrentUser());
 	}
 	@GetMapping("/getPotentialFlightsByDuration")
 	public String getPotentialFlightsByDuration() {
 		sr.sortByDuration();
-		System.out.println(this.sr.routesToString(uc.getCurrentUser()).toString());
-		return this.sr.routesToString(uc.getCurrentUser()).toString();
+		System.out.println(this.sr.toString(uc.getCurrentUser()));
+		return this.sr.toString(uc.getCurrentUser());
 	}
 	@GetMapping("/getPotentialFlightsByPrice")
 	public String getPotentialFlightsByPrice() {
 		sr.sortByPrice();
-		System.out.println(this.sr.routesToString(uc.getCurrentUser()).toString());
-		return this.sr.routesToString(uc.getCurrentUser()).toString();
+		System.out.println(this.sr.toString(uc.getCurrentUser()));
+		return this.sr.toString(uc.getCurrentUser());
 	}
 	@GetMapping("/selectFlight")
 	public String selectFlight(@RequestParam(value = "id") String id) {
@@ -118,8 +118,8 @@ public class DemoApplication {
 	}
 	@GetMapping("/getSelectedFlight")
 	public String getSelectedFlight() {
-		System.out.println(this.selectedRoute.routeToString().toString());
-		return(this.selectedRoute.routeToString().toString());
+		System.out.println(this.selectedRoute.toString());
+		return(this.selectedRoute.toString());
 	}
 	@GetMapping("/bookFlight")
 	public String bookFlight(@RequestParam(value = "firstName") String firstName, @RequestParam(value = "lastName") String lastName,
@@ -175,8 +175,8 @@ public class DemoApplication {
 	@GetMapping("/viewRouteHistory")
 	public String viewRouteHistory() {
 		System.out.println(uc.getRouteHistory());
-		System.out.println(uc.getRouteHistory().toString());
-		return uc.getRouteHistory().toString();
+		System.out.println(uc.getRouteHistory());
+		return uc.getRouteHistory();
 	}
 	@GetMapping("/deleteRoute")
 	public String viewRouteHistory(@RequestParam(value = "id") String id) {

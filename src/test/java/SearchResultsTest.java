@@ -8,7 +8,6 @@ import usecases.InteractDatabase;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
-import java.util.List;
 
 public class SearchResultsTest {
 
@@ -17,7 +16,6 @@ public class SearchResultsTest {
     public Route r3;
     public ArrayList<Route> routes = new ArrayList<>();
     public SearchResults sq;
-    InteractDatabase db = new InteractDatabase();
 
     @Before
     public void setUpRoutes(){
@@ -74,9 +72,9 @@ public class SearchResultsTest {
         routesa.add(r2);
         SearchResults sqa = new SearchResults(routesa);
 
-        double a = sq.getPotentialRoutes().get(0).getPriceofFlights();
-        double b = sq.getPotentialRoutes().get(1).getPriceofFlights();
-        double c = sq.getPotentialRoutes().get(2).getPriceofFlights();
+        double a = sq.getPotentialRoutes().get(0).getPriceOfFlights();
+        double b = sq.getPotentialRoutes().get(1).getPriceOfFlights();
+        double c = sq.getPotentialRoutes().get(2).getPriceOfFlights();
 
         assertTrue((a <= b) && (b <= c));
     }

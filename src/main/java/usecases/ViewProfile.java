@@ -7,7 +7,6 @@ import entities.User;
 import org.json.JSONException;
 
 import java.text.ParseException;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -72,11 +71,11 @@ public class ViewProfile {
      * Return the users route history in a json parseable string using the method in SearchResults.
      * @return StringBuilder of the users route history in json parseable String format
      */
-    public StringBuilder getRouteHistory() {
+    public String getRouteHistory() {
         List<Route> routeHistory = currentUser.getRouteHistory();
         SearchResults routeHistoryResults = new SearchResults(routeHistory);
-        return routeHistoryResults.routesToString(this.getCurrentUser());
-        }
+        return routeHistoryResults.toString(this.getCurrentUser());
+    }
 
     public String upgradeUserType() {
         return currentUser.upgradeUserType();
@@ -111,8 +110,6 @@ public class ViewProfile {
 
     public String getColorScheme() { return currentUser.userSettings.getColorScheme(); }
 
-    public String setColorScheme(String colorScheme) { return isValidRequest(currentUser.userSettings.setColorScheme(colorScheme)); }
-
     public Airport getFavouriteAirport() {
         return currentUser.userSettings.getFavouriteAirport();
     }
@@ -125,8 +122,8 @@ public class ViewProfile {
         return isValidRequest(currentUser.userSettings.setAutoLogoutTimer(autoLogoutTimer));
     }
 
-    public StringBuilder getHomeAirport() {
-        return currentUser.userSettings.getHomeAirport().airportToString();
+    public String getHomeAirport() {
+        return currentUser.userSettings.getHomeAirport().toString();
     }
 
     public String setHomeAirport(Airport airport) { return isValidRequest(currentUser.userSettings.setHomeAirport(airport)); }
