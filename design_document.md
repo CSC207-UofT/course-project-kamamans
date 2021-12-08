@@ -129,11 +129,15 @@ Our program is less likely to be used by the demographics that is hard of sight.
   - Implemented and tested the find all routes algorithm.
   - Worked with Salwa to create presentations.
   - Reviewed other pull requests relevant to the backend. Helped with documentation and updated the CRC cards.
+  - [https://github.com/CSC207-UofT/course-project-kamamans/pull/30](https://github.com/CSC207-UofT/course-project-kamamans/pull/30)
+  - PR showing major contribution to creating depth first search (allowing for different search priorities of price, duration, location etc.) 
+  - [https://github.com/CSC207-UofT/course-project-kamamans/pull/9](https://github.com/CSC207-UofT/course-project-kamamans/pull/9 )
+  - Setting up Flight, Plane entities that remained crucial to clean architecture. Includes creating accopanying test classes 
 
 - **Salwa:**
   - Created the basis of the frontend websites including starting the LoginPage, ProfileMakingPage, SearchFlight, BookingConfirmationPage, UpdateProfilePage.
   - Created the design documentation, UML diagram, design pattern diagram and presentation
-  - [https://github.com/CSC207-UofT/course-project-kamamans/pull/33/files](https://github.com/CSC207-UofT/course-project-kamamans/pull/33/files)
+  - [https://github.com/CSC207-UofT/course-project-kamamans/pull/33/](https://github.com/CSC207-UofT/course-project-kamamans/pull/33)
   - PR showing one of the contributions to setting up the backend (HTML, JS, CSS files and functions required for connecting)
   - [https://github.com/CSC207-UofT/course-project-kamamans/pull/1](https://github.com/CSC207-UofT/course-project-kamamans/pull/1)
   - First PR (along with #3, #4) set up the basis of the program setting up our team to follow clean architecture
