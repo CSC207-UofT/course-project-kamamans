@@ -129,23 +129,14 @@ public class ViewProfile {
 
     /**
      * Return a StringBuilder representing this users favourite airports
-<<<<<<< HEAD
-     *
-     * @return String user's favourite airports
-=======
      * @return String
->>>>>>> origin/main
      */
     public String getFavouriteAirports() {
         StringBuilder returnString = new StringBuilder("[");
         List<Airport> favAirports = currentUser.user.getFavouriteAirports();
 
         for (Airport airport : favAirports) {
-<<<<<<< HEAD
-            returnString.append(airport.airportToString());
-=======
             returnString.append(airport.toString());
->>>>>>> origin/main
         }
 
         returnString.append("]");
