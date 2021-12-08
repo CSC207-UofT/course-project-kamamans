@@ -1,5 +1,6 @@
 package controller;
 
+import entities.Airport;
 import entities.Route;
 import entities.User;
 import org.json.JSONException;
@@ -8,7 +9,9 @@ import usecases.LoginHandler;
 
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.Map;
 
 /**
  * UserController is responsible for implementing features such as logging in a user, and creating new accounts.
@@ -125,35 +128,11 @@ public class UserController {
         return loginHandler.currentUser.downgradeUserType();
     }
 
+    public String getClassType() { return loginHandler.currentUser.getClassType(); }
+
     public String getUserType() {
         return loginHandler.currentUser.getUserType();
     }
-
-    public String getClassType() {
-        return loginHandler.currentUser.getClassType();
-    }
-
-    public String setClassType(String classType) {
-        return loginHandler.currentUser.setClassType(classType);
-    }
-
-    public Date getRenewalDate() {
-        return loginHandler.currentUser.getRenewalDate();
-    }
-
-    public String setRenewalDate(Date date) {
-        return loginHandler.currentUser.setRenewalDate(date);
-    }
-
-    public String getColorScheme() {
-        return loginHandler.currentUser.getColorScheme();
-    }
-
-    public String setColorScheme(String colorScheme) {
-        return loginHandler.currentUser.setColorScheme(colorScheme);
-    }
-
-    public String getFavouriteAirports() { return loginHandler.currentUser.getFavouriteAirports(); }
 
     public String getUserDataJson () {
         return "{" +
@@ -177,67 +156,24 @@ public class UserController {
     }
 
     public String getUserSettingsJson () {
-        return "{" +
-                "\"colorScheme\":" +
-                "\"" +
-                "Blue" +
-                "\"," +
-                "\"homeAirport\":" +
-                "\"" +
-                "Toronto" +
-                "\"," +
-                "\"favouriteAirport\":" +
-                "\"" +
-                "None" +
-                "\"," +
-                "\"autoLogoutTimer\":" +
-                "\"" +
-                10 +
-                "\"" +
-                "}";
+        return loginHandler.settingsToString();
     }
 
-    // TODO: add fav airport, remove fav airport
-
-    public String addFavouriteAirport(String iataCode) {
-        return loginHandler.currentUser.addFavouriteAirport(AirportReadWriter.getAirportByIata(iataCode));
+    public String updateSettings(Map<String, String> settingsHash){
+        return loginHandler.updateSettings(settingsHash);
     }
 
-    public String removeFavouriteAirport(String iataCode) {
-        return loginHandler.currentUser.removeFavouriteAirport(AirportReadWriter.getAirportByIata(iataCode));
-    }
-
-    public int getAutoLogoutTimer() {
-        return loginHandler.currentUser.getAutoLogoutTimer();
-    }
-
-    public String setAutoLogoutTimer(int autoLogoutTimer) {
-        return loginHandler.currentUser.setAutoLogoutTimer(autoLogoutTimer);
-    }
-
-    public String getHomeAirport() { return loginHandler.currentUser.getHomeAirport(); }
-
-
-    // TODO: set home airport
-
-    public void removeRoutebyID(String id) {
+    public void removeRouteByID(String id) {
         loginHandler.currentUser.removeRoutebyID(id);
         saveSettings();
     }
 
-    public String setHomeAirport(String iataCode) {
-        return loginHandler.currentUser.setHomeAirport(AirportReadWriter.getAirportByIata(iataCode));
-    }
-
-    public String addRouteToHistory(Route routeJSON) {
+    public void addRouteToHistory(Route selectedRoute) {
         try {
-            loginHandler.currentUser.addRouteToHistory(routeJSON);
+            loginHandler.currentUser.addRouteToHistory(selectedRoute);
             saveSettings();
-            return "Successfully saved route to User history.";
-        } catch (JSONException | ParseException e) {
-            return "Unable to save route to User history.";
+        } catch (JSONException | ParseException ignored) {
         }
-
     }
 
 }

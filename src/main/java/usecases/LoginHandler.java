@@ -3,6 +3,7 @@ package usecases;
 import entities.User;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 /**
  * LoginHandler handles login and account creation.
@@ -21,6 +22,9 @@ public class LoginHandler {
     }
 
     public void saveSettings() {
+        // Re-instantiating the current user in the user list to avoid pointer errors
+        users.removeUser(currentUser.getCurrentUser());
+        users.addUser(currentUser.getCurrentUser());
         serializeUsers();
         users = deserializeUsers();
     }
@@ -118,4 +122,11 @@ public class LoginHandler {
         return this.currentUser.getUsername();
     }
 
+    public String settingsToString() {
+        return currentUser.settingsToString();
+    }
+
+    public String updateSettings(Map<String, String> settingsHash){
+        return currentUser.updateSettings(settingsHash);
+    }
 }

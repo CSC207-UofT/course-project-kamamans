@@ -38,10 +38,58 @@ public class InitializeDatabase {
         InteractDatabase.reset(Airport.class);
         InteractDatabase.reset(Plane.class);
         InteractDatabase.reset(Flight.class);
-
         ArrayList<Airport> airports = new ArrayList<Airport>();
         ArrayList<Plane> planes = new ArrayList<Plane>();
         ArrayList<Flight> flights = new ArrayList<Flight>();
+        // UserList Data Creation
+        UserList userData = new UserList();
+        userData.addUser(new User("user1", "111", "test1@email.ca", "(416)-000-0001"));
+        userData.addUser(new User("user2", "222", "test2@email.com", "(416)-000-0002"));
+        // Write User Data
+        InteractDatabase.post(userData, UserList.class);
+        // Airport Data Creation
+        airports.add(new Airport("Toronto", "000"));
+        airports.add(new Airport("Montreal", "001"));
+        airports.add(new Airport("Vancouver", "002"));
+        airports.add(new Airport("London", "003"));
+        airports.add(new Airport("Paris", "004"));
+        airports.add(new Airport("Hong Kong", "005"));
+        // Write Airport Data
+        for (Airport airport : airports) {
+            InteractDatabase.post(airport, Airport.class);
+        }
+        // Plane Data Creation
+        planes.add(new Plane("Boeing 747", 223, 7, 223 - 7, true, "001"));
+        planes.add(new Plane("Apollo 11", 1738, 12, 1738 - 12, true, "002"));
+        planes.add(new Plane("Falcon 1", 1337, 15, 1337 - 15, true, "003"));
+        // Write Plane Data
+        for (Plane plane : planes) {
+            InteractDatabase.post(plane, Plane.class);
+        }
+        // Flight Data Creation
+        GregorianCalendar date = new GregorianCalendar(2021, Calendar.DECEMBER, 6);
+        flights.add(new Flight(date, planes.get(0), 10,2, airports.get(0), airports.get(1)));
+        flights.add(new Flight(date, planes.get(1), 3, 7, airports.get(0), airports.get(2)));
+        flights.add(new Flight(date, planes.get(2), 5, 3, airports.get(0), airports.get(3)));
+        flights.add(new Flight(date, planes.get(0), 1, 2, airports.get(1), airports.get(0)));
+        flights.add(new Flight(date, planes.get(1), 3, 4, airports.get(1), airports.get(2)));
+        flights.add(new Flight(date, planes.get(2), 2, 2, airports.get(1), airports.get(4)));
+        flights.add(new Flight(date, planes.get(0), 1, 2, airports.get(2), airports.get(0)));
+        flights.add(new Flight(date, planes.get(1), 6, 4, airports.get(2), airports.get(1)));
+        flights.add(new Flight(date, planes.get(2), 5, 5, airports.get(2), airports.get(5)));
+        flights.add(new Flight(date, planes.get(0), 1, 2, airports.get(3), airports.get(1)));
+        flights.add(new Flight(date, planes.get(1), 2, 4, airports.get(3), airports.get(4)));
+        flights.add(new Flight(date, planes.get(2), 5, 1, airports.get(3), airports.get(5)));
+        flights.add(new Flight(date, planes.get(0), 7, 2, airports.get(4), airports.get(0)));
+        flights.add(new Flight(date, planes.get(1), 3, 4, airports.get(4), airports.get(3)));
+        flights.add(new Flight(date, planes.get(2), 2, 2, airports.get(4), airports.get(5)));
+        flights.add(new Flight(date, planes.get(0), 1, 2, airports.get(5), airports.get(2)));
+        flights.add(new Flight(date, planes.get(1), 3, 4, airports.get(5), airports.get(3)));
+        flights.add(new Flight(date, planes.get(2), 5, 6, airports.get(5), airports.get(4)));
+        // Write Flight Data
+        for (Flight flight : flights) {
+            InteractDatabase.post(flight, Flight.class);
+        }
     }
 
     /**
@@ -166,9 +214,9 @@ public class InitializeDatabase {
 
     public static void main(String[] args) throws JSONException, IOException, ParseException, ClassNotFoundException {
         resetTestData();
-        updatePlaneDB();
-        updateAirportDB();
-        updateFlightDB();
+//        updatePlaneDB();
+//        updateAirportDB();
+//        updateFlightDB();
 
     }
 }
