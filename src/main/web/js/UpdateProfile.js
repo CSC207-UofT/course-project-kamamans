@@ -32,10 +32,14 @@ function saveAndClose() {
     let rawData2 = httpGet(url);
     console.log(rawData2)
 
-    saveUserSettings();
+    let rawData3 = saveUserSettings();
+    if (rawData3 === "true"){
+        alert('Settings saved!');
+        window.location.href = "SearchFlight.html";
+    } else {
+        alert(rawData3);
+    }
 
-    alert('Settings saved!');
-    window.location.href = "SearchFlight.html";
 }
 
 function saveUserSettings() {
@@ -50,9 +54,7 @@ function saveUserSettings() {
 
     let url = 'http://localhost:8080/UpdateAndSaveUserSettings?settingsDict=' + settingsDict.substring(1, settingsDict.length-1);
 
-    console.log(url);
-    let rawData2 = httpGet(url);
-    console.log(rawData2);
+    return httpGet(url);
 
 }
 

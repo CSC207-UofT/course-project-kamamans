@@ -3,6 +3,7 @@ package usecases;
 import entities.User;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Map;
 
 /**
  * LoginHandler handles login and account creation.
@@ -131,4 +132,11 @@ public class LoginHandler {
     // TODO: remove this and replace instances of it with the User itself?
     public String getCurrentUserUsername() { return this.currentUser.getUsername(); }
 
+    public String settingsToString() {
+        return currentUser.settingsToString();
+    }
+
+    public String updateSettings(Map<String, String> settingsHash){
+        return currentUser.updateSettings(settingsHash);
+    }
 }

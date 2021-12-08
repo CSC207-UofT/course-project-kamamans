@@ -1,9 +1,9 @@
 package entities;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Map;
 
 /**
  * PremiumUserSettings is responsible for implementing premium user features and actions which are defined in BaseUserSettings
@@ -11,15 +11,20 @@ import java.util.List;
 
 public class PremiumUserSettings implements BaseUserSettings, Serializable {
     private String classType;
-    private Date renewalDate;
-    private User user;
+    private Calendar renewalDate;
+    private final User user;
     private String colorScheme;
-    private List<Airport> favouriteAirports = new ArrayList<>();
-    private int autoLogoutTimer = 60; // default autoLogoutTimer
+    private Airport favouriteAirport;
+    private int autoLogoutTimer;
     private Airport homeAirport;
 
     public PremiumUserSettings(User user) {
         this.user = user;
+        this.renewalDate = Calendar.getInstance();
+        this.renewalDate.add(Calendar.YEAR, 1);
+        this.colorScheme = "default";
+        this.autoLogoutTimer = 60;
+
     }
 
     public boolean setClassType(String classType) {
@@ -29,9 +34,9 @@ public class PremiumUserSettings implements BaseUserSettings, Serializable {
 
     public String getClassType() { return classType; }
 
-    public Date getRenewalDate() { return renewalDate; }
+    public Calendar getRenewalDate() { return renewalDate; }
 
-    public boolean setRenewalDate(Date renewalDate) {
+    public boolean setRenewalDate(Calendar renewalDate) {
         this.renewalDate = renewalDate;
         return true;
     }
@@ -43,15 +48,10 @@ public class PremiumUserSettings implements BaseUserSettings, Serializable {
         return true;
     }
 
-    public List<Airport> getFavouriteAirports() { return favouriteAirports; }
+    public Airport getFavouriteAirport() { return favouriteAirport; }
 
-    public boolean addFavouriteAirport(Airport favouriteAirport) {
-        this.favouriteAirports.add(favouriteAirport);
-        return true;
-    }
-
-    public boolean removeFavouriteAirport(Airport removedAirport) {
-        this.favouriteAirports.remove(removedAirport);
+    public boolean setFavouriteAirport(Airport favouriteAirport) {
+        this.favouriteAirport = favouriteAirport;
         return true;
     }
 
@@ -85,7 +85,41 @@ public class PremiumUserSettings implements BaseUserSettings, Serializable {
     /**
      * Update this user's settings given a HashMap of settings to be updated
      */
-    public void updateSettings() {
+    public String updateSettings(Map<String, String> settingsHash) {
+        return "true";
+    }
 
+    /**
+     * Return this user's settings as a JSON parseable string
+     */
+    public String toJSONString() {
+        return "{" +
+                "\"userType\":" +
+                "\"premium\"," +
+                "\"Color_Scheme\":" +
+                "\"" +
+                this.colorScheme +
+                "\"," +
+                "\"Home_Airport\":" +
+                "\"" +
+                this.homeAirport.getCity() +
+                "\"," +
+                "\"Favourite_Airport\":" +
+                "\"" +
+                this.favouriteAirport.getCity() +
+                "\"," +
+                "\"Auto_Logout_Timer\":" +
+                "\"" +
+                this.autoLogoutTimer +
+                "\"," +
+                "\"Class_Type\":" +
+                "\"" +
+                this.classType +
+                "\"," +
+                "\"Renewal_Date\":" +
+                "\"" +
+                new SimpleDateFormat("MM-dd-yyyy").format(this.renewalDate) +
+                "\"" +
+                "}";
     }
 }

@@ -136,14 +136,12 @@ public class DemoApplication {
 	}
 	@GetMapping("/getUserSettings")
 	public String getUserSettings() {
-		System.out.println(uc.getUserSettingsJson());
 		return uc.getUserSettingsJson();
 	}
 	@GetMapping("/UpdateAndSaveUserInformation")
-	public String UpdateAndSaveUserSettings(@RequestParam(value = "username") String username, @RequestParam(value = "password") String  password,
+	public String UpdateAndSaveUserInformation(@RequestParam(value = "username") String username, @RequestParam(value = "password") String  password,
 											@RequestParam(value = "email") String  email,
 											@RequestParam(value = "phoneNumber") String  phoneNumber) {
-		System.out.println(password+email+phoneNumber);
 		uc.setPassword(password);
 		uc.setEmail(email);
 		uc.setPhoneNumber(phoneNumber);
@@ -162,10 +160,9 @@ public class DemoApplication {
 			String[] setting = pair.split(":");
 			settingsHash.put(setting[0].trim(), setting[1].trim());
 		}
+		System.out.println(settingsHash);
 
-		System.out.println("Settings Dict: "+settingsHash);
-
-		return ("updated settings");
+		return uc.updateSettings(settingsHash);
 	}
 
 	@GetMapping("/viewRouteHistory")
@@ -176,7 +173,7 @@ public class DemoApplication {
 	}
 	@GetMapping("/deleteRoute")
 	public String viewRouteHistory(@RequestParam(value = "id") String id) {
-		uc.removeRoutebyID(id);
+		uc.removeRouteByID(id);
 		System.out.println("deleted route");
 		return "removed route";
 	}

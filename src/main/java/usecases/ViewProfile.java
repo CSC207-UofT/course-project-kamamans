@@ -7,8 +7,10 @@ import entities.User;
 import org.json.JSONException;
 
 import java.text.ParseException;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * ViewProfile handles editing user profile information and different methods based on user subscription status.
@@ -96,50 +98,44 @@ public class ViewProfile {
     }
 
     public String getClassType() {
-        return currentUser.user.getClassType();
+        return currentUser.userSettings.getClassType();
     }
 
-    public String setClassType(String classType) { return isValidRequest(currentUser.user.setClassType(classType)); }
+    public String setClassType(String classType) { return isValidRequest(currentUser.userSettings.setClassType(classType)); }
 
-    public Date getRenewalDate() {
-        return currentUser.user.getRenewalDate();
+    public Calendar getRenewalDate() {
+        return currentUser.userSettings.getRenewalDate();
     }
 
-    public String setRenewalDate(Date date) { return isValidRequest(currentUser.user.setRenewalDate(date)); }
+    public String setRenewalDate(Calendar date) { return isValidRequest(currentUser.userSettings.setRenewalDate(date)); }
 
-    public String getColorScheme() { return currentUser.user.getColorScheme(); }
+    public String getColorScheme() { return currentUser.userSettings.getColorScheme(); }
 
-    public String setColorScheme(String colorScheme) { return isValidRequest(currentUser.user.setColorScheme(colorScheme)); }
+    public String setColorScheme(String colorScheme) { return isValidRequest(currentUser.userSettings.setColorScheme(colorScheme)); }
 
-    /**
-     * Return a StringBuilder representing this users favourite airports
-     * @return
-     */
-    public StringBuilder getFavouriteAirports() {
-        StringBuilder returnString = new StringBuilder("[");
-        List<Airport> favAirports = currentUser.user.getFavouriteAirports();
-
-        for (Airport airport : favAirports) {
-            returnString.append(airport.airportToString());
-        };
-
-        returnString.append("]");
-        return returnString;
+    public Airport getFavouriteAirport() {
+        return currentUser.userSettings.getFavouriteAirport();
     }
 
-    public String addFavouriteAirport(Airport airport) { return isValidRequest(currentUser.user.addFavouriteAirport(airport)); }
+    public boolean setFavouriteAirport(Airport airport) { return currentUser.userSettings.setFavouriteAirport(airport); }
 
-    public String removeFavouriteAirport(Airport airport) { return isValidRequest(currentUser.user.removeFavouriteAirport(airport)); }
-
-    public int getAutoLogoutTimer() { return currentUser.user.getAutoLogoutTimer(); }
+    public int getAutoLogoutTimer() { return currentUser.userSettings.getAutoLogoutTimer(); }
 
     public String setAutoLogoutTimer(int autoLogoutTimer) {
-        return isValidRequest(currentUser.user.setAutoLogoutTimer(autoLogoutTimer));
+        return isValidRequest(currentUser.userSettings.setAutoLogoutTimer(autoLogoutTimer));
     }
 
     public StringBuilder getHomeAirport() {
-        return currentUser.user.getHomeAirport().airportToString();
+        return currentUser.userSettings.getHomeAirport().airportToString();
     }
 
-    public String setHomeAirport(Airport airport) { return isValidRequest(currentUser.user.setHomeAirport(airport)); }
+    public String setHomeAirport(Airport airport) { return isValidRequest(currentUser.userSettings.setHomeAirport(airport)); }
+
+    public String settingsToString() {
+        return currentUser.settingsToString();
+    }
+
+    public String updateSettings(Map<String, String> settingsHash) {
+        return currentUser.updateSettings(settingsHash);
+    }
 }

@@ -1,5 +1,6 @@
 package controller;
 
+import entities.Airport;
 import entities.Route;
 import entities.User;
 import org.json.JSONException;
@@ -9,7 +10,8 @@ import usecases.LoginHandler;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.Calendar;
+import java.util.Map;
 
 /**
  * UserController is responsible for implementing features such as logging in a user, and creating new accounts.
@@ -108,15 +110,15 @@ public class UserController {
 
     public String setClassType(String classType) { return loginHandler.currentUser.setClassType(classType); }
 
-    public Date getRenewalDate() { return loginHandler.currentUser.getRenewalDate(); }
+    public Calendar getRenewalDate() { return loginHandler.currentUser.getRenewalDate(); }
 
-    public String setRenewalDate(Date date) { return loginHandler.currentUser.setRenewalDate(date); }
+    public String setRenewalDate(Calendar date) { return loginHandler.currentUser.setRenewalDate(date); }
 
     public String getColorScheme() { return loginHandler.currentUser.getColorScheme(); }
 
     public String setColorScheme(String colorScheme) { return loginHandler.currentUser.setColorScheme(colorScheme); }
 
-    public StringBuilder getFavouriteAirports() { return loginHandler.currentUser.getFavouriteAirports(); }
+    public Airport getFavouriteAirport() { return loginHandler.currentUser.getFavouriteAirport(); }
 
     public String getUserDataJson () {
         return "{" +
@@ -139,77 +141,24 @@ public class UserController {
                 "}";
     }
     public String getUserSettingsJson () {
-        return "{" +
-                "\"userType\":" +
-                "\"" +
-                "basic" +
-                "\"," +
-                "\"colorScheme\":" +
-                "\"" +
-                "Blue" +
-                "\"," +
-                "\"homeAirport\":" +
-                "\"" +
-                "Toronto" +
-                "\"," +
-                "\"favouriteAirport\":" +
-                "\"" +
-                "None" +
-                "\"," +
-                "\"autoLogoutTimer\":" +
-                "\"" +
-                10 +
-                "\"" +
-                "}";
+        return loginHandler.settingsToString();
     }
 
-    // TODO: add fav airport, remove fav airport
-
-    public String addFavouriteAirport(String iataCode) {
-        try {
-            return loginHandler.currentUser.addFavouriteAirport(InteractDatabase.getAirportByIata(iataCode));
-        } catch (IOException | ClassNotFoundException e) {
-            return "Error occurred while adding favourite airport.";
-        }
+    public String updateSettings(Map<String, String> settingsHash){
+        return loginHandler.updateSettings(settingsHash);
     }
 
-    public String removeFavouriteAirport(String iataCode) {
-        try {
-            return loginHandler.currentUser.removeFavouriteAirport(InteractDatabase.getAirportByIata(iataCode));
-        } catch (IOException | ClassNotFoundException e) {
-            return "Error occurred while removing favourite airport.";
-        }
-    }
-
-    public int getAutoLogoutTimer() { return loginHandler.currentUser.getAutoLogoutTimer(); }
-
-    public String setAutoLogoutTimer(int autoLogoutTimer) { return loginHandler.currentUser.setAutoLogoutTimer(autoLogoutTimer); }
-
-    public StringBuilder getHomeAirport() { return loginHandler.currentUser.getHomeAirport(); }
-
-
-    // TODO: set home airport
-
-    public void removeRoutebyID(String id) {
+    public void removeRouteByID(String id) {
         loginHandler.currentUser.removeRoutebyID(id);
         saveSettings();
     }
-    public String setHomeAirport(String iataCode) {
-        try {
-            return loginHandler.currentUser.setHomeAirport(InteractDatabase.getAirportByIata(iataCode));
-        } catch (IOException | ClassNotFoundException e) {
-            return "Error occurred while setting home airport.";
-        }
-    }
 
-    public String addRouteToHistory(Route routeJSON) {
+    public void addRouteToHistory(Route selectedRoute) {
         try {
-            loginHandler.currentUser.addRouteToHistory(routeJSON);
+            loginHandler.currentUser.addRouteToHistory(selectedRoute);
             saveSettings();
-            return "Successfully saved route to User history.";
-        } catch (JSONException | ParseException e) {
-            return "Unable to save route to User history.";
+        } catch (JSONException | ParseException ignored) {
         }
-
     }
+
 }
