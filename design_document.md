@@ -69,7 +69,19 @@ The testing classes that we created are for the main entities (Airport, Flight, 
 
 ## Refactoring
 
-(will be updated by Wednesday)
+Pull request no.1: https://github.com/CSC207-UofT/course-project-kamamans/pull/30 
+
+In this pull request we refactored the way searched the routes. Originally, we had a depth first search that wasn’t appropriate for usage of the front-end since it returned unorganized jsons, broke rules of clean architecture and had multiple code smells. Some code smells that existed were couplers (between controllers and use cases) and bloaters (which we fixed by using helper methods, which were then delegated useless and removed later). 
+
+Pull request no.2: https://github.com/CSC207-UofT/course-project-kamamans/pull/45 
+
+In this pull request we refactored database interact into a gateway to address the issues brought up by a TA during our presentation. Originally, we had Interact Database as a controller due to its nature following on as an application business rules. We consequentially refactored user data, mitigated storage of information to a higher clean architecture layer, and refactored a few other classes and how they interact with other classes to follow clean architecture. 
+
+A few other pull requests include: 
+- https://github.com/CSC207-UofT/course-project-kamamans/pull/44 
+- For fixing the way we searched the graph as well, including changing endpoints that connected frontend to back end 
+- https://github.com/CSC207-UofT/course-project-kamamans/pull/38 
+- Creating a graph entity to help with linking plane, airport, route etc. In a way that would produce organized jsons to be able to link with database 
 
 ## Code Organization
 
