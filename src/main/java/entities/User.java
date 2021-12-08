@@ -18,7 +18,7 @@ public class User implements Serializable {
     public BaseUserSettings userSettings;
     public List<Integer> existingRouteId = new ArrayList<>();
     public User(String username, String password, String email, String phoneNumber) {
-        this.userSettings = new PremiumUserSettings(this);
+        this.userSettings = new BasicUserSettings(this);
         this.username = username;
         this.password = password;
         this.email = email;
