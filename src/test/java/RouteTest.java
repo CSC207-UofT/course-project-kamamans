@@ -14,7 +14,7 @@ public class RouteTest {
     @Before
     public void setUp() {
         List<Flight> flights = new ArrayList<>();
-        flights.add(new Flight(new GregorianCalendar(2021, Calendar.DECEMBER, 30), new Plane("sdfinweo", 50, 50, 50, true), 9000, 30, new Airport("grse", "5235"), new Airport("gadgd", "235")));
+        flights.add(new Flight(new GregorianCalendar(2021, Calendar.DECEMBER, 30), new Plane("sdfinweo", 50, 50, 50, true,"sdf"), 9000, 30, new Airport("grse", "5235"), new Airport("gadgd", "235")));
         r = new Route(new Airport("Toronto", "84681"), new Airport("Montreal", "235346"), flights.get(0).getDate(), flights);
     }
 

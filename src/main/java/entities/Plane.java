@@ -8,44 +8,48 @@ import java.io.Serializable;
  */
 
 public class Plane implements Serializable {
-    private final String brandName;
-    private final int seatCount;
-    private final int firstClassSeats;
-    private final int economySeats;
-    private final boolean hasVacantSeats;
-
-
+    private String brandName;
+    private int seatCount;
+    private int firstClassSeats;
+    private int economySeats;
+    private boolean hasVacantSeats;
+    private String iataCode;
 
     public Plane(String brandName, int seatCount, int firstClassSeats,
-                 int economySeats, boolean hasVacantSeats){
+                 int economySeats, boolean hasVacantSeats, String iataCode) {
 
         this.brandName = brandName;
         this.seatCount = seatCount;
         this.firstClassSeats = firstClassSeats;
         this.economySeats = economySeats;
         this.hasVacantSeats = hasVacantSeats;
+        this.iataCode = iataCode;
 
 
     }
 
-    public String getBrandName(){
+    public String getBrandName() {
         return this.brandName;
     }
 
-    public int getSeatCount(){
+    public int getSeatCount() {
         return this.seatCount;
     }
 
-    public int getFirstClassSeats(){
+    public int getFirstClassSeats() {
         return this.firstClassSeats;
     }
 
-    public int getEconomySeats(){
+    public int getEconomySeats() {
         return this.economySeats;
     }
 
-    public boolean getHasVacantSeats(){
+    public boolean getHasVacantSeats() {
         return this.hasVacantSeats;
+    }
+
+    public String getIataCode() {
+        return this.iataCode;
     }
 
     public String toString(){

@@ -17,7 +17,7 @@ public class Flight implements Serializable {
     private final Airport sourceAirport;
     private final Airport destinationAirport;
 
-    public Flight(Calendar date, Plane plane, double price, double duration, Airport source, Airport destination){
+    public Flight(Calendar date, Plane plane, double price, long duration, Airport source, Airport destination) {
         this.date = date;
         this.plane = plane;
         this.price = price;
@@ -26,24 +26,30 @@ public class Flight implements Serializable {
         this.destinationAirport = destination;
     }
 
-    public Calendar getDate(){
+    public Calendar getDate() {
         return date;
     }
-    public Plane getPlane(){
+
+    public Plane getPlane() {
         return this.plane;
     }
-    public double getPrice(){
+
+    public double getPrice() {
         return this.price;
     }
-    public double getDuration(){
+
+    public double getDuration() {
         return this.duration;
     }
-    public Airport getSourceAirport(){
+
+    public Airport getSourceAirport() {
         return this.sourceAirport;
     }
-    public Airport getDestinationAirport(){
+
+    public Airport getDestinationAirport() {
         return this.destinationAirport;
     }
+
 
     public String toString() {
 

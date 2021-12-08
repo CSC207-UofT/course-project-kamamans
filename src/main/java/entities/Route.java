@@ -2,6 +2,7 @@ package entities;
 
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
+
 import java.util.Calendar;
 import java.util.List;
 
@@ -11,14 +12,14 @@ import java.util.List;
  * Storing the departure and destination airports, the departure date of the first flight, and a list of one or
  * more flights to the final destination.
  */
-public class Route implements Serializable{
+public class Route implements Serializable {
     private Airport departureAirport;
     private Airport destinationAirport;
     private Calendar departureDate;
     private final List<Flight> flights;
     private int routeID = -1;
 
-    public Route (Airport departureAirport, Airport destinationAirport, Calendar departureDate, List<Flight> flights) {
+    public Route(Airport departureAirport, Airport destinationAirport, Calendar departureDate, List<Flight> flights) {
         this.departureAirport = departureAirport;
         this.destinationAirport = destinationAirport;
         this.departureDate = departureDate;
@@ -33,7 +34,7 @@ public class Route implements Serializable{
         return this.destinationAirport;
     }
 
-    public void setDepartureAirport(Airport newDepartureAirport){
+    public void setDepartureAirport(Airport newDepartureAirport) {
         this.departureAirport = newDepartureAirport;
     }
 
@@ -55,22 +56,24 @@ public class Route implements Serializable{
 
     public double getPriceOfFlights(){
         double p = 0;
-        for(Flight f: this.flights) {
+        for (Flight f : this.flights) {
             p = p + f.getPrice();
         }
         return p;
     }
 
-    public double getTotalDuration(){
+    public double getTotalDuration() {
         double d = 0;
-        for(Flight f: this.flights) {
+        for (Flight f : this.flights) {
             d = d + f.getDuration();
         }
         return d;
     }
+
     public int getRouteID() {
         return this.routeID;
     }
+
     public void setRouteID(int routeID) {
         this.routeID = routeID;
     }
@@ -105,6 +108,7 @@ public class Route implements Serializable{
         // Adding duration
         returnString.append("\"duration\": ").append(getTotalDuration()).append(", ");
         // Adding id
+
         returnString.append("\"id\": \"").append(getRouteID()).append("\"");
 
         returnString.append("}");

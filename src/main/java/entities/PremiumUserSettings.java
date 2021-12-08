@@ -1,8 +1,7 @@
 package entities;
 
-import usecases.InteractDatabase;
+import usecases.AirportReadWriter;
 
-import java.io.IOException;
 import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -10,7 +9,6 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Map;
-import java.util.Objects;
 
 /**
  * PremiumUserSettings is responsible for implementing premium user features and actions which are defined in BaseUserSettings
@@ -107,16 +105,12 @@ public class PremiumUserSettings implements BaseUserSettings, Serializable {
             if(settingsHash.get("Favourite_Airport") == null){
                 return "true";
             }
-            this.favouriteAirport = InteractDatabase.getAirportByName(settingsHash.get("Favourite_Airport"));
-            this.homeAirport = InteractDatabase.getAirportByName(settingsHash.get("Home_Airport"));
+            this.favouriteAirport = AirportReadWriter.getAirportByName(settingsHash.get("Favourite_Airport"));
+            this.homeAirport = AirportReadWriter.getAirportByName(settingsHash.get("Home_Airport"));
             this.renewalDate = sdf.parse(settingsHash.get("Renewal_Date"));
             return "true";
         } catch (NumberFormatException nfe) {
             return "Invalid auto logout timer format.";
-        } catch (IOException ioe) {
-            return "Airport not found.";
-        } catch (ClassNotFoundException e) {
-            return "Class not found exception.";
         } catch (ParseException e) {
             return "Invalid date format.";
         } catch (NullPointerException npe) {

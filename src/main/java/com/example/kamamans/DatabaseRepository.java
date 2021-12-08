@@ -5,8 +5,13 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import java.util.Collection;
 import java.util.Optional;
+
+/**
+ * Class a part of framework and drivers
+ * Consists of function that searches for aiports using IataCode
+ */
+
 
 @Repository
 public interface DatabaseRepository extends JpaRepository<Airport, String> {

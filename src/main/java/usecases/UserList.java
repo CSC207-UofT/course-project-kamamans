@@ -14,6 +14,7 @@ public class UserList implements Serializable {
 
     /**
      * Add a user to the user list.
+     *
      * @param user the UserManager to be added
      */
     public void addUser(User user) {
@@ -22,12 +23,16 @@ public class UserList implements Serializable {
 
     /**
      * Remove a user from the user list.
+     *
      * @param user the UserManager to be removed
      */
-    public void removeUser(User user) { userList.remove(user.getUsername()); }
+    public void removeUser(User user) {
+        userList.remove(user.getUsername());
+    }
 
     /**
      * Get the UserManager by username
+     *
      * @param username the username of the user to get
      */
     public User getUser(String username) {
@@ -36,6 +41,7 @@ public class UserList implements Serializable {
 
     /**
      * Returns true if the given email exists in the system.  False otherwise
+     *
      * @param email the email to compare
      * @return if the email exists
      */
@@ -51,12 +57,13 @@ public class UserList implements Serializable {
 
     /**
      * Returns true if the given phone number exists in the system.  False otherwise
+     *
      * @param phoneNumber the phone number to compare
      * @return if the phone number exists
      */
     public boolean phoneExists(String phoneNumber) {
         for (User account : userList.values()) {
-            if (account.getPhoneNumber().equals(phoneNumber) ) {
+            if (account.getPhoneNumber().equals(phoneNumber)) {
                 // phone number exists
                 return true;
             }
@@ -66,7 +73,7 @@ public class UserList implements Serializable {
 
     // This function is for development purposes only
     public void printAllUsers() {
-        for (User account: userList.values()) {
+        for (User account : userList.values()) {
             System.out.println("user: " + account.getUsername());
             System.out.println("pass: " + account.getPassword());
             System.out.println("mail: " + account.getEmail());

@@ -13,7 +13,7 @@ $(function(){
             finish : 'Confirm',
             current : ''
         },
-        onStepChanging: function (event, currentIndex, newIndex) { 
+        onStepChanging: function (event, currentIndex, newIndex) {
             var fullname = $('#first_name').val() + ' ' + $('#last_name').val();
             var room = $('#room').val();
             var day = $('#day').val();

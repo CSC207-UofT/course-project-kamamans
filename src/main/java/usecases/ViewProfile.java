@@ -22,7 +22,9 @@ public class ViewProfile {
         currentUser = user;
     }
 
-    public String getUsername() { return currentUser.getUsername(); }
+    public String getUsername() {
+        return currentUser.getUsername();
+    }
 
     public String getPassword() {
         return currentUser.getPassword();
@@ -57,18 +59,22 @@ public class ViewProfile {
     }
 
     public void addRouteToHistory(Route routeJSON) throws JSONException, ParseException {
-            currentUser.addRouteToHistory(routeJSON);
+        currentUser.addRouteToHistory(routeJSON);
 
 
     }
-    public User getCurrentUser(){
+
+    public User getCurrentUser() {
         return this.currentUser;
     }
 
-    public void removeRoutebyID(String id) { currentUser.removeRoutebyID(id); }
+    public void removeRoutebyID(String id) {
+        currentUser.removeRoutebyID(id);
+    }
 
     /**
      * Return the users route history in a json parseable string using the method in SearchResults.
+     *
      * @return StringBuilder of the users route history in json parseable String format
      */
     public String getRouteHistory() {
@@ -85,15 +91,17 @@ public class ViewProfile {
         return currentUser.downgradeUserType();
     }
 
-    public String getUserType() { return currentUser.getUserType(); }
+    public String getUserType() {
+        return currentUser.getUserType();
+    }
 
     // methods past here are premium user functions, so they check user type
     public String isValidRequest(boolean valid) {
         if (!valid) {
             return "Not available for Basic Users. Upgrade to Premium today!";
+        } else {
+            return "Successfully changed.";
         }
-        else {
-            return "Successfully changed."; }
     }
 
     public String getClassType() {
@@ -109,6 +117,10 @@ public class ViewProfile {
     public String setRenewalDate(Date date) { return isValidRequest(currentUser.userSettings.setRenewalDate(date)); }
 
     public String getColorScheme() { return currentUser.userSettings.getColorScheme(); }
+
+    public String setColorScheme(String colorScheme) {
+        return isValidRequest(currentUser.userSettings.setColorScheme(colorScheme));
+    }
 
     public Airport getFavouriteAirport() {
         return currentUser.userSettings.getFavouriteAirport();

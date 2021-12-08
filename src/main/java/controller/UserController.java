@@ -4,10 +4,9 @@ import entities.Airport;
 import entities.Route;
 import entities.User;
 import org.json.JSONException;
-import usecases.InteractDatabase;
+import usecases.AirportReadWriter;
 import usecases.LoginHandler;
 
-import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -17,6 +16,7 @@ import java.util.Map;
 /**
  * UserController is responsible for implementing features such as logging in a user, and creating new accounts.
  */
+
 public class UserController {
     private final LoginHandler loginHandler;
 
@@ -28,9 +28,10 @@ public class UserController {
      * Create a new user account.
      * username, email, and phone number must be unique
      * email and phone number must follow respective formatting
-     * @param username unique name of the user
-     * @param password password of the user
-     * @param email unique email of the user
+     *
+     * @param username    unique name of the user
+     * @param password    password of the user
+     * @param email       unique email of the user
      * @param phoneNumber unique phone number of the user
      * @return true if account creation is successful.  false otherwise.
      */
@@ -56,23 +57,29 @@ public class UserController {
     public boolean login(String username, String password) {
         try {
             return loginHandler.loginAttempt(username, password);
-        }
-        catch (NullPointerException e){
+        } catch (NullPointerException e) {
             return false;
         }
     }
 
-    public void logout() { loginHandler.logout(); }
+    public void logout() {
+        loginHandler.logout();
+    }
 
-    public void deleteAccount(String username) { loginHandler.deleteAccount(username); }
+    public void deleteAccount(String username) {
+        loginHandler.deleteAccount(username);
+    }
 
-    public User getCurrentUser (){
+    public User getCurrentUser() {
         return loginHandler.currentUser.getCurrentUser();
     }
+
     /**
      * Serializes and deserializes userList. Call this at the end of changing ViewProfile.
      */
-    public void saveSettings() { loginHandler.saveSettings(); }
+    public void saveSettings() {
+        loginHandler.saveSettings();
+    }
 
     // methods below are getters and setters for various user information
     public String getUsername() {
@@ -87,25 +94,45 @@ public class UserController {
         loginHandler.currentUser.setPassword(pw);
     }
 
-    public String getEmail() { return loginHandler.currentUser.getEmail(); }
+    public String getEmail() {
+        return loginHandler.currentUser.getEmail();
+    }
 
-    public void setEmail(String e) { loginHandler.currentUser.setEmail(e); }
+    public void setEmail(String e) {
+        loginHandler.currentUser.setEmail(e);
+    }
 
-    public String getPhoneNumber() { return loginHandler.currentUser.getPhoneNumber(); }
+    public String getPhoneNumber() {
+        return loginHandler.currentUser.getPhoneNumber();
+    }
 
-    public void setPhoneNumber(String pn) { loginHandler.currentUser.setPhoneNumber(pn); }
+    public void setPhoneNumber(String pn) {
+        loginHandler.currentUser.setPhoneNumber(pn);
+    }
 
-    public int getAppRating() { return loginHandler.currentUser.getAppRating(); }
+    public int getAppRating() {
+        return loginHandler.currentUser.getAppRating();
+    }
 
-    public void setAppRating(int appRating) { loginHandler.currentUser.setAppRating(appRating); }
+    public void setAppRating(int appRating) {
+        loginHandler.currentUser.setAppRating(appRating);
+    }
 
     public String getRouteHistory() { return loginHandler.currentUser.getRouteHistory(); }
 
-    public String upgradeUserType() { return loginHandler.currentUser.upgradeUserType(); }
+    public String upgradeUserType() {
+        return loginHandler.currentUser.upgradeUserType();
+    }
 
-    public String downgradeUserType() { return loginHandler.currentUser.downgradeUserType(); }
+    public String downgradeUserType() {
+        return loginHandler.currentUser.downgradeUserType();
+    }
 
     public String getClassType() { return loginHandler.currentUser.getClassType(); }
+
+    public String getUserType() {
+        return loginHandler.currentUser.getUserType();
+    }
 
     public String getUserDataJson () {
         return "{" +
@@ -127,6 +154,7 @@ public class UserController {
                 "\"" +
                 "}";
     }
+
     public String getUserSettingsJson () {
         return loginHandler.settingsToString();
     }
