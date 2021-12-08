@@ -1,7 +1,5 @@
 package entities;
 
-import org.json.*;
-
 import java.io.Serializable;
 
 /**
@@ -10,11 +8,11 @@ import java.io.Serializable;
  */
 
 public class Plane implements Serializable {
-    private String brandName;
-    private int seatCount;
-    private int firstClassSeats;
-    private int economySeats;
-    private boolean hasVacantSeats;
+    private final String brandName;
+    private final int seatCount;
+    private final int firstClassSeats;
+    private final int economySeats;
+    private final boolean hasVacantSeats;
 
 
 
@@ -50,12 +48,19 @@ public class Plane implements Serializable {
         return this.hasVacantSeats;
     }
 
-    public Plane(String planeJSON) throws JSONException{
-        JSONObject obj = new JSONObject(planeJSON);
-        brandName = obj.getString("brandName");
-        seatCount = obj.getInt("seatCount");
-        firstClassSeats = obj.getInt("firstClassSeats");
-        economySeats = obj.getInt("economySeats");
-        hasVacantSeats = obj.getBoolean("hasVacantSeats");
+    public String toString(){
+
+        StringBuilder returnString = new StringBuilder();
+
+        //Adding plane details
+        returnString.append("{");
+        returnString.append("\"brandName\": \"").append(getBrandName()).append("\", ");
+        returnString.append("\"seatCount\": ").append(getSeatCount()).append(", ");
+        returnString.append("\"firstClassSeats\": ").append(getFirstClassSeats()).append(", ");
+        returnString.append("\"economySeats\": ").append(getEconomySeats()).append(", ");
+        returnString.append("\"hasVacantSeats\": ").append(getHasVacantSeats());
+        returnString.append("}");
+
+        return new String(returnString);
     }
 }

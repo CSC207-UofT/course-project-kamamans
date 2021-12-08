@@ -40,11 +40,11 @@ public class UserController {
                 return "Account Created Successfully";
             }
 
-            String output = "";
+            StringBuilder output = new StringBuilder();
             for (String item: errors) {
-                output = output + item + "\n";
+                output.append(item).append("\n");
             }
-            return output;
+            return output.toString();
         } catch (NullPointerException e) {
             return "NullPointerException";
         }
@@ -96,7 +96,7 @@ public class UserController {
 
     public void setAppRating(int appRating) { loginHandler.currentUser.setAppRating(appRating); }
 
-    public StringBuilder getRouteHistory() { return loginHandler.currentUser.getRouteHistory(); }
+    public String getRouteHistory() { return loginHandler.currentUser.getRouteHistory(); }
 
     public String upgradeUserType() { return loginHandler.currentUser.upgradeUserType(); }
 
@@ -116,10 +116,10 @@ public class UserController {
 
     public String setColorScheme(String colorScheme) { return loginHandler.currentUser.setColorScheme(colorScheme); }
 
-    public StringBuilder getFavouriteAirports() { return loginHandler.currentUser.getFavouriteAirports(); }
+    public String getFavouriteAirports() { return loginHandler.currentUser.getFavouriteAirports(); }
 
     public String getUserDataJson () {
-        String s = "{" +
+        return "{" +
                 "\"userName\":" +
                 "\"" +
                 getUsername() +
@@ -137,10 +137,9 @@ public class UserController {
                 getPhoneNumber() +
                 "\"" +
                 "}";
-        return s;
     }
     public String getUserSettingsJson () {
-        String s = "{" +
+        return "{" +
                 "\"colorScheme\":" +
                 "\"" +
                 "Blue" +
@@ -158,7 +157,6 @@ public class UserController {
                 10 +
                 "\"" +
                 "}";
-        return s;
     }
 
     // TODO: add fav airport, remove fav airport
@@ -183,7 +181,7 @@ public class UserController {
 
     public String setAutoLogoutTimer(int autoLogoutTimer) { return loginHandler.currentUser.setAutoLogoutTimer(autoLogoutTimer); }
 
-    public StringBuilder getHomeAirport() { return loginHandler.currentUser.getHomeAirport(); }
+    public String getHomeAirport() { return loginHandler.currentUser.getHomeAirport(); }
 
 
     // TODO: set home airport
