@@ -6,6 +6,7 @@ import java.net.URL;
 
 import java.util.*;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.util.JSONPObject;
 import entities.*;
 import org.json.JSONArray;
@@ -204,19 +205,10 @@ public class InteractDatabase {
         String line;
         StringBuffer responseContent = new StringBuffer();
 
-        URL url = new URL(endpoint);
+        String x = endpoint + "?access_key=" + key;
+        URL url = new URL(x);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 
-//        byte[] encodedKey = Base64.encodeBase64(key.getBytes(StandardCharsets.UTF_8));
-//        String keyHeaderValue = "Basic " + new String(encodedKey);
-
-//        One of these two:
-        // Encoded
-        connection.setRequestProperty("Authorization", key);
-        // Not Encoded
-//        connection.setRequestProperty("Authorization", keyHeaderValue);
-
-        // Request Setup
         connection.setRequestMethod("GET");
         connection.setConnectTimeout(2500);
         connection.setReadTimeout(2500);
@@ -226,7 +218,6 @@ public class InteractDatabase {
         if (status > 299) {
             // connection is not successful
             reader = new BufferedReader(new InputStreamReader(connection.getErrorStream()));
-//            System.exit();
         } else {
             // connection is successful
             reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
@@ -429,10 +420,11 @@ public class InteractDatabase {
         }
     }
 
-    public static void main(String[] args) throws IOException, JSONException, ClassNotFoundException {
-        initializeDatabase();
-//        printAirports();
-//        printPlanes();
-//        printFlights();
+    public static void main(String[] args) throws IOException, ClassNotFoundException {
+//
+//        String x = getEndpoint("http://api.aviationstack.com/v1/flights", "a76bb2bb39ee510ad50fd18941d020ac");
+//        System.out.println(x);
+//
+//        updateDB();
     }
 }
