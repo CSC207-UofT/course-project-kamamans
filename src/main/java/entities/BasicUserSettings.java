@@ -66,4 +66,11 @@ public class BasicUserSettings implements BaseUserSettings, Serializable {
         return "User Type upgraded to Premium.";
     }
 
+    /**
+     * Update this user's settings given a HashMap of settings to be updated
+     */
+    public void updateSettings() {
+
+    }
+
 }

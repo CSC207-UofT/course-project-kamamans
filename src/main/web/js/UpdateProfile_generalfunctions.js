@@ -592,18 +592,25 @@ function initialize(options)
 
     let url2 = 'http://localhost:8080/getUserSettings'
     let jsondata2 = httpGet(url2);
-    let rawData2 = JSON.parse(jsondata2);
-    console.log(rawData2)
-    const user_settings = {
-        colorScheme: rawData2.colorScheme,
-        homeAirport: rawData2.homeAirport,
-        favouriteAirport: rawData2.favouriteAirport,
-        autoLogoutTimer: rawData2.autoLogoutTimer,
-    }
+    let user_settings = JSON.parse(jsondata2);
+    let userType = user_settings['userType'];
+    let trimmed_settings = JSON.parse(JSON.stringify(user_settings));
+    delete trimmed_settings['userType'];
+    console.log(user_settings);
 
     let settings_content = ``
 
-    Object.entries(user_settings).forEach(([key, value]) => {
+    settings_content += `
+        <div class="form-row">
+            <div class="form-holder form-holder-2">
+                <label>User Type</label>
+                <input type="text" class="form-control" id="setting_userType" name="userType" value=`+userType+` readonly>
+                <button type="button" class="btn btn-primary" onClick="changeUserType()">Toggle</button>
+            </div>
+        </div>
+    `
+
+    Object.entries(trimmed_settings).forEach(([key, value]) => {
         settings_content +=`
             <div class="form-row">
                 <div class="form-holder form-holder-2">

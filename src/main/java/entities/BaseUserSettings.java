@@ -24,4 +24,5 @@ public interface BaseUserSettings {
     boolean setHomeAirport(Airport homeAirport);
     String upgradeUserType();
     String downgradeUserType();
+    void updateSettings();
 }

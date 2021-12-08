@@ -12,14 +12,8 @@ function viewPastRoutes() {
 }
 let url = 'http://localhost:8080/getUserSettings'
 let jsondata = httpGet(url);
-let rawData2 = JSON.parse(jsondata);
-console.log(rawData2)
-const user_settings = {
-    colorScheme: rawData2.colorScheme,
-    homeAirport: rawData2.homeAirport,
-    favouriteAirport: rawData2.favouriteAirport,
-    autoLogoutTimer: rawData2.autoLogoutTimer,
-}
+let user_settings = JSON.parse(jsondata);
+console.log(user_settings)
 
 function saveAndClose() {
     let return_information = {};
@@ -29,22 +23,45 @@ function saveAndClose() {
     return_information['email'] = document.getElementById('email').value;
     return_information['phone_num'] = document.getElementById('phone').value;
 
-    Object.entries(user_settings).forEach(([key]) => {
-        return_information[key] = document.getElementById('setting_'+key).value;
-    })
-
     console.log(return_information);
 
     // TODO: Save the users settings (stored in a dictionary with key value and serialize in backend)
     let url = 'http://localhost:8080/UpdateAndSaveUserInformation?' +
         'username='+return_information.username+'&password='+return_information.password+
         '&email='+return_information.email+'&phoneNumber='+return_information.phone_num
-    let jsondata = httpGet(url);
-    let jsondata2 = httpGet(url);
-    let rawData2 = JSON.parse(jsondata);
+    let rawData2 = httpGet(url);
     console.log(rawData2)
+
+    saveUserSettings();
+
     alert('Settings saved!');
     window.location.href = "SearchFlight.html";
+}
+
+function saveUserSettings() {
+
+    let return_information = {};
+
+    Object.entries(user_settings).forEach(([key]) => {
+        return_information[key] = document.getElementById('setting_'+key).value;
+    })
+
+    let settingsDict = JSON.stringify(return_information);
+
+    let url = 'http://localhost:8080/UpdateAndSaveUserSettings?settingsDict=' + settingsDict.substring(1, settingsDict.length-1);
+
+    console.log(url);
+    let rawData2 = httpGet(url);
+    console.log(rawData2);
+
+}
+
+function changeUserType() {
+    if(document.getElementById('setting_userType').value === 'basic'){
+        document.getElementById('setting_userType').value = 'premium';
+    } else {
+        document.getElementById('setting_userType').value = 'basic';
+    }
 }
 
 function confirmDetailsInformation(){

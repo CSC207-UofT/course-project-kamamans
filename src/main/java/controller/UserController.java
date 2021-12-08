@@ -119,7 +119,7 @@ public class UserController {
     public StringBuilder getFavouriteAirports() { return loginHandler.currentUser.getFavouriteAirports(); }
 
     public String getUserDataJson () {
-        String s = "{" +
+        return "{" +
                 "\"userName\":" +
                 "\"" +
                 getUsername() +
@@ -137,10 +137,13 @@ public class UserController {
                 getPhoneNumber() +
                 "\"" +
                 "}";
-        return s;
     }
     public String getUserSettingsJson () {
-        String s = "{" +
+        return "{" +
+                "\"userType\":" +
+                "\"" +
+                "basic" +
+                "\"," +
                 "\"colorScheme\":" +
                 "\"" +
                 "Blue" +
@@ -158,7 +161,6 @@ public class UserController {
                 10 +
                 "\"" +
                 "}";
-        return s;
     }
 
     // TODO: add fav airport, remove fav airport

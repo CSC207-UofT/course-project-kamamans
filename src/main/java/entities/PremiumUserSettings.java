@@ -81,4 +81,11 @@ public class PremiumUserSettings implements BaseUserSettings, Serializable {
         this.user.changeUserType(new BasicUserSettings(this.user));
         return "User Type downgraded to Basic.";
     }
+
+    /**
+     * Update this user's settings given a HashMap of settings to be updated
+     */
+    public void updateSettings() {
+
+    }
 }

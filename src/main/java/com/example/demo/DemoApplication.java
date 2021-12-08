@@ -18,6 +18,8 @@ import java.util.Calendar;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 @CrossOrigin(origins = "*")
 @SpringBootApplication
@@ -148,6 +150,24 @@ public class DemoApplication {
 		uc.saveSettings();
 		return ("true");
 	}
+
+	@GetMapping("/UpdateAndSaveUserSettings")
+	public String UpdateAndSaveUserSettings(@RequestParam(value="settingsDict") String settingsDict){
+
+		String[] keyValuePairs = settingsDict.split(",");
+		Map<String, String> settingsHash = new HashMap<>();
+
+		for (String pair: keyValuePairs)
+		{
+			String[] setting = pair.split(":");
+			settingsHash.put(setting[0].trim(), setting[1].trim());
+		}
+
+		System.out.println("Settings Dict: "+settingsHash);
+
+		return ("updated settings");
+	}
+
 	@GetMapping("/viewRouteHistory")
 	public String viewRouteHistory() {
 		System.out.println(uc.getRouteHistory());
