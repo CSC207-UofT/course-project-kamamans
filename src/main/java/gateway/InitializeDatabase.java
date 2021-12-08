@@ -120,14 +120,14 @@ public class InitializeDatabase {
         int a_quantity = allAirports.getJSONObject("pagination").getInt("total");
         JSONArray j_airports = allAirports.getJSONArray("data");
         for (int i = 0; i < a_quantity; i = i + 1) {
-            AirportData.postAirport(new Airport(j_airports.getJSONObject(i).getString("airport_name"), j_airports.getJSONObject(i).getString("iata_code")));
+            AirportReadWriter.postAirport(new Airport(j_airports.getJSONObject(i).getString("airport_name"), j_airports.getJSONObject(i).getString("iata_code")));
         }
         // Planes
         JSONObject allPlanes = new JSONObject(getEndpoint("http://api.aviationstack.com/v1/airplanes", key));
         int p_quantity = allPlanes.getJSONObject("pagination").getInt("total");
         JSONArray j_planes = allPlanes.getJSONArray("data");
         for (int i = 0; i < p_quantity; i = i + 1) {
-            PlaneData.postPlane(new Plane(j_planes.getJSONObject(i).getString("production_line"), 300, 50, 250, true));
+            PlaneReadWriter.postPlane(new Plane(j_planes.getJSONObject(i).getString("production_line"), 300, 50, 250, true));
 //            Plane p1 = new Plane(j_planes.getJSONObject(i).getString("production_line"), 300, 50, 250, true);
 //            postPlane(p1);
         }

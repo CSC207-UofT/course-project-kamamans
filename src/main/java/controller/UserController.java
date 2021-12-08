@@ -3,10 +3,9 @@ package controller;
 import entities.Route;
 import entities.User;
 import org.json.JSONException;
-import usecases.AirportData;
+import usecases.AirportReadWriter;
 import usecases.LoginHandler;
 
-import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -207,11 +206,11 @@ public class UserController {
     // TODO: add fav airport, remove fav airport
 
     public String addFavouriteAirport(String iataCode) {
-        return loginHandler.currentUser.addFavouriteAirport(AirportData.getAirportByIata(iataCode));
+        return loginHandler.currentUser.addFavouriteAirport(AirportReadWriter.getAirportByIata(iataCode));
     }
 
     public String removeFavouriteAirport(String iataCode) {
-        return loginHandler.currentUser.removeFavouriteAirport(AirportData.getAirportByIata(iataCode));
+        return loginHandler.currentUser.removeFavouriteAirport(AirportReadWriter.getAirportByIata(iataCode));
     }
 
     public int getAutoLogoutTimer() {
@@ -235,7 +234,7 @@ public class UserController {
     }
 
     public String setHomeAirport(String iataCode) {
-        return loginHandler.currentUser.setHomeAirport(AirportData.getAirportByIata(iataCode));
+        return loginHandler.currentUser.setHomeAirport(AirportReadWriter.getAirportByIata(iataCode));
     }
 
     public String addRouteToHistory(Route routeJSON) {

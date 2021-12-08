@@ -5,7 +5,7 @@ import gateway.InteractDatabase;
 
 import java.util.ArrayList;
 
-public class AirportData {
+public class AirportReadWriter {
     public static ArrayList<Airport> getAirportList() {
         // Returns list of Airports
         return InteractDatabase.getObjectList(Airport.class);

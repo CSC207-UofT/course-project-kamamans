@@ -6,7 +6,7 @@ import gateway.InteractDatabase;
 import java.io.*;
 import java.util.ArrayList;
 
-public class PlaneData {
+public class PlaneReadWriter {
     public static ArrayList<Plane> getPlaneList() {
         // Returns list of Planes
         ArrayList<Plane> output = InteractDatabase.getObjectList(Plane.class);

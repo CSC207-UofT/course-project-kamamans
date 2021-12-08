@@ -26,14 +26,14 @@ public class AllPossibleFlights {
 
         // Pull in airport data from the file
         int airportCount = 0;
-        for (Airport airport : AirportData.getAirportList()) {
+        for (Airport airport : AirportReadWriter.getAirportList()) {
             this.airportData.put(airportCount, airport);
             this.reverseAirport.put(airport.getIataCode(), airportCount);
             airportCount++;
         }
 
         // Pull in the Flight data from the file
-        this.flightData = FlightData.getFlightList();
+        this.flightData = FlightReadWriter.getFlightList();
 
         // Filter Flights
         // remove flights that violate departure date

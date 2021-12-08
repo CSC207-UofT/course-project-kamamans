@@ -6,7 +6,7 @@ import gateway.InteractDatabase;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-public class FlightData {
+public class FlightReadWriter {
     public static ArrayList<Flight> getFlightList() {
         // Returns list of Airports
         return InteractDatabase.getObjectList(Flight.class);

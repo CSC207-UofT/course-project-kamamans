@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import controller.UserController;
-import usecases.AirportData;
+import usecases.AirportReadWriter;
 import usecases.LoginHandler;
 
 import java.text.ParseException;
@@ -16,8 +16,6 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
-
-import java.io.IOException;
 
 /**
  * Class to set up application for future use.
@@ -74,9 +72,9 @@ public class DemoApplication {
         } catch (ParseException e) {
             return ("Invalid Date Format");
         }
-        Airport departureAirport = AirportData.getAirportByName(departure);
+        Airport departureAirport = AirportReadWriter.getAirportByName(departure);
 
-        Airport destinationAirport = AirportData.getAirportByName(destination);
+        Airport destinationAirport = AirportReadWriter.getAirportByName(destination);
         if (departureAirport == null) {
             return ("Departure airport not found");
         }
