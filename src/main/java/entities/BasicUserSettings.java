@@ -15,43 +15,55 @@ public class BasicUserSettings implements BaseUserSettings, Serializable {
         this.user = user;
     }
 
-    public boolean setClassType(String classType) { return false; }
-
-    public String getClassType() {
-        return null;
+    public boolean setClassType(String classType) {
+        return false;
     }
+
+    public String getClassType() { return null; }
 
     public Date getRenewalDate() {
         return null;
     }
 
-    public boolean setRenewalDate(Date renewalDate) { return false; }
+    public boolean setRenewalDate(Date renewalDate) {
+        return false;
+    }
 
     public String getColorScheme() {
         return "Blue";
     }
 
-    public boolean setColorScheme(String colorScheme) { return false; }
+    public boolean setColorScheme(String colorScheme) {
+        return false;
+    }
 
     public List<Airport> getFavouriteAirports() {
         return null;
     }
 
-    public boolean addFavouriteAirport(Airport favAirport) { return false; }
+    public boolean addFavouriteAirport(Airport favAirport) {
+        return false;
+    }
 
-    public boolean removeFavouriteAirport(Airport favAirport) { return false; }
+    public boolean removeFavouriteAirport(Airport favAirport) {
+        return false;
+    }
 
     public int getAutoLogoutTimer() {
         return 0;
     }
 
-    public boolean setAutoLogoutTimer(int autoLogoutTimer) { return false; }
+    public boolean setAutoLogoutTimer(int autoLogoutTimer) {
+        return false;
+    }
 
     public Airport getHomeAirport() {
         return null;
     }
 
-    public boolean setHomeAirport(Airport homeAirport) { return false; }
+    public boolean setHomeAirport(Airport homeAirport) {
+        return false;
+    }
 
     public String downgradeUserType() {
         return "User Type is already Basic.";

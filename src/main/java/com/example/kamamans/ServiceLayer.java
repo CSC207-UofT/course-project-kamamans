@@ -8,6 +8,7 @@ import java.util.Optional;
 
 /**
  * A Service Layer following Clean Architecture.
+ * Class a part of framework and drivers.
  *
  * Returns airports, adds new airports and delete airports from airport repository databases.
  */
@@ -27,7 +28,7 @@ public class ServiceLayer {
 //        output[0] = new Airport("Toronto", "6ix");
 //        output[1] = new Airport("Paris", "tower");
 //        return output;
-        return  airportRepository.findAll().toArray(new Airport[0]);
+        return airportRepository.findAll().toArray(new Airport[0]);
     }
 
     public Airport[] getAirport2() {

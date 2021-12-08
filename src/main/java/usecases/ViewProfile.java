@@ -21,7 +21,9 @@ public class ViewProfile {
         currentUser = user;
     }
 
-    public String getUsername() { return currentUser.getUsername(); }
+    public String getUsername() {
+        return currentUser.getUsername();
+    }
 
     public String getPassword() {
         return currentUser.getPassword();
@@ -56,18 +58,22 @@ public class ViewProfile {
     }
 
     public void addRouteToHistory(Route routeJSON) throws JSONException, ParseException {
-            currentUser.addRouteToHistory(routeJSON);
+        currentUser.addRouteToHistory(routeJSON);
 
 
     }
-    public User getCurrentUser(){
+
+    public User getCurrentUser() {
         return this.currentUser;
     }
 
-    public void removeRoutebyID(String id) { currentUser.removeRoutebyID(id); }
+    public void removeRoutebyID(String id) {
+        currentUser.removeRoutebyID(id);
+    }
 
     /**
      * Return the users route history in a json parseable string using the method in SearchResults.
+     *
      * @return StringBuilder of the users route history in json parseable String format
      */
     public String getRouteHistory() {
@@ -84,32 +90,42 @@ public class ViewProfile {
         return currentUser.downgradeUserType();
     }
 
-    public String getUserType() { return currentUser.getUserType(); }
+    public String getUserType() {
+        return currentUser.getUserType();
+    }
 
     // methods past here are premium user functions, so they check user type
     public String isValidRequest(boolean valid) {
         if (!valid) {
             return "Not available for Basic Users. Upgrade to Premium today!";
+        } else {
+            return "Successfully changed.";
         }
-        else {
-            return "Successfully changed."; }
     }
 
     public String getClassType() {
         return currentUser.user.getClassType();
     }
 
-    public String setClassType(String classType) { return isValidRequest(currentUser.user.setClassType(classType)); }
+    public String setClassType(String classType) {
+        return isValidRequest(currentUser.user.setClassType(classType));
+    }
 
     public Date getRenewalDate() {
         return currentUser.user.getRenewalDate();
     }
 
-    public String setRenewalDate(Date date) { return isValidRequest(currentUser.user.setRenewalDate(date)); }
+    public String setRenewalDate(Date date) {
+        return isValidRequest(currentUser.user.setRenewalDate(date));
+    }
 
-    public String getColorScheme() { return currentUser.user.getColorScheme(); }
+    public String getColorScheme() {
+        return currentUser.user.getColorScheme();
+    }
 
-    public String setColorScheme(String colorScheme) { return isValidRequest(currentUser.user.setColorScheme(colorScheme)); }
+    public String setColorScheme(String colorScheme) {
+        return isValidRequest(currentUser.user.setColorScheme(colorScheme));
+    }
 
     /**
      * Return a StringBuilder representing this users favourite airports
@@ -127,11 +143,17 @@ public class ViewProfile {
         return new String(returnString);
     }
 
-    public String addFavouriteAirport(Airport airport) { return isValidRequest(currentUser.user.addFavouriteAirport(airport)); }
+    public String addFavouriteAirport(Airport airport) {
+        return isValidRequest(currentUser.user.addFavouriteAirport(airport));
+    }
 
-    public String removeFavouriteAirport(Airport airport) { return isValidRequest(currentUser.user.removeFavouriteAirport(airport)); }
+    public String removeFavouriteAirport(Airport airport) {
+        return isValidRequest(currentUser.user.removeFavouriteAirport(airport));
+    }
 
-    public int getAutoLogoutTimer() { return currentUser.user.getAutoLogoutTimer(); }
+    public int getAutoLogoutTimer() {
+        return currentUser.user.getAutoLogoutTimer();
+    }
 
     public String setAutoLogoutTimer(int autoLogoutTimer) {
         return isValidRequest(currentUser.user.setAutoLogoutTimer(autoLogoutTimer));
@@ -141,5 +163,7 @@ public class ViewProfile {
         return currentUser.user.getHomeAirport().toString();
     }
 
-    public String setHomeAirport(Airport airport) { return isValidRequest(currentUser.user.setHomeAirport(airport)); }
+    public String setHomeAirport(Airport airport) {
+        return isValidRequest(currentUser.user.setHomeAirport(airport));
+    }
 }

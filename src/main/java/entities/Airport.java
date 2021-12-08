@@ -15,7 +15,7 @@ public class Airport implements Serializable {
     private String city;
     private String iataCode;
 
-    public Airport(String city, String iataCode){
+    public Airport(String city, String iataCode) {
         this.city = city;
         this.iataCode = iataCode;
     }
@@ -29,20 +29,21 @@ public class Airport implements Serializable {
         this.city = city;
     }
 
-    public String getCity(){
+    public String getCity() {
         return this.city;
     }
 
-    public void setIataCode(String IATA){
+    public void setIataCode(String IATA) {
         this.iataCode = IATA;
     }
 
-    public String getIataCode(){
+    public String getIataCode() {
         return this.iataCode;
     }
 
     /**
      * Returns airports as a JSON parseable string.
+     *
      * @return airport as a JSON parseable string
      */
     public String toString() {

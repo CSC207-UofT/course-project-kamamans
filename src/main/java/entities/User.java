@@ -1,4 +1,5 @@
 package entities;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +19,7 @@ public class User implements Serializable {
     private List<Route> routeHistory;
     public BaseUserSettings user;
     public List<Integer> existingRouteId = new ArrayList<>();
+
     public User(String username, String password, String email, String phoneNumber) {
         this.user = new BasicUserSettings(this);
         this.username = username;
@@ -27,23 +29,41 @@ public class User implements Serializable {
         this.routeHistory = new ArrayList<>();
     }
 
-    public String getUsername() { return this.username; }
+    public String getUsername() {
+        return this.username;
+    }
 
-    public void setPassword(String password) { this.password = password; }
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
-    public String getPassword() { return this.password; }
+    public String getPassword() {
+        return this.password;
+    }
 
-    public void setEmail(String email) { this.email = email; }
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-    public String getEmail() { return this.email; }
+    public String getEmail() {
+        return this.email;
+    }
 
-    public void setPhoneNumber(String phoneNumber) { this.phoneNumber = phoneNumber; }
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
 
-    public String getPhoneNumber() { return this.phoneNumber; }
+    public String getPhoneNumber() {
+        return this.phoneNumber;
+    }
 
-    public void setAppRating(int appRating) { this.appRating = appRating; }
+    public void setAppRating(int appRating) {
+        this.appRating = appRating;
+    }
 
-    public int getAppRating() { return this.appRating; }
+    public int getAppRating() {
+        return this.appRating;
+    }
 
     public boolean passwordMatches(String password) {
         return this.password.equals(password);
@@ -64,22 +84,30 @@ public class User implements Serializable {
         }
     }
 
-    public List<Route> getRouteHistory() { return this.routeHistory; }
+    public List<Route> getRouteHistory() {
+        return this.routeHistory;
+    }
 
     /**
      * Change the type of this User by passing in a new BaseUser (see Premium and Basic User for example usage).
+     *
      * @param user a new BaseUser
      */
-    public void changeUserType(BaseUserSettings user){
+    public void changeUserType(BaseUserSettings user) {
         this.user = user;
     }
 
-    public String upgradeUserType() { return this.user.upgradeUserType(); }
+    public String upgradeUserType() {
+        return this.user.upgradeUserType();
+    }
 
-    public String downgradeUserType() { return this.user.downgradeUserType(); }
+    public String downgradeUserType() {
+        return this.user.downgradeUserType();
+    }
 
     /**
      * Return a String denoting UserType for functions that differ across users.
+     *
      * @return String representing the type of user
      */
     public String getUserType() {

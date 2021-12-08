@@ -26,7 +26,7 @@ public class FlightTest {
         // create an instance of Plane
 
         p = new Plane("Airbus A321", 220, 20,
-                200, true);
+                200, true, "A321");
 
         // create two instances of Airport (one source and one destination point of the flight)
 

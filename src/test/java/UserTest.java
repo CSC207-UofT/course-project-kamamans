@@ -1,3 +1,4 @@
+import entities.User;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -5,10 +6,14 @@ import static org.junit.Assert.*;
 
 import usecases.LoginHandler;
 import controller.UserController;
+import usecases.ViewProfile;
 
 public class UserTest {
     LoginHandler um = new LoginHandler();
     UserController uc = new UserController(um);
+    User u = new User("user01", "1234", "user01@gmail.com", "1234");
+    ViewProfile vp = new ViewProfile(u);
+    LoginHandler lh = new LoginHandler();
 
     @Before
     public void setUp() {
@@ -31,6 +36,10 @@ public class UserTest {
         assertEquals("User Type downgraded to Basic.", uc.downgradeUserType());
     }
 
+    @Test(timeout = 50)
+    public void TestViewProfileUpgrade() {
+        assertEquals("User Type upgraded to Premium.", vp.upgradeUserType());
+    }
 
     @Test(timeout = 50)
     public void TestLogin() {

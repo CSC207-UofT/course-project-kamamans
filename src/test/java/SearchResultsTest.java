@@ -4,7 +4,7 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 import static org.junit.Assert.*;
-import usecases.InteractDatabase;
+import gateway.InteractDatabase;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -25,9 +25,9 @@ public class SearchResultsTest {
         Airport a3 = new Airport("Vancouver", "003");
 
         // Plane Data
-        Plane p1 = new Plane("Boeing 747", 223, 7, 223-7, true);
-        Plane p2 = new Plane("Apollo 11", 1738, 12, 1738-12, true);
-        Plane p3 = new Plane("Falcon 1", 1337, 15, 1337-15, true);
+        Plane p1 = new Plane("Boeing 747", 223, 7, 223-7, true, "B747");
+        Plane p2 = new Plane("Apollo 11", 1738, 12, 1738-12, true, "A11");
+        Plane p3 = new Plane("Falcon 1", 1337, 15, 1337-15, true, "F1");
 
         // Flight Data
         GregorianCalendar feb14 = new GregorianCalendar(2022, Calendar.FEBRUARY, 14);

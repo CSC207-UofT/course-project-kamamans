@@ -2,8 +2,12 @@ package usecases;
 
 import entities.*;
 
-import java.io.IOException;
 import java.util.*;
+
+/**
+ * Class a part of Application Business Rules
+ * Collects all possible flights from pulling flight data from server
+ */
 
 public class AllPossibleFlights {
     private Calendar departureDate;
@@ -22,14 +26,14 @@ public class AllPossibleFlights {
 
         // Pull in airport data from the file
         int airportCount = 0;
-        for (Airport airport : InteractDatabase.getAirportList()) {
+        for (Airport airport : AirportReadWriter.getAirportList()) {
             this.airportData.put(airportCount, airport);
             this.reverseAirport.put(airport.getIataCode(), airportCount);
             airportCount++;
         }
 
         // Pull in the Flight data from the file
-        this.flightData = InteractDatabase.getFlightList();
+        this.flightData = FlightReadWriter.getFlightList();
 
         // Filter Flights
         // remove flights that violate departure date
@@ -67,10 +71,10 @@ public class AllPossibleFlights {
         return new SearchResults(routePaths);
     }
 
-    private ArrayList<Flight> flightFromInt (ArrayList<Integer> integerPaths) {
+    private ArrayList<Flight> flightFromInt(ArrayList<Integer> integerPaths) {
         ArrayList<Flight> output = new ArrayList<Flight>();
         for (int i = 1; i < integerPaths.size(); i++) {
-            output.add(this.reverseFlight[integerPaths.get(i-1)][integerPaths.get(i)]);
+            output.add(this.reverseFlight[integerPaths.get(i - 1)][integerPaths.get(i)]);
         }
         return output;
     }

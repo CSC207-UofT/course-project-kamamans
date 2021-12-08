@@ -13,7 +13,7 @@ public class SearchResults {
 
     private List<Route> potentialRoutes;
 
-    public SearchResults(List<Route> potentialRoutes){
+    public SearchResults(List<Route> potentialRoutes) {
         this.potentialRoutes = potentialRoutes;
     }
 
@@ -25,7 +25,7 @@ public class SearchResults {
         this.potentialRoutes = potentialRoutes;
     }
 
-    public String getPrice(Route route){
+    public String getPrice(Route route) {
         return route.toString();
     }
 
@@ -48,11 +48,10 @@ public class SearchResults {
         }
         StringBuilder returnString = new StringBuilder("[");
         int idCounter = 0;
-        for (Route route: potentialRoutes){
-
+        for (Route route : potentialRoutes) {
             // Adding id
-            while(route.getRouteID() == -1){
-                if(!u.existingRouteId.contains(idCounter)){
+            while (route.getRouteID() == -1) {
+                if (!u.existingRouteId.contains(idCounter)) {
                     route.setRouteID(idCounter);
                 }
                 idCounter++;
@@ -60,9 +59,8 @@ public class SearchResults {
 
             returnString.append(route);
             returnString.append(",");
-
         }
-        returnString.setLength(returnString.length()-1);
+        returnString.setLength(returnString.length() - 1);
         returnString.append("]");
 
         return new String(returnString);

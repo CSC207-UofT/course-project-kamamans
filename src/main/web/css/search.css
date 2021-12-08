@@ -469,9 +469,9 @@ legend {
   background-color: #EAEAEA;
   cursor: not-allowed;
   -webkit-user-select: none;
-     -moz-user-select: none;
-      -ms-user-select: none;
-          user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 .choices.is-disabled .choices__item {
@@ -748,9 +748,9 @@ legend {
 .choices__item--disabled {
   cursor: not-allowed;
   -webkit-user-select: none;
-     -moz-user-select: none;
-      -ms-user-select: none;
-          user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
   opacity: .5;
 }
 
@@ -766,7 +766,7 @@ legend {
   text-indent: -9999px;
   -webkit-appearance: none;
   -moz-appearance: none;
-       appearance: none;
+  appearance: none;
   border: 0;
   background-color: transparent;
   background-repeat: no-repeat;
@@ -1475,7 +1475,7 @@ span.flatpickr-weekday {
   user-select: none;
   -ms-flex-item-align: center;
   -ms-grid-row-align: center;
-      align-self: center;
+  align-self: center;
 }
 
 .flatpickr-time .flatpickr-am-pm {
@@ -1565,9 +1565,9 @@ span.flatpickr-weekday {
   display: -ms-flexbox;
   display: flex;
   -ms-flex-pack: center;
-      justify-content: center;
+  justify-content: center;
   -ms-flex-align: center;
-      align-items: center;
+  align-items: center;
   background: url("../../../../../../../../Downloads/colorlib-search-11/images/Searchs_011.png");
   background-size: cover;
   background-position: center center;
@@ -1617,7 +1617,7 @@ span.flatpickr-weekday {
   display: flex;
   width: 100%;
   -ms-flex-pack: center;
-      justify-content: center;
+  justify-content: center;
   margin-bottom: 10px;
 }
 
@@ -1681,7 +1681,7 @@ span.flatpickr-weekday {
   display: -ms-flexbox;
   display: flex;
   -ms-flex-pack: center;
-      justify-content: center;
+  justify-content: center;
 }
 
 .s011 form .inner-form .main-form .row .input-wrap .icon-wrap svg {
@@ -1689,7 +1689,7 @@ span.flatpickr-weekday {
   width: 20px;
   height: 20px;
   -ms-flex-item-align: end;
-      align-self: flex-end;
+  align-self: flex-end;
   margin-bottom: 10px;
 }
 
@@ -1780,7 +1780,7 @@ span.flatpickr-weekday {
   display: -ms-flexbox;
   display: flex;
   -ms-flex-align: center;
-      align-items: center;
+  align-items: center;
   padding: 0;
   padding-right: 30px;
   font-size: 16px;
@@ -1792,7 +1792,7 @@ span.flatpickr-weekday {
   display: flex;
   padding: 0;
   -ms-flex-align: center;
-      align-items: center;
+  align-items: center;
   height: 100%;
 }
 
@@ -1800,7 +1800,7 @@ span.flatpickr-weekday {
   display: -ms-flexbox;
   display: flex;
   -ms-flex-align: center;
-      align-items: center;
+  align-items: center;
   height: 100%;
   opacity: 1;
   color: #666;
@@ -1810,7 +1810,7 @@ span.flatpickr-weekday {
   display: -ms-flexbox;
   display: flex;
   -ms-flex-align: center;
-      align-items: center;
+  align-items: center;
   height: 100%;
   color: #333;
 }
