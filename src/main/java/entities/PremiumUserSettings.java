@@ -1,12 +1,16 @@
 package entities;
 
-import javax.persistence.Basic;
+import usecases.InteractDatabase;
+
+import java.io.IOException;
 import java.io.Serializable;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * PremiumUserSettings is responsible for implementing premium user features and actions which are defined in BaseUserSettings
@@ -15,7 +19,7 @@ import java.util.Map;
 public class PremiumUserSettings implements BaseUserSettings, Serializable {
     private String classType;
     private Date renewalDate;
-    private final User user;
+    private User user;
     private String colorScheme;
     private Airport favouriteAirport;
     private int autoLogoutTimer;
@@ -23,6 +27,7 @@ public class PremiumUserSettings implements BaseUserSettings, Serializable {
 
     public PremiumUserSettings(User user) {
         this.user = user;
+        this.classType = "None";
         Calendar c = Calendar.getInstance();
         c.add(Calendar.YEAR, 1);
         this.renewalDate = c.getTime();
@@ -91,12 +96,32 @@ public class PremiumUserSettings implements BaseUserSettings, Serializable {
      * Update this user's settings given a HashMap of settings to be updated
      */
     public String updateSettings(Map<String, String> settingsHash) {
+        DateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
         try{
             this.autoLogoutTimer = Integer.parseInt(settingsHash.get("Auto_Logout_Timer"));
             this.colorScheme = settingsHash.get("Color_Scheme");
+            String class_type = settingsHash.get("Class_Type");
+            if(class_type != null){
+                this.classType = class_type;
+            }
+            if(settingsHash.get("Favourite_Airport") == null){
+                return "true";
+            }
+            this.favouriteAirport = InteractDatabase.getAirportByName(settingsHash.get("Favourite_Airport"));
+            this.homeAirport = InteractDatabase.getAirportByName(settingsHash.get("Home_Airport"));
+            this.renewalDate = sdf.parse(settingsHash.get("Renewal_Date"));
             return "true";
         } catch (NumberFormatException nfe) {
             return "Invalid auto logout timer format.";
+        } catch (IOException ioe) {
+            return "Airport not found.";
+        } catch (ClassNotFoundException e) {
+            return "Class not found exception.";
+        } catch (ParseException e) {
+            return "Invalid date format.";
+        } catch (NullPointerException npe) {
+            npe.printStackTrace();
+            return "Null Pointer Exception";
         }
     }
 
@@ -135,5 +160,9 @@ public class PremiumUserSettings implements BaseUserSettings, Serializable {
                 sdf.format(this.renewalDate) +
                 "\"" +
                 "}";
+    }
+
+    public User getUser(){
+        return this.user;
     }
 }

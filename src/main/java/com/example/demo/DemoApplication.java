@@ -91,19 +91,16 @@ public class DemoApplication {
 
 	@GetMapping("/getPotentialFlights")
 	public String getPotentialFlights() {
-		System.out.println(this.sr.toString(uc.getCurrentUser()));
 		return this.sr.toString(uc.getCurrentUser());
 	}
 	@GetMapping("/getPotentialFlightsByDuration")
 	public String getPotentialFlightsByDuration() {
 		sr.sortByDuration();
-		System.out.println(this.sr.toString(uc.getCurrentUser()));
 		return this.sr.toString(uc.getCurrentUser());
 	}
 	@GetMapping("/getPotentialFlightsByPrice")
 	public String getPotentialFlightsByPrice() {
 		sr.sortByPrice();
-		System.out.println(this.sr.toString(uc.getCurrentUser()));
 		return this.sr.toString(uc.getCurrentUser());
 	}
 	@GetMapping("/selectFlight")
@@ -113,12 +110,10 @@ public class DemoApplication {
 				 this.selectedRoute = r;
 			 }
 		 }
-		 System.out.println("selected flight");
 		return("true");
 	}
 	@GetMapping("/getSelectedFlight")
 	public String getSelectedFlight() {
-		System.out.println(this.selectedRoute.toString());
 		return(this.selectedRoute.toString());
 	}
 	@GetMapping("/bookFlight")
@@ -161,20 +156,23 @@ public class DemoApplication {
 			settingsHash.put(setting[0].trim().replace("\"",""), setting[1].trim().replace("\"",""));
 		}
 
-		if(settingsHash.get("userType").equals("premium")){
-			uc.upgradeUserType();
-		} else if (settingsHash.get("userType").equals("basic")){
-			uc.downgradeUserType();
+		if(settingsHash.get("userType").equals("premium")
+				&& uc.upgradeUserType().equals("User Type downgraded to Basic.")){
+			uc.saveSettings();
+		} else if (settingsHash.get("userType").equals("basic")
+				&& uc.downgradeUserType().equals("User Type upgraded to Premium.")){
+			uc.saveSettings();
 		}
+
+		String returnString = uc.updateSettings(settingsHash);
 
 		uc.saveSettings();
 
-		return uc.updateSettings(settingsHash);
+		return returnString;
 	}
 
 	@GetMapping("/viewRouteHistory")
 	public String viewRouteHistory() {
-		System.out.println(uc.getRouteHistory());
 		System.out.println(uc.getRouteHistory());
 		return uc.getRouteHistory();
 	}

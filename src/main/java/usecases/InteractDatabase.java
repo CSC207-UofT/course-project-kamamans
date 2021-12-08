@@ -76,6 +76,9 @@ public class InteractDatabase {
     }
 
     public static Airport getAirportByName(String name) throws IOException, ClassNotFoundException {
+        if(name.equals("")){
+            return new Airport();
+        }
         ArrayList<Airport> airportList = getAirportList();
         try {
             assert airportList != null;

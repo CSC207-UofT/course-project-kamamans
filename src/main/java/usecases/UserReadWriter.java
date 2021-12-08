@@ -13,7 +13,8 @@ public class UserReadWriter {
      * @param allUsers    contains list of user managers to be serialized
      * @throws IOException if allUsers was not saved
      */
-    public void saveToFile(String filePath, Object allUsers) throws IOException {
+    public void saveToFile(String filePath, UserList allUsers) throws IOException {
+
         OutputStream file = new FileOutputStream(filePath);
         OutputStream buffer = new BufferedOutputStream(file);
         ObjectOutput output = new ObjectOutputStream(buffer);

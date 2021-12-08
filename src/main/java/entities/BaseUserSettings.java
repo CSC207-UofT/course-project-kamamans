@@ -27,4 +27,5 @@ public interface BaseUserSettings {
     String downgradeUserType();
     String updateSettings(Map<String, String> settingsHash);
     String toJSONString();
+    User getUser();
 }

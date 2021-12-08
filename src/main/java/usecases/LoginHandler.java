@@ -28,6 +28,9 @@ public class LoginHandler {
     }
 
     public void saveSettings() {
+        // Re-instantiating the current user in the user list to avoid pointer errors
+        users.removeUser(currentUser.getCurrentUser());
+        users.addUser(currentUser.getCurrentUser());
         serializeUsers();
         users = deserializeUsers();
     }

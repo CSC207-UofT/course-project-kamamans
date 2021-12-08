@@ -97,4 +97,8 @@ public class BasicUserSettings implements BaseUserSettings, Serializable {
                 "}";
     }
 
+    public User getUser() {
+        return this.user;
+    }
+
 }
