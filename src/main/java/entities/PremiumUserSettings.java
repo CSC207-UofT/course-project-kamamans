@@ -102,12 +102,19 @@ public class PremiumUserSettings implements BaseUserSettings, Serializable {
             if(class_type != null){
                 this.classType = class_type;
             }
-            if(settingsHash.get("Favourite_Airport") == null){
-                return "true";
-            }
-            this.favouriteAirport = AirportReadWriter.getAirportByName(settingsHash.get("Favourite_Airport"));
-            this.homeAirport = AirportReadWriter.getAirportByName(settingsHash.get("Home_Airport"));
             this.renewalDate = sdf.parse(settingsHash.get("Renewal_Date"));
+            Airport favAirport = AirportReadWriter.getAirportByName(settingsHash.get("Favourite_Airport"));
+            Airport homAirport = AirportReadWriter.getAirportByName(settingsHash.get("Home_Airport"));
+            if(favAirport != null){
+                this.favouriteAirport = favAirport;
+            } else {
+                return "Favourite airport is null.";
+            }
+            if(homAirport != null){
+                this.homeAirport = homAirport;
+            } else {
+                return "Home airport is null.";
+            }
             return "true";
         } catch (NumberFormatException nfe) {
             return "Invalid auto logout timer format.";
