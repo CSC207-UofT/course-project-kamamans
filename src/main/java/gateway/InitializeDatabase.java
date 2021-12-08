@@ -220,8 +220,8 @@ public class InitializeDatabase {
         resetTestData();
 
         // API Calls for Live Data
-        updatePlaneDB();
-        updateAirportDB();
-        updateFlightDB();
+        // updatePlaneDB();
+        // updateAirportDB();
+        // updateFlightDB();
     }
 }
