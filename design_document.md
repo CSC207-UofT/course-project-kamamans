@@ -13,7 +13,7 @@ Another design principle we originally used was the Liskov Substitution Principl
 
 ## UML Diagram
 
-![alt text](https://github.com/CSC207-UofT/course-project-kamamans/blob/code_style_and_documentation/FINAL%20UML%20207.png)
+![alt text](https://github.com/CSC207-UofT/course-project-kamamans/blob/main/FINAL%20UML%20207.png)
 
 ## Clean Architecture
 
@@ -33,7 +33,7 @@ The most prominent design pattern we have implemented is a structural design pat
 
 Currently our group has having an issue on how to control having a basicUser account and premiumUser account. We originally had two classes but ran into the issue that when a user upgrades and/or downgrades extra internal states must be created and/or are lost. Currently we have a Boolean inside our basicUser class that keeps track of whether or not an account is premium, and we manually check to allow for that specific user to access premium methods/settings. We are looking for a simpler method to encapsulate a user’s information (when premium) so when they downgrade and later upgrade their settings/methods/bookmarks/capabilities are all restored to the internal state it had previous.
 
-![alt text](https://github.com/CSC207-UofT/course-project-kamamans/blob/code_style_and_documentation/design%20pattern%20207.png)
+![alt text](https://github.com/CSC207-UofT/course-project-kamamans/blob/main/design%20pattern%20207.png)
 
 Currently we have our User’s encapsulated in a “wrapper” class which is the User Manager. This means that it’s hierarchy mirrors everything with the exception of the single extra parameter, in this case it’s whether it’s a basic user or not. This means we do not lose any information, simply lose access to the functions that would allow us to access/change and therefore it will not allow any behavioural changes other than the ones we specify.
 
@@ -43,7 +43,7 @@ After deciding to implement the state design pattern, we in turn decided not to 
 
 We had derived the following approach for implementing the memento design pattern in our program:
 
-![alt text](https://github.com/CSC207-UofT/course-project-kamamans/blob/code_style_and_documentation/memento%20design%20pattern.png)
+![alt text](https://github.com/CSC207-UofT/course-project-kamamans/blob/main/memento%20design%20pattern.png)
 
 We would create a User Memento (which could be an interface that basicUser implements) to create a method that (a) gets all the states compiled [getStates] and (b) overwrite the pre-existing states [potential constructor method]. In this way we would have a temporary Userstate saved.
 
