@@ -15,5 +15,4 @@ public class PlaneReadWriter {
         // Serializes <toStore>
         InteractDatabase.post(toStore, Plane.class);
     }
-
 }

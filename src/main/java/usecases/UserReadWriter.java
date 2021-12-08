@@ -13,7 +13,7 @@ public class UserReadWriter {
      *
      * @param allUsers contains list of user managers to be serialized
      */
-    public void saveToFile(UserList allUsers) {
+    public static void saveToFile(UserList allUsers) {
         InteractDatabase.put(allUsers, 0, UserList.class);
     }
 
@@ -22,7 +22,7 @@ public class UserReadWriter {
      *
      * @return list of user managers
      */
-    public UserList readFromFile() {
+    public static UserList readFromFile() {
         return InteractDatabase.fetchList(UserList.class).get(0);
     }
 }
