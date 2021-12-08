@@ -15,16 +15,17 @@ public class Plane implements Serializable {
     private int firstClassSeats;
     private int economySeats;
     private boolean hasVacantSeats;
-
+    private String iataCode;
 
     public Plane(String brandName, int seatCount, int firstClassSeats,
-                 int economySeats, boolean hasVacantSeats) {
+                 int economySeats, boolean hasVacantSeats, String iataCode) {
 
         this.brandName = brandName;
         this.seatCount = seatCount;
         this.firstClassSeats = firstClassSeats;
         this.economySeats = economySeats;
         this.hasVacantSeats = hasVacantSeats;
+        this.iataCode = iataCode;
 
 
     }
@@ -49,6 +50,10 @@ public class Plane implements Serializable {
         return this.hasVacantSeats;
     }
 
+    public String getIataCode() {
+        return this.iataCode;
+    }
+
     public Plane(String planeJSON) throws JSONException {
         JSONObject obj = new JSONObject(planeJSON);
         brandName = obj.getString("brandName");
@@ -56,5 +61,6 @@ public class Plane implements Serializable {
         firstClassSeats = obj.getInt("firstClassSeats");
         economySeats = obj.getInt("economySeats");
         hasVacantSeats = obj.getBoolean("hasVacantSeats");
+        iataCode = obj.getString("iataCode");
     }
 }

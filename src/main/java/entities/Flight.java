@@ -16,11 +16,11 @@ public class Flight implements Serializable {
     private Calendar date;
     private Plane plane;
     private double price; //TODO: since there are two types of seats in our plane object, shouldn't there be 2 prices?
-    private double duration; //TODO: Assuming this will be in hours?
+    private long duration; //TODO: Assuming this will be in hours?
     private Airport sourceAirport;
     private Airport destinationAirport;
 
-    public Flight(Calendar date, Plane plane, double price, double duration, Airport source, Airport destination) {
+    public Flight(Calendar date, Plane plane, double price, long duration, Airport source, Airport destination) {
         this.date = date;
         this.plane = plane;
         this.price = price;

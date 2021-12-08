@@ -19,9 +19,7 @@ public class BasicUserSettings implements BaseUserSettings, Serializable {
         return false;
     }
 
-    public String getClassType() {
-        return null;
-    }
+    public String getClassType() { return null; }
 
     public Date getRenewalDate() {
         return null;
@@ -73,7 +71,6 @@ public class BasicUserSettings implements BaseUserSettings, Serializable {
 
     /**
      * Upgrade BasicUser to PremiumUser by creating a new PremiumUser and passing it to userManager
-     *
      * @return String
      */
     public String upgradeUserType() {

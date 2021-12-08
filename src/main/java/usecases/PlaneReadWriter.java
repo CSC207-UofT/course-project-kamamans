@@ -18,10 +18,10 @@ public class PlaneReadWriter {
         InteractDatabase.post(toStore, Plane.class);
     }
 
-    public static Plane getPlane(String brandName) throws IOException, ClassNotFoundException {
+    public static Plane getPlaneByIata(String iata) throws IOException, ClassNotFoundException {
         ArrayList<Plane> planeList = getPlaneList();
         for (Plane plane : planeList) {
-            if (plane.getBrandName().equals(brandName)) {
+            if (plane.getIataCode().equals(iata)) {
                 return plane;
             }
         }
@@ -35,6 +35,7 @@ public class PlaneReadWriter {
             System.out.println("brand name: " + plane.getBrandName());
             System.out.println("total seats: " + plane.getSeatCount());
             System.out.println("vacant: " + plane.getHasVacantSeats());
+            System.out.println("iata: " + plane.getIataCode());
         }
     }
 }
