@@ -27,6 +27,9 @@ public class AirportReadWriter {
     }
 
     public static Airport getAirportByName(String name) {
+        if (name.equals("")){
+            return new Airport();
+        }
         ArrayList<Airport> airportList = getAirportList();
         for (Airport airport : airportList) {
             if (airport.getCity().toLowerCase().contains(name.toLowerCase())) {
