@@ -175,13 +175,11 @@ public class DemoApplication {
 
 	@GetMapping("/viewRouteHistory")
 	public String viewRouteHistory() {
-		System.out.println(uc.getRouteHistory());
 		return uc.getRouteHistory();
 	}
 	@GetMapping("/deleteRoute")
 	public String viewRouteHistory(@RequestParam(value = "id") String id) {
 		uc.removeRouteByID(id);
-		System.out.println("deleted route");
 		return "removed route";
 	}
 
