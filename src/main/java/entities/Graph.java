@@ -9,7 +9,7 @@ import java.util.ArrayList;
  */
 public class Graph {
     private final int node_count; // number of vertices in the graph
-    private int[][] matrix; // Adjacency Matrix
+    private final int[][] matrix; // Adjacency Matrix
 
     public Graph(int vertices) {
         this.node_count = vertices;
@@ -63,7 +63,9 @@ public class Graph {
         for (int target = 0; target < this.node_count; target++) {
             if (this.matrix[src][target] != 0 && !copy_visited[target]) {
                 // path from src -> target exists, and target has not been visited
-                ArrayList<Integer> copy_path = (ArrayList<Integer>) path.clone();
+
+                ArrayList<Integer> copy_path = new ArrayList<>(path);
+
                 copy_path.add(target);
 
                 // <paths_from_target> contains all the possible paths from <target> to <dest>
