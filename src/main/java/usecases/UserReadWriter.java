@@ -2,8 +2,6 @@ package usecases;
 
 import gateway.InteractDatabase;
 
-import java.io.*;
-
 /**
  * Class a part of Application Business Rules
  * As name implies, reads and writes users into server and file allowing for continuing state of program
@@ -17,7 +15,7 @@ public class UserReadWriter {
      * @param allUsers contains list of user managers to be serialized
      */
     public void saveToFile(UserList allUsers) {
-        InteractDatabase.overwrite(allUsers, 0, UserList.class);
+        InteractDatabase.put(allUsers, 0, UserList.class);
     }
 
     /**
@@ -26,7 +24,7 @@ public class UserReadWriter {
      * @return list of user managers
      */
     public UserList readFromFile() {
-        return InteractDatabase.getObjectList(UserList.class).get(0);
+        return InteractDatabase.fetchList(UserList.class).get(0);
     }
 
     // this function is for development purposes only

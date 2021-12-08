@@ -6,20 +6,30 @@ import java.util.*;
 public class InteractDatabase {
     private static final String databasePath = "src/main/java/database";
 
+    /**
+     * Generates file location of database file
+     * @param objectType Class being stored
+     * @param <T> objectType is serializable
+     * @return File path corresponding to objectType
+     */
     private static <T extends Serializable> String filePath(Class<T> objectType) {
-        // Given an object type, return the file path for the corresponding database
         return databasePath + "/" + objectType.getSimpleName().toLowerCase() + ".ser";
     }
 
-    public static <T extends Serializable> ArrayList<T> getObjectList(Class<T> objectType) {
-        // Return list of object from specified objectType
+    /**
+     * Fetches database information
+     * @param objectType Class being retrieved
+     * @param <T> objectType is serializable
+     * @return ArrayList containing corresponding objectType
+     */
+    public static <T extends Serializable> ArrayList<T> fetchList(Class<T> objectType) {
         try {
             // Every database file name is the same as the Object type it stores
             FileInputStream fis = new FileInputStream(filePath(objectType));
             ObjectInputStream ois = new ObjectInputStream(fis);
 
             @SuppressWarnings("unchecked")
-            // Only postList can write to the files, and postList type-checks ArrayList<T>
+            // Only putList can write to the files, and putList type-checks ArrayList<T>
             ArrayList<T> outputList = (ArrayList<T>) ois.readObject();
 
             ois.close();
@@ -31,7 +41,14 @@ public class InteractDatabase {
         }
     }
 
-    private static <T extends Serializable> void postList(ArrayList<T> saveList, Class<T> objectType) {
+    /**
+     * Write database information
+     * This is idempotent
+     * @param saveList ArrayList to store
+     * @param objectType Class being written
+     * @param <T> objectType is serializable
+     */
+    private static <T extends Serializable> void putList(ArrayList<T> saveList, Class<T> objectType) {
         // Serialize an ArrayList
         try {
             FileOutputStream fos = new FileOutputStream(filePath(objectType));
@@ -46,25 +63,44 @@ public class InteractDatabase {
         }
     }
 
+    /**
+     * Add new data <toStore>
+     * @param toStore Data to add
+     * @param objectType Class of data being added
+     * @param <T> objectType is serializable
+     */
     public static <T extends Serializable> void post(T toStore, Class<T> objectType) {
         // Serializes <toStore>
-        ArrayList<T> databaseList = getObjectList(objectType);
+        ArrayList<T> databaseList = fetchList(objectType);
         assert databaseList != null;
         databaseList.add(toStore);
-        postList(databaseList, objectType);
+        putList(databaseList, objectType);
     }
 
-    public static <T extends Serializable> void overwrite(T toStore, int index, Class<T> objectType) {
+    /**
+     * Replace data
+     * This is idempotent
+     * @param toStore Data to replace
+     * @param index Place in database array to change
+     * @param objectType Class of data being added
+     * @param <T> objectType is serializable
+     */
+    public static <T extends Serializable> void put(T toStore, int index, Class<T> objectType) {
         // Modify or Replace some data at <index> with <toStore>
-        ArrayList<T> databaseList = getObjectList(objectType);
+        ArrayList<T> databaseList = fetchList(objectType);
         assert databaseList != null;
         databaseList.set(index, toStore);
-        postList(databaseList, objectType);
+        putList(databaseList, objectType);
     }
 
-    public static <T extends Serializable> void initialize(Class <T> objectType) {
+    /**
+     * Reset database to blank ArrayList
+     * @param objectType Class to reset
+     * @param <T> objectType is serializable
+     */
+    public static <T extends Serializable> void reset(Class <T> objectType) {
         // Initialize empty database
         ArrayList<T> databaseList = new ArrayList<>();
-        postList(databaseList, objectType);
+        putList(databaseList, objectType);
     }
 }

@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class PlaneReadWriter {
     public static ArrayList<Plane> getPlaneList() {
         // Returns list of Planes
-        ArrayList<Plane> output = InteractDatabase.getObjectList(Plane.class);
+        ArrayList<Plane> output = InteractDatabase.fetchList(Plane.class);
         return output;
     }
 

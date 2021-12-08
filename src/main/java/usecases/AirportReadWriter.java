@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public class AirportReadWriter {
     public static ArrayList<Airport> getAirportList() {
         // Returns list of Airports
-        return InteractDatabase.getObjectList(Airport.class);
+        return InteractDatabase.fetchList(Airport.class);
     }
 
     public static void postAirport(Airport toStore) {

@@ -9,7 +9,7 @@ import java.util.Calendar;
 public class FlightReadWriter {
     public static ArrayList<Flight> getFlightList() {
         // Returns list of Airports
-        return InteractDatabase.getObjectList(Flight.class);
+        return InteractDatabase.fetchList(Flight.class);
     }
 
     public static void postFlight(Flight toStore) {

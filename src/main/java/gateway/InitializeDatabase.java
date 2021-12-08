@@ -33,10 +33,10 @@ public class InitializeDatabase {
      */
     public static void resetTestData() {
         // Reset Files to blanks
-        InteractDatabase.initialize(UserList.class);
-        InteractDatabase.initialize(Airport.class);
-        InteractDatabase.initialize(Plane.class);
-        InteractDatabase.initialize(Flight.class);
+        InteractDatabase.reset(UserList.class);
+        InteractDatabase.reset(Airport.class);
+        InteractDatabase.reset(Plane.class);
+        InteractDatabase.reset(Flight.class);
 
         ArrayList<Airport> airports = new ArrayList<Airport>();
         ArrayList<Plane> planes = new ArrayList<Plane>();
