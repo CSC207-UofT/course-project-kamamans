@@ -91,7 +91,7 @@ public class InitializeDatabase {
      */
     public static void updateAirportDB() {
         try {
-            JSONObject allAirports = new JSONObject(getEndpoint("http://api.aviationstack.com/v1/airports", key, 1000));
+            JSONObject allAirports = new JSONObject(getEndpoint("http://api.aviationstack.com/v1/airports", 1000));
             JSONArray airportsArray = allAirports.getJSONArray("data");
 
             for (int i = 0; i < 1000; i++) {
@@ -112,7 +112,7 @@ public class InitializeDatabase {
      */
     public static void updatePlaneDB() {
         try {
-            JSONObject allPlanes = new JSONObject(getEndpoint("http://api.aviationstack.com/v1/airplanes", key, 1000));
+            JSONObject allPlanes = new JSONObject(getEndpoint("http://api.aviationstack.com/v1/airplanes", 1000));
             JSONArray planesArray = allPlanes.getJSONArray("data");
 
             for (int i = 0; i < 1000; i++) {
@@ -136,7 +136,7 @@ public class InitializeDatabase {
      */
     public static void updateFlightDB() {
         try {
-            JSONObject allFlights = new JSONObject(getEndpoint("http://api.aviationstack.com/v1/flights", key, 100));
+            JSONObject allFlights = new JSONObject(getEndpoint("http://api.aviationstack.com/v1/flights", 100));
             JSONArray flightsArray = allFlights.getJSONArray("data");
 
             for (int i = 0; i < 100; i = i + 1) {
@@ -174,17 +174,16 @@ public class InitializeDatabase {
     /**
      * Makes HTTP request
      * @param endpoint HTTP endpoint
-     * @param key authentication key
      * @param limit response limit
      * @return String representation of HTTP request
      */
-    private static String getEndpoint(String endpoint, String key, int limit) {
+    private static String getEndpoint(String endpoint, int limit) {
         BufferedReader reader;
         String line;
         StringBuilder responseContent = new StringBuilder();
 
         try {
-            String x = endpoint + "?access_key=" + key +"&limit=" + limit;
+            String x = endpoint + "?access_key=" + InitializeDatabase.key +"&limit=" + limit;
             URL url = new URL(x);
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
 
