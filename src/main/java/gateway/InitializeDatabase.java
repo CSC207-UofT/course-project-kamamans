@@ -16,18 +16,11 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-// API stuff
-// base url: https://api.aviationstack.com/v1/
-// flight, flight_status, flight_date, dep_iata, arr_iata, airline_name, airline_iata, flight_iata
-// routes, airports(city?), airlines airplanes or aircrafts?
-// key: 8a0423ec6b7b5e44ae6bab41e07f150b
-// https://www.baeldung.com/java-http-url-connection
-
 public class InitializeDatabase {
     private static final String key = "a76bb2bb39ee510ad50fd18941d020ac"; // API key, limit of 100 requests
 
     /**
-     * Resets all program data.
+     * Resets all program data to testing state
      * This is irreversible and idempotent.
      *
      * Sets database to a testing state
@@ -38,9 +31,9 @@ public class InitializeDatabase {
         InteractDatabase.reset(Airport.class);
         InteractDatabase.reset(Plane.class);
         InteractDatabase.reset(Flight.class);
-        ArrayList<Airport> airports = new ArrayList<Airport>();
-        ArrayList<Plane> planes = new ArrayList<Plane>();
-        ArrayList<Flight> flights = new ArrayList<Flight>();
+        ArrayList<Airport> airports = new ArrayList<>();
+        ArrayList<Plane> planes = new ArrayList<>();
+        ArrayList<Flight> flights = new ArrayList<>();
         // UserList Data Creation
         UserList userData = new UserList();
         userData.addUser(new User("user1", "111", "test1@email.ca", "(416)-000-0001"));
@@ -94,90 +87,98 @@ public class InitializeDatabase {
 
     /**
      * Fetches live airport data
-     * @throws IOException if error writing to db
-     * @throws JSONException if error reading from api
-     *
      * Adds real-life airport data into program
      */
-    public static void updateAirportDB() throws JSONException, IOException {
-        JSONObject allAirports = new JSONObject(getEndpoint("http://api.aviationstack.com/v1/airports", key, 1000));
-        JSONArray airportsArray = allAirports.getJSONArray("data");
+    public static void updateAirportDB() {
+        try {
+            JSONObject allAirports = new JSONObject(getEndpoint("http://api.aviationstack.com/v1/airports", key, 1000));
+            JSONArray airportsArray = allAirports.getJSONArray("data");
 
-        for (int i = 0; i < 1000; i++) {
-            JSONObject a = airportsArray.getJSONObject(i);
-            String airportName = a.getString("airport_name");
-            String iataCode = a.getString("iata_code");
-            Airport airport = new Airport(airportName, iataCode);
-            AirportReadWriter.postAirport(airport);
+            for (int i = 0; i < 1000; i++) {
+                JSONObject a = airportsArray.getJSONObject(i);
+                String airportName = a.getString("airport_name");
+                String iataCode = a.getString("iata_code");
+                Airport airport = new Airport(airportName, iataCode);
+                AirportReadWriter.postAirport(airport);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
     }
 
     /**
      * Fetches live airplane data
-     * @throws IOException if error writing to db
-     * @throws JSONException if error reading from api
-     *
      * Adds real-life airplane data into program
      */
-    public static void updatePlaneDB() throws JSONException {
-        JSONObject allPlanes = new JSONObject(getEndpoint("http://api.aviationstack.com/v1/airplanes", key, 1000));
-        JSONArray planesArray = allPlanes.getJSONArray("data");
+    public static void updatePlaneDB() {
+        try {
+            JSONObject allPlanes = new JSONObject(getEndpoint("http://api.aviationstack.com/v1/airplanes", key, 1000));
+            JSONArray planesArray = allPlanes.getJSONArray("data");
 
-        for (int i = 0; i < 1000; i++) {
-            JSONObject p = planesArray.getJSONObject(i);
-            String name = p.getString("production_line");
-            int seatCount = 150;
-            int firstClassCount = 50;
-            int economyCount = 100;
-            boolean hasVacant = true;
-            String iata = p.getString("iata_code_short");
-            Plane plane = new Plane(name, seatCount, firstClassCount, economyCount, hasVacant, iata);
-            PlaneReadWriter.postPlane(plane);
+            for (int i = 0; i < 1000; i++) {
+                JSONObject p = planesArray.getJSONObject(i);
+                String name = p.getString("production_line");
+                int seatCount = 150;
+                int firstClassCount = 50;
+                int economyCount = 100;
+                String iata = p.getString("iata_code_short");
+                Plane plane = new Plane(name, seatCount, firstClassCount, economyCount, true, iata);
+                PlaneReadWriter.postPlane(plane);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
     }
 
     /**
      * Fetches live flight data
-     * @throws IOException if error writing to db
-     * @throws JSONException if error reading from api
-     * @throws ClassNotFoundException if error reading from db
-     * @throws ParseException if error converting flight date
-     *
      * Adds real-life flight data into program
      */
-    public static void updateFlightDB() throws IOException, JSONException, ClassNotFoundException, ParseException {
-        JSONObject allFlights = new JSONObject(getEndpoint("http://api.aviationstack.com/v1/flights", key, 100));
-        JSONArray flightsArray = allFlights.getJSONArray("data");
+    public static void updateFlightDB() {
+        try {
+            JSONObject allFlights = new JSONObject(getEndpoint("http://api.aviationstack.com/v1/flights", key, 100));
+            JSONArray flightsArray = allFlights.getJSONArray("data");
 
-        for (int i = 0; i < 100; i = i + 1) {
-            JSONObject f = flightsArray.getJSONObject(i);
-            JSONObject fDepart = f.getJSONObject("departure");
-            JSONObject fArrive = f.getJSONObject("arrival");
+            for (int i = 0; i < 100; i = i + 1) {
+                JSONObject f = flightsArray.getJSONObject(i);
+                JSONObject fDepart = f.getJSONObject("departure");
+                JSONObject fArrive = f.getJSONObject("arrival");
 
-            Calendar date = Calendar.getInstance();
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-            date.setTime(sdf.parse(f.getString("flight_date")));
+                Calendar date = Calendar.getInstance();
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                date.setTime(sdf.parse(f.getString("flight_date")));
 
 //            String iata = f.getJSONObject("aircraft").getString("iata");
-            Plane plane = PlaneReadWriter.getPlaneList().get(0);
+                Plane plane = PlaneReadWriter.getPlaneList().get(0);
 
-            SimpleDateFormat sdfTime = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
-            Date departTime = sdfTime.parse(fDepart.getString("scheduled").substring(0, 23));
-            Date arriveTime = sdfTime.parse(fArrive.getString("scheduled").substring(0, 23));
-            long diff = arriveTime.getTime() - departTime.getTime();
-            long duration = (diff / (1000 * 60 * 60)) % 24;
+                SimpleDateFormat sdfTime = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+                Date departTime = sdfTime.parse(fDepart.getString("scheduled").substring(0, 23));
+                Date arriveTime = sdfTime.parse(fArrive.getString("scheduled").substring(0, 23));
+                long diff = arriveTime.getTime() - departTime.getTime();
+                long duration = (diff / (1000 * 60 * 60)) % 24;
 
-            Random rand = new Random();
-            double price = duration * 50 + rand.nextInt(500);;
+                Random rand = new Random();
+                double price = duration * 50 + rand.nextInt(500);
 
-            Airport src = AirportReadWriter.getAirportByIata(fDepart.getString("iata"));
-            Airport dest = AirportReadWriter.getAirportByIata(fArrive.getString("iata"));
-            Flight flight = new Flight(date, plane, price, duration, src, dest);
-            FlightReadWriter.postFlight(flight);
+                Airport src = AirportReadWriter.getAirportByIata(fDepart.getString("iata"));
+                Airport dest = AirportReadWriter.getAirportByIata(fArrive.getString("iata"));
+                Flight flight = new Flight(date, plane, price, duration, src, dest);
+                FlightReadWriter.postFlight(flight);
+            }
+        } catch (JSONException | ParseException e) {
+            e.printStackTrace();
         }
+
     }
 
-    public static String getEndpoint(String endpoint, String key, int limit) {
+    /**
+     * Makes HTTP request
+     * @param endpoint HTTP endpoint
+     * @param key authentication key
+     * @param limit response limit
+     * @return String representation of HTTP request
+     */
+    private static String getEndpoint(String endpoint, String key, int limit) {
         BufferedReader reader;
         String line;
         StringBuilder responseContent = new StringBuilder();
@@ -212,11 +213,16 @@ public class InitializeDatabase {
         }
     }
 
-    public static void main(String[] args) throws JSONException, IOException, ParseException, ClassNotFoundException {
+    /**
+     * For development purposes:
+     */
+    public static void main(String[] args) {
+        // Program data for Testing
         resetTestData();
-//        updatePlaneDB();
-//        updateAirportDB();
-//        updateFlightDB();
 
+        // API Calls for Live Data
+        updatePlaneDB();
+        updateAirportDB();
+        updateFlightDB();
     }
 }
