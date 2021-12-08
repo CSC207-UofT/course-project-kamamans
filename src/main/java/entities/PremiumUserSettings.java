@@ -17,7 +17,7 @@ import java.util.Map;
 public class PremiumUserSettings implements BaseUserSettings, Serializable {
     private String classType;
     private Date renewalDate;
-    private User user;
+    private final User user;
     private String colorScheme;
     private Airport favouriteAirport;
     private int autoLogoutTimer;

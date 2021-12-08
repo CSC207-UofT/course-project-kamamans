@@ -1,16 +1,12 @@
 package controller;
 
-import entities.Airport;
 import entities.Route;
 import entities.User;
 import org.json.JSONException;
-import usecases.AirportReadWriter;
 import usecases.LoginHandler;
 
 import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.Map;
 
 /**
@@ -60,14 +56,6 @@ public class UserController {
         } catch (NullPointerException e) {
             return false;
         }
-    }
-
-    public void logout() {
-        loginHandler.logout();
-    }
-
-    public void deleteAccount(String username) {
-        loginHandler.deleteAccount(username);
     }
 
     public User getCurrentUser() {
