@@ -3,12 +3,9 @@ import entities.Airport;
 import entities.Route;
 import org.junit.*;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import static org.junit.Assert.*;
 
-public class AiportTest {
+public class AirportTest {
     Airport a;
     private Route r;
 
