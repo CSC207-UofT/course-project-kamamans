@@ -13,7 +13,6 @@ public class UserTest {
     UserController uc = new UserController(um);
     User u = new User("user01", "1234", "user01@gmail.com", "1234");
     ViewProfile vp = new ViewProfile(u);
-    LoginHandler lh = new LoginHandler();
 
     @Before
     public void setUp() {
@@ -42,7 +41,7 @@ public class UserTest {
     }
 
     @Test(timeout = 50)
-    public void TestLogin() {
-
+    public void Test() {
+        assertEquals("User Type upgraded to Premium.", vp.upgradeUserType());
     }
 }
