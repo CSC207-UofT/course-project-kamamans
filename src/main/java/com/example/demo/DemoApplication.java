@@ -7,8 +7,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import usecases.InteractDatabase;
 import controller.UserController;
+import usecases.AirportData;
 import usecases.LoginHandler;
 
 import java.text.ParseException;
@@ -74,24 +74,18 @@ public class DemoApplication {
         } catch (ParseException e) {
             return ("Invalid Date Format");
         }
-        try {
+        Airport departureAirport = AirportData.getAirportByName(departure);
 
-            Airport departureAirport = InteractDatabase.getAirportByName(departure);
-
-            Airport destinationAirport = InteractDatabase.getAirportByName(destination);
-            if (departureAirport == null) {
-                return ("Departure airport not found");
-            }
-            if (destinationAirport == null) {
-                return ("Destination airport not found");
-            }
-            this.sr = PlanFlight.EnterSearchRequirements(cal, departureAirport, destinationAirport);
-
-            return null;
-        } catch (IOException | ClassNotFoundException e) {
-            return ("Airport not found");
+        Airport destinationAirport = AirportData.getAirportByName(destination);
+        if (departureAirport == null) {
+            return ("Departure airport not found");
         }
+        if (destinationAirport == null) {
+            return ("Destination airport not found");
+        }
+        this.sr = PlanFlight.EnterSearchRequirements(cal, departureAirport, destinationAirport);
 
+        return null;
     }
 
     @GetMapping("/getPotentialFlights")

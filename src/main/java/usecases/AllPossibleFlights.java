@@ -2,7 +2,6 @@ package usecases;
 
 import entities.*;
 
-import java.io.IOException;
 import java.util.*;
 
 /**
@@ -27,14 +26,14 @@ public class AllPossibleFlights {
 
         // Pull in airport data from the file
         int airportCount = 0;
-        for (Airport airport : InteractDatabase.getAirportList()) {
+        for (Airport airport : AirportData.getAirportList()) {
             this.airportData.put(airportCount, airport);
             this.reverseAirport.put(airport.getIataCode(), airportCount);
             airportCount++;
         }
 
         // Pull in the Flight data from the file
-        this.flightData = InteractDatabase.getFlightList();
+        this.flightData = FlightData.getFlightList();
 
         // Filter Flights
         // remove flights that violate departure date

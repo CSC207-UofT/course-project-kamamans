@@ -4,9 +4,7 @@ import java.util.*;
 import controller.UserController;
 import entities.*;
 
-import usecases.InteractDatabase;
 import usecases.LoginHandler;
-import usecases.UserReadWriter;
 
 /**
  * Class that represented Presenter

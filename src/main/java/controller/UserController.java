@@ -3,7 +3,7 @@ package controller;
 import entities.Route;
 import entities.User;
 import org.json.JSONException;
-import usecases.InteractDatabase;
+import usecases.AirportData;
 import usecases.LoginHandler;
 
 import java.io.IOException;
@@ -207,19 +207,11 @@ public class UserController {
     // TODO: add fav airport, remove fav airport
 
     public String addFavouriteAirport(String iataCode) {
-        try {
-            return loginHandler.currentUser.addFavouriteAirport(InteractDatabase.getAirportByIata(iataCode));
-        } catch (IOException | ClassNotFoundException e) {
-            return "Error occurred while adding favourite airport.";
-        }
+        return loginHandler.currentUser.addFavouriteAirport(AirportData.getAirportByIata(iataCode));
     }
 
     public String removeFavouriteAirport(String iataCode) {
-        try {
-            return loginHandler.currentUser.removeFavouriteAirport(InteractDatabase.getAirportByIata(iataCode));
-        } catch (IOException | ClassNotFoundException e) {
-            return "Error occurred while removing favourite airport.";
-        }
+        return loginHandler.currentUser.removeFavouriteAirport(AirportData.getAirportByIata(iataCode));
     }
 
     public int getAutoLogoutTimer() {
@@ -243,11 +235,7 @@ public class UserController {
     }
 
     public String setHomeAirport(String iataCode) {
-        try {
-            return loginHandler.currentUser.setHomeAirport(InteractDatabase.getAirportByIata(iataCode));
-        } catch (IOException | ClassNotFoundException e) {
-            return "Error occurred while setting home airport.";
-        }
+        return loginHandler.currentUser.setHomeAirport(AirportData.getAirportByIata(iataCode));
     }
 
     public String addRouteToHistory(Route routeJSON) {

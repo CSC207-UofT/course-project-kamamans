@@ -1,7 +1,6 @@
 package controller;
 
 import entities.*;
-import usecases.InteractDatabase;
 import usecases.AllPossibleFlights;
 
 import java.util.*;

@@ -4,11 +4,10 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 import static org.junit.Assert.*;
-import usecases.InteractDatabase;
+import gateway.InteractDatabase;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
-import java.util.List;
 
 public class SearchResultsTest {
 
