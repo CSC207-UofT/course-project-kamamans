@@ -177,7 +177,7 @@ public class InitializeDatabase {
 //        resetTestData();
 //        AirportReadWriter.printAirports();
 //        PlaneReadWriter.printPlanes();
-        FlightReadWriter.printFlights();
+//        FlightReadWriter.printFlights();
     }
 
 }
