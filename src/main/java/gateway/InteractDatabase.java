@@ -3,6 +3,10 @@ package gateway;
 import java.io.*;
 import java.util.*;
 
+/**
+ * Class is a Gateway
+ * Provides static methods to serialize and deserialize project data
+ */
 public class InteractDatabase {
     private static final String databasePath = "src/main/java/database";
 
@@ -64,7 +68,7 @@ public class InteractDatabase {
     }
 
     /**
-     * Add new data <toStore>
+     * Append new data <toStore>
      * @param toStore Data to add
      * @param objectType Class of data being added
      * @param <T> objectType is serializable
@@ -78,7 +82,7 @@ public class InteractDatabase {
     }
 
     /**
-     * Replace data
+     * Replace existing data
      * This is idempotent
      * @param toStore Data to replace
      * @param index Place in database array to change
@@ -95,6 +99,7 @@ public class InteractDatabase {
 
     /**
      * Reset database to blank ArrayList
+     * This is idempotent
      * @param objectType Class to reset
      * @param <T> objectType is serializable
      */

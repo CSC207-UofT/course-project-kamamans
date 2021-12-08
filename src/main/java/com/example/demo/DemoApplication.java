@@ -26,14 +26,12 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 @SpringBootApplication
 @RestController
 public class DemoApplication {
-
     private LoginHandler us = new LoginHandler();
     private UserController uc = new UserController(us);
     private SearchResults sr;
     private Route selectedRoute;
 
     public void runDemo(String[] args) {
-
         SpringApplication.run(DemoApplication.class, args);
     }
 
@@ -44,7 +42,6 @@ public class DemoApplication {
         } catch (NullPointerException e) {
             return ("false");
         }
-
     }
 
     @GetMapping("/createAccount")
@@ -86,26 +83,6 @@ public class DemoApplication {
         return null;
     }
 
-    @GetMapping("/getPotentialFlights")
-    public String getPotentialFlights() {
-        System.out.println(this.sr.routesToString(uc.getCurrentUser()).toString());
-        return this.sr.routesToString(uc.getCurrentUser()).toString();
-    }
-
-    @GetMapping("/getPotentialFlightsByDuration")
-    public String getPotentialFlightsByDuration() {
-        sr.sortByDuration();
-        System.out.println(this.sr.routesToString(uc.getCurrentUser()).toString());
-        return this.sr.routesToString(uc.getCurrentUser()).toString();
-    }
-
-    @GetMapping("/getPotentialFlightsByPrice")
-    public String getPotentialFlightsByPrice() {
-        sr.sortByPrice();
-        System.out.println(this.sr.routesToString(uc.getCurrentUser()).toString());
-        return this.sr.routesToString(uc.getCurrentUser()).toString();
-    }
-
     @GetMapping("/selectFlight")
     public String selectFlight(@RequestParam(value = "id") String id) {
         for (Route r : this.sr.getPotentialRoutes()) {
@@ -115,12 +92,6 @@ public class DemoApplication {
         }
         System.out.println("selected flight");
         return ("true");
-    }
-
-    @GetMapping("/getSelectedFlight")
-    public String getSelectedFlight() {
-        System.out.println(this.selectedRoute.routeToString().toString());
-        return (this.selectedRoute.routeToString().toString());
     }
 
     @GetMapping("/bookFlight")
@@ -156,13 +127,6 @@ public class DemoApplication {
         return ("true");
     }
 
-    @GetMapping("/viewRouteHistory")
-    public String viewRouteHistory() {
-        System.out.println(uc.getRouteHistory());
-        System.out.println(uc.getRouteHistory().toString());
-        return uc.getRouteHistory().toString();
-    }
-
     @GetMapping("/deleteRoute")
     public String viewRouteHistory(@RequestParam(value = "id") String id) {
         uc.removeRoutebyID(id);
@@ -170,6 +134,38 @@ public class DemoApplication {
         return "removed route";
     }
 
+	@GetMapping("/getPotentialFlights")
+	public String getPotentialFlights() {
+		System.out.println(this.sr.toString(uc.getCurrentUser()));
+		return this.sr.toString(uc.getCurrentUser());
+	}
+
+	@GetMapping("/getPotentialFlightsByDuration")
+	public String getPotentialFlightsByDuration() {
+		sr.sortByDuration();
+		System.out.println(this.sr.toString(uc.getCurrentUser()));
+		return this.sr.toString(uc.getCurrentUser());
+	}
+
+	@GetMapping("/getPotentialFlightsByPrice")
+	public String getPotentialFlightsByPrice() {
+		sr.sortByPrice();
+		System.out.println(this.sr.toString(uc.getCurrentUser()));
+		return this.sr.toString(uc.getCurrentUser());
+	}
+
+	@GetMapping("/getSelectedFlight")
+	public String getSelectedFlight() {
+		System.out.println(this.selectedRoute.toString());
+		return(this.selectedRoute.toString());
+	}
+
+	@GetMapping("/viewRouteHistory")
+	public String viewRouteHistory() {
+		System.out.println(uc.getRouteHistory());
+		System.out.println(uc.getRouteHistory());
+		return uc.getRouteHistory();
+	}
 }
 
 

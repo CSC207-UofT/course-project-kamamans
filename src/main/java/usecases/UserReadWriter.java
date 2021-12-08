@@ -8,7 +8,6 @@ import gateway.InteractDatabase;
  */
 
 public class UserReadWriter {
-
     /**
      * Writes the users to file at filePath.
      *
@@ -25,11 +24,5 @@ public class UserReadWriter {
      */
     public UserList readFromFile() {
         return InteractDatabase.fetchList(UserList.class).get(0);
-    }
-
-    // this function is for development purposes only
-    private void printUsers() {
-        UserList toRead = readFromFile();
-        toRead.printAllUsers();
     }
 }

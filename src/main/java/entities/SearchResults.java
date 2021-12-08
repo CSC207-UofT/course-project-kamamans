@@ -1,6 +1,5 @@
 package entities;
 
-import java.text.SimpleDateFormat;
 import java.util.Comparator;
 import java.util.List;
 
@@ -31,7 +30,7 @@ public class SearchResults {
     }
 
     public void sortByPrice() {
-        potentialRoutes.sort(Comparator.comparingDouble(Route::getPriceofFlights));
+        potentialRoutes.sort(Comparator.comparingDouble(Route::getPriceOfFlights));
     }
 
     public void sortByDuration() {
@@ -41,72 +40,15 @@ public class SearchResults {
     /**
      * Returns a StringBuilder object that is parseable and contains all the information for every route
      * in its list of routes.
+     * @return String
      */
-    public StringBuilder routesToString(User u) {
-        if (this.potentialRoutes.isEmpty()) {
-            return new StringBuilder("");
+    public String toString(User u) {
+        if(this.potentialRoutes.isEmpty()){
+            return "";
         }
         StringBuilder returnString = new StringBuilder("[");
         int idCounter = 0;
         for (Route route : potentialRoutes) {
-
-            returnString.append("{");
-
-            // Adding departure airport
-            returnString.append("\"departureAirport\": {\"city\": \"" + route.getDepartureAirport().getCity() + "\", \"iataCode\": \"" +
-                    route.getDepartureAirport().getIataCode() + "\"}, ");
-
-            // Adding destination airport
-            returnString.append("\"destinationAirport\": {\"city\": \"" + route.getDestinationAirport().getCity() + "\", \"iataCode\": \"" +
-                    route.getDestinationAirport().getIataCode() + "\"}, ");
-
-            // Adding departure date
-            SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
-            returnString.append("\"departureDate\": \"" + sdf.format(route.getDepartureDate().getTime()) + "\", ");
-
-            // Adding flights
-            returnString.append("\"flights\": [");
-            for (Flight flight : route.getFlights()) {
-
-                returnString.append("{");
-
-                // Adding departure date
-                returnString.append("\"departureDate\": \"" + sdf.format(flight.getDate().getTime()) + "\", ");
-
-                //Adding plane details
-                returnString.append("\"plane\": {");
-                returnString.append("\"brandName\": \"" + flight.getPlane().getBrandName() + "\", ");
-                returnString.append("\"seatCount\": " + flight.getPlane().getSeatCount() + ", ");
-                returnString.append("\"firstClassSeats\": " + flight.getPlane().getFirstClassSeats() + ", ");
-                returnString.append("\"economySeats\": " + flight.getPlane().getEconomySeats() + ", ");
-                returnString.append("\"hasVacantSeats\": " + flight.getPlane().getHasVacantSeats());
-                returnString.append("}, ");
-
-                // Adding price
-                returnString.append("\"price\": " + flight.getPrice() + ", ");
-
-                // Adding duration
-                returnString.append("\"duration\": " + flight.getDuration() + ", ");
-
-                // Adding source airport
-                returnString.append("\"sourceAirport\": {");
-                returnString.append("\"city\": \"" + flight.getSourceAirport().getCity() + "\", \"iataCode\": \"" +
-                        flight.getSourceAirport().getIataCode());
-                returnString.append("\"}, \"destinationAirport\": {");
-                returnString.append("\"city\": \"" + flight.getDestinationAirport().getCity() + "\", \"iataCode\": \"" +
-                        flight.getDestinationAirport().getIataCode());
-                returnString.append("\"} ");
-                returnString.append("},");
-            }
-            returnString.setLength(returnString.length() - 1);
-            returnString.append("], ");
-
-            // Adding price
-            returnString.append("\"price\": " + route.getPriceofFlights() + ", ");
-
-            // Adding duration
-            returnString.append("\"duration\": " + route.getTotalDuration() + ", ");
-
             // Adding id
             while (route.getRouteID() == -1) {
                 if (!u.existingRouteId.contains(idCounter)) {
@@ -115,15 +57,12 @@ public class SearchResults {
                 idCounter++;
             }
 
-
-            returnString.append("\"id\": \"" + route.getRouteID() + "\"");
-
-
-            returnString.append("},");
+            returnString.append(route);
+            returnString.append(",");
         }
         returnString.setLength(returnString.length() - 1);
         returnString.append("]");
 
-        return returnString;
+        return new String(returnString);
     }
 }

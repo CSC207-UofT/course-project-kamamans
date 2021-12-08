@@ -165,9 +165,10 @@ public class InitializeDatabase {
     }
 
     public static void main(String[] args) throws JSONException, IOException, ParseException, ClassNotFoundException {
-//        resetTestData();
-//        updatePlaneDB();
-//        updateAirportDB();
-//        updateFlightDB();
+        resetTestData();
+        updatePlaneDB();
+        updateAirportDB();
+        updateFlightDB();
+
     }
 }

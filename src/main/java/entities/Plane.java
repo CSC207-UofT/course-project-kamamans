@@ -1,7 +1,5 @@
 package entities;
 
-import org.json.*;
-
 import java.io.Serializable;
 
 /**
@@ -54,13 +52,19 @@ public class Plane implements Serializable {
         return this.iataCode;
     }
 
-    public Plane(String planeJSON) throws JSONException {
-        JSONObject obj = new JSONObject(planeJSON);
-        brandName = obj.getString("brandName");
-        seatCount = obj.getInt("seatCount");
-        firstClassSeats = obj.getInt("firstClassSeats");
-        economySeats = obj.getInt("economySeats");
-        hasVacantSeats = obj.getBoolean("hasVacantSeats");
-        iataCode = obj.getString("iataCode");
+    public String toString(){
+
+        StringBuilder returnString = new StringBuilder();
+
+        //Adding plane details
+        returnString.append("{");
+        returnString.append("\"brandName\": \"").append(getBrandName()).append("\", ");
+        returnString.append("\"seatCount\": ").append(getSeatCount()).append(", ");
+        returnString.append("\"firstClassSeats\": ").append(getFirstClassSeats()).append(", ");
+        returnString.append("\"economySeats\": ").append(getEconomySeats()).append(", ");
+        returnString.append("\"hasVacantSeats\": ").append(getHasVacantSeats());
+        returnString.append("}");
+
+        return new String(returnString);
     }
 }

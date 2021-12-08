@@ -8,7 +8,7 @@ import java.util.ArrayList;
  * There should be no references to airports or iatacodes.
  */
 public class Graph {
-    private int node_count; // number of vertices in the graph
+    private final int node_count; // number of vertices in the graph
     private int[][] matrix; // Adjacency Matrix
 
     public Graph(int vertices) {
@@ -19,7 +19,7 @@ public class Graph {
     /**
      * Add a new directed edge to graph
      *
-     * @param src  starting point of edge
+     * @param src starting point of edge
      * @param dest ending point of edge
      */
     public void addEdge(int src, int dest) {
@@ -29,8 +29,8 @@ public class Graph {
     /**
      * Return all possible paths from <src> to <dest>
      *
-     * @param src
-     * @param dest
+     * @param src starting point of path
+     * @param dest ending point of path
      * @return Arraylist of all possible paths (each individual path is an array list of visited nodes)
      */
     public ArrayList<ArrayList<Integer>> allPaths(int src, int dest) {
@@ -41,15 +41,14 @@ public class Graph {
         }
 
         // Current path
-        ArrayList<Integer> path = new ArrayList<Integer>();
+        ArrayList<Integer> path = new ArrayList<>();
         path.add(src);
 
-        ArrayList<ArrayList<Integer>> output = allPathsHelper(src, dest, visited, path);
-        return output;
+        return allPathsHelper(src, dest, visited, path);
     }
 
     private ArrayList<ArrayList<Integer>> allPathsHelper(int src, int dest, boolean[] visited, ArrayList<Integer> path) {
-        ArrayList<ArrayList<Integer>> output = new ArrayList<ArrayList<Integer>>();
+        ArrayList<ArrayList<Integer>> output = new ArrayList<>();
 
         // Base Case
         if (src == dest) {
@@ -98,7 +97,7 @@ public class Graph {
     /**
      * Determines if this graph is equal to another
      *
-     * @param toCompare
+     * @param toCompare the other graph to compare with
      * @return true if both graphs are equal, false otherwise
      */
     public boolean equals(Graph toCompare) {

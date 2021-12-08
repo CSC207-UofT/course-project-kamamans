@@ -47,11 +47,7 @@ function getBookingInformation() {
 
     let url = 'http://localhost:8080/getSelectedFlight'
     let jsondata = httpGet(url);
-    let thing = JSON.parse(jsondata);
-
-
-
-    let rawData = thing[0]
+    let rawData = JSON.parse(jsondata);
 
     flightDetails = ``;
     for (let j = 0; j < rawData['flights'].length; j++){
@@ -62,6 +58,7 @@ function getBookingInformation() {
             rawData['flights'][j]['sourceAirport']['iataCode']+`) &rarr; `+
             rawData['flights'][j]['destinationAirport']['city']+` (`+
             rawData['flights'][j]['destinationAirport']['iataCode']+`)
+            <br />
             `;
     }
 
@@ -102,7 +99,7 @@ function getDetails() {
 
     let url = 'http://localhost:8080/getSelectedFlight'
     let jsondata = httpGet(url);
-    let data = JSON.parse(jsondata)[0];
+    let data = JSON.parse(jsondata);
     console.log(data)
 
     route_id = data.id;
