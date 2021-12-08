@@ -158,9 +158,16 @@ public class DemoApplication {
 		for (String pair: keyValuePairs)
 		{
 			String[] setting = pair.split(":");
-			settingsHash.put(setting[0].trim(), setting[1].trim());
+			settingsHash.put(setting[0].trim().replace("\"",""), setting[1].trim().replace("\"",""));
 		}
-		System.out.println(settingsHash);
+
+		if(settingsHash.get("userType").equals("premium")){
+			uc.upgradeUserType();
+		} else if (settingsHash.get("userType").equals("basic")){
+			uc.downgradeUserType();
+		}
+
+		uc.saveSettings();
 
 		return uc.updateSettings(settingsHash);
 	}

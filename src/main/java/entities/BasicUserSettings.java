@@ -9,7 +9,7 @@ import java.util.*;
 
 public class BasicUserSettings implements BaseUserSettings, Serializable {
     private final User user;
-    private final String colorScheme;
+    private String colorScheme;
     private int autoLogoutTimer;
 
 
@@ -72,10 +72,11 @@ public class BasicUserSettings implements BaseUserSettings, Serializable {
     public String updateSettings(Map<String, String> settingsHash) {
         try{
             this.autoLogoutTimer = Integer.parseInt(settingsHash.get("Auto_Logout_Timer"));
+            this.colorScheme = settingsHash.get("Color_Scheme");
+            return "true";
         } catch (NumberFormatException nfe) {
             return "Invalid auto logout timer format.";
         }
-        return "Could not update settings.";
     }
 
     /**

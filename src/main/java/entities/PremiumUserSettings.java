@@ -1,6 +1,8 @@
 package entities;
 
+import javax.persistence.Basic;
 import java.io.Serializable;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Map;
@@ -24,7 +26,8 @@ public class PremiumUserSettings implements BaseUserSettings, Serializable {
         this.renewalDate.add(Calendar.YEAR, 1);
         this.colorScheme = "default";
         this.autoLogoutTimer = 60;
-
+        this.favouriteAirport = new Airport();
+        this.homeAirport = new Airport();
     }
 
     public boolean setClassType(String classType) {
@@ -86,13 +89,22 @@ public class PremiumUserSettings implements BaseUserSettings, Serializable {
      * Update this user's settings given a HashMap of settings to be updated
      */
     public String updateSettings(Map<String, String> settingsHash) {
-        return "true";
+        try{
+            this.autoLogoutTimer = Integer.parseInt(settingsHash.get("Auto_Logout_Timer"));
+            this.colorScheme = settingsHash.get("Color_Scheme");
+            return "true";
+        } catch (NumberFormatException nfe) {
+            return "Invalid auto logout timer format.";
+        }
     }
 
     /**
      * Return this user's settings as a JSON parseable string
      */
     public String toJSONString() {
+
+        DateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+
         return "{" +
                 "\"userType\":" +
                 "\"premium\"," +
@@ -118,7 +130,7 @@ public class PremiumUserSettings implements BaseUserSettings, Serializable {
                 "\"," +
                 "\"Renewal_Date\":" +
                 "\"" +
-                new SimpleDateFormat("MM-dd-yyyy").format(this.renewalDate) +
+                sdf.format(this.renewalDate) +
                 "\"" +
                 "}";
     }

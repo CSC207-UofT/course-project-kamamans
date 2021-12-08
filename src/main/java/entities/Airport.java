@@ -26,12 +26,6 @@ public class Airport implements Serializable {
         this.iataCode = "";
     }
 
-    public Airport(String airportJSON) throws JSONException {
-        JSONObject obj = new JSONObject(airportJSON);
-        city = obj.getString("city");
-        iataCode = obj.getString("iataCode");
-    }
-
     public void setCity(String city){
         this.city = city;
     }

@@ -31,8 +31,8 @@ public class Route implements Serializable{
     public Route(String routeJSON) throws JSONException, ParseException {
         System.out.println("hi: " + routeJSON);
         JSONObject obj = new JSONObject(routeJSON);
-        departureAirport = new Airport(obj.getString("departureAirport"));
-        destinationAirport = new Airport(obj.getString("destinationAirport"));
+        departureAirport = new Airport(obj.getString("departureAirport"), "4");
+        destinationAirport = new Airport(obj.getString("destinationAirport"),"5");
         System.out.println(departureAirport);
         departureDate = Calendar.getInstance();
         SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
