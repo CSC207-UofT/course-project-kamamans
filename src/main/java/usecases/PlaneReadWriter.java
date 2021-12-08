@@ -18,7 +18,7 @@ public class PlaneReadWriter {
         InteractDatabase.post(toStore, Plane.class);
     }
 
-    public static Plane getPlaneByIata(String iata) throws IOException, ClassNotFoundException {
+    public static Plane getPlaneByIata(String iata) {
         ArrayList<Plane> planeList = getPlaneList();
         for (Plane plane : planeList) {
             if (plane.getIataCode().equals(iata)) {
