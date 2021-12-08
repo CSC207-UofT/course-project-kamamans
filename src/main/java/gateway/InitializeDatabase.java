@@ -3,12 +3,11 @@ package gateway;
 import entities.Airport;
 import entities.Flight;
 import entities.Plane;
+import entities.User;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import usecases.AirportData;
-import usecases.FlightData;
-import usecases.PlaneData;
+import usecases.*;
 
 import java.io.*;
 import java.net.HttpURLConnection;
@@ -25,10 +24,16 @@ import java.util.GregorianCalendar;
 // https://www.baeldung.com/java-http-url-connection
 
 public class InitializeDatabase {
-    public static void resetTestData() {
-        // Sets database to testing state
 
+    /**
+     * Resets all program data.
+     * This is irreversible and idempotent.
+     *
+     * Sets database to a testing state
+     */
+    public static void resetTestData() {
         // Reset Files to blanks
+        InteractDatabase.initialize(UserList.class);
         InteractDatabase.initialize(Airport.class);
         InteractDatabase.initialize(Plane.class);
         InteractDatabase.initialize(Flight.class);
@@ -36,6 +41,14 @@ public class InitializeDatabase {
         ArrayList<Airport> airports = new ArrayList<Airport>();
         ArrayList<Plane> planes = new ArrayList<Plane>();
         ArrayList<Flight> flights = new ArrayList<Flight>();
+
+        // UserList Data Creation
+        UserList userData = new UserList();
+        userData.addUser(new User("user1", "111", "test1@email.ca", "(416)-000-0001"));
+        userData.addUser(new User("user2", "222", "test2@email.com", "(416)-000-0002"));
+
+        // Write User Data
+        InteractDatabase.post(userData, UserList.class);
 
         // Airport Data Creation
         airports.add(new Airport("Toronto", "000"));
@@ -92,6 +105,14 @@ public class InitializeDatabase {
         }
     }
 
+    /**
+     * Fetches live flight data
+     * @throws IOException
+     * @throws JSONException
+     * @throws ClassNotFoundException
+     *
+     * Adds real-life Flight, Airport, and Plane data into program
+     */
     public static void updateDB() throws IOException, JSONException, ClassNotFoundException {
         String key = "8a0423ec6b7b5e44ae6bab41e07f150b";
         // Airports

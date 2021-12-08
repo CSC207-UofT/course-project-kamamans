@@ -1,9 +1,7 @@
 package usecases;
 
-import entities.Route;
 import entities.User;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -19,13 +17,7 @@ public class LoginHandler {
      * Initialize UserManager with users pointing to the current serialized user list.
      */
     public LoginHandler() {
-        try {
-            this.users = userReadWriter.readFromFile("src/main/java/backend/database/users.ser");
-        } catch (IOException e) {
-            System.out.println("Unable to read user list.");
-        } catch (ClassNotFoundException e) {
-            System.out.println("Invalid class.");
-        }
+        this.users = userReadWriter.readFromFile();
     }
 
     public void saveSettings() {
@@ -37,11 +29,7 @@ public class LoginHandler {
      * Writes the current users to users.ser.
      */
     public void serializeUsers() {
-        try {
-            userReadWriter.saveToFile("src/main/java/backend/database/users.ser", this.users);
-        } catch (IOException e) {
-            System.out.println("Unable to save user list.");
-        }
+        userReadWriter.saveToFile(this.users);
     }
 
     /**
@@ -50,16 +38,8 @@ public class LoginHandler {
      * @return a UserList of the current users
      */
     public UserList deserializeUsers() {
-        try {
-            users = userReadWriter.readFromFile("src/main/java/backend/database/users.ser");
-            return users;
-        } catch (IOException e) {
-            System.out.println("Unable to read user list.");
-            return null;
-        } catch (ClassNotFoundException e) {
-            System.out.println("Invalid class.");
-            return null;
-        }
+        users = userReadWriter.readFromFile();
+        return users;
     }
 
     /**
@@ -85,7 +65,7 @@ public class LoginHandler {
     }
 
     private ArrayList<String> validateAccount(String username, String email, String phoneNumber) {
-        ArrayList<String> errors = new ArrayList<String>(0);
+        ArrayList<String> errors = new ArrayList<>(0);
         if (users.getUser(username) != null) {
             // username is already taken
             errors.add("Account Creation Error: Username already exists");
