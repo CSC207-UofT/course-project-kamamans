@@ -5,6 +5,7 @@ import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Map;
 
 /**
@@ -13,7 +14,7 @@ import java.util.Map;
 
 public class PremiumUserSettings implements BaseUserSettings, Serializable {
     private String classType;
-    private Calendar renewalDate;
+    private Date renewalDate;
     private final User user;
     private String colorScheme;
     private Airport favouriteAirport;
@@ -22,8 +23,9 @@ public class PremiumUserSettings implements BaseUserSettings, Serializable {
 
     public PremiumUserSettings(User user) {
         this.user = user;
-        this.renewalDate = Calendar.getInstance();
-        this.renewalDate.add(Calendar.YEAR, 1);
+        Calendar c = Calendar.getInstance();
+        c.add(Calendar.YEAR, 1);
+        this.renewalDate = c.getTime();
         this.colorScheme = "default";
         this.autoLogoutTimer = 60;
         this.favouriteAirport = new Airport();
@@ -37,9 +39,9 @@ public class PremiumUserSettings implements BaseUserSettings, Serializable {
 
     public String getClassType() { return classType; }
 
-    public Calendar getRenewalDate() { return renewalDate; }
+    public Date getRenewalDate() { return renewalDate; }
 
-    public boolean setRenewalDate(Calendar renewalDate) {
+    public boolean setRenewalDate(Date renewalDate) {
         this.renewalDate = renewalDate;
         return true;
     }

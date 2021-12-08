@@ -103,11 +103,11 @@ public class ViewProfile {
 
     public String setClassType(String classType) { return isValidRequest(currentUser.userSettings.setClassType(classType)); }
 
-    public Calendar getRenewalDate() {
+    public Date getRenewalDate() {
         return currentUser.userSettings.getRenewalDate();
     }
 
-    public String setRenewalDate(Calendar date) { return isValidRequest(currentUser.userSettings.setRenewalDate(date)); }
+    public String setRenewalDate(Date date) { return isValidRequest(currentUser.userSettings.setRenewalDate(date)); }
 
     public String getColorScheme() { return currentUser.userSettings.getColorScheme(); }
 

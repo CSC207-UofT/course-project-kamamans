@@ -1,6 +1,7 @@
 package entities;
 
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -12,8 +13,8 @@ import java.util.Map;
 public interface BaseUserSettings {
     boolean setClassType(String classType);
     String getClassType();
-    Calendar getRenewalDate();
-    boolean setRenewalDate(Calendar renewalDate);
+    Date getRenewalDate();
+    boolean setRenewalDate(Date renewalDate);
     String getColorScheme();
     boolean setColorScheme(String colorScheme);
     Airport getFavouriteAirport();

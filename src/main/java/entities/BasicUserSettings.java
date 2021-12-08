@@ -45,9 +45,9 @@ public class BasicUserSettings implements BaseUserSettings, Serializable {
         return false;
     }
 
-    public Calendar getRenewalDate() { return null; }
+    public Date getRenewalDate() { return null; }
 
-    public boolean setRenewalDate(Calendar renewalDate) {
+    public boolean setRenewalDate(Date renewalDate) {
         return false;
     }
 

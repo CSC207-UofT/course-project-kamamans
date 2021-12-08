@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Map;
 
 /**
@@ -42,11 +43,11 @@ public class UserController {
                 return "Account Created Successfully";
             }
 
-            String output = "";
+            StringBuilder output = new StringBuilder();
             for (String item: errors) {
-                output = output + item + "\n";
+                output.append(item).append("\n");
             }
-            return output;
+            return output.toString();
         } catch (NullPointerException e) {
             return "NullPointerException";
         }
@@ -110,9 +111,9 @@ public class UserController {
 
     public String setClassType(String classType) { return loginHandler.currentUser.setClassType(classType); }
 
-    public Calendar getRenewalDate() { return loginHandler.currentUser.getRenewalDate(); }
+    public Date getRenewalDate() { return loginHandler.currentUser.getRenewalDate(); }
 
-    public String setRenewalDate(Calendar date) { return loginHandler.currentUser.setRenewalDate(date); }
+    public String setRenewalDate(Date date) { return loginHandler.currentUser.setRenewalDate(date); }
 
     public String getColorScheme() { return loginHandler.currentUser.getColorScheme(); }
 
