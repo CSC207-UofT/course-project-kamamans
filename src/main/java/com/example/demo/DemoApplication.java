@@ -1,25 +1,25 @@
 package com.example.demo;
 
 import controller.PlanFlight;
-import entities.*;
+import controller.UserController;
+import entities.Airport;
+import entities.Route;
+import entities.SearchResults;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import controller.UserController;
 import usecases.AirportReadWriter;
 import usecases.LoginHandler;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-
-import org.springframework.web.bind.annotation.CrossOrigin;
-
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+
 /**
  * Class to set up application for future use.
  * Consists of multiple functions that tie together database (springboot application) and hmtl/js code
@@ -29,8 +29,8 @@ import java.util.Map;
 @SpringBootApplication
 @RestController
 public class DemoApplication {
-    private LoginHandler us = new LoginHandler();
-    private UserController uc = new UserController(us);
+    private final LoginHandler us = new LoginHandler();
+    private final UserController uc = new UserController(us);
     private SearchResults sr;
     private Route selectedRoute;
 
@@ -51,8 +51,11 @@ public class DemoApplication {
     public String createAccount(@RequestParam(value = "username") String username, @RequestParam(value = "password") String password,
                                 @RequestParam(value = "repeatPassword") String repeatPassword, @RequestParam(value = "email") String email,
                                 @RequestParam(value = "phoneNumber") String phoneNumber) {
-
-        return uc.createAccount(username, password, email, phoneNumber);
+		if(repeatPassword.equals(password)) {
+			return uc.createAccount(username, password, email, phoneNumber);
+		} else {
+			return "Passwords don't match.";
+		}
     }
 
     @GetMapping("/searchFlight")
@@ -64,7 +67,6 @@ public class DemoApplication {
         if (destination.equals("")) {
             return ("Missing destination");
         }
-        PlanFlight planner = new PlanFlight(us.getCurrentUserUsername());
         Calendar cal = Calendar.getInstance();
         SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yy");
         try {
@@ -117,6 +119,7 @@ public class DemoApplication {
 	public String bookFlight(@RequestParam(value = "firstName") String firstName, @RequestParam(value = "lastName") String lastName,
 							 @RequestParam(value = "phoneNumber") String phoneNumber, @RequestParam(value = "email") String email,
 							 @RequestParam(value = "dateOfBirth") String dateOfBirth) {
+		// Unused parameters kept for future features
 
 		uc.addRouteToHistory(this.selectedRoute);
 		System.out.println("booked flight with id = "+this.selectedRoute.getRouteID());
@@ -134,6 +137,8 @@ public class DemoApplication {
 	public String UpdateAndSaveUserInformation(@RequestParam(value = "username") String username, @RequestParam(value = "password") String  password,
 											@RequestParam(value = "email") String  email,
 											@RequestParam(value = "phoneNumber") String  phoneNumber) {
+		// Unused parameter kept for consistency and potential to change username
+
 		uc.setPassword(password);
 		uc.setEmail(email);
 		uc.setPhoneNumber(phoneNumber);

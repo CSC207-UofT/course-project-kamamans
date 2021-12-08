@@ -14,7 +14,7 @@ public class User implements Serializable {
     private String email;
     private String phoneNumber;
     private int appRating;
-    private List<Route> routeHistory;
+    private final List<Route> routeHistory;
     public BaseUserSettings userSettings;
     public List<Integer> existingRouteId = new ArrayList<>();
     public User(String username, String password, String email, String phoneNumber) {

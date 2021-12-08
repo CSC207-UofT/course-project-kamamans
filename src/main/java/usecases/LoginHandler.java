@@ -93,10 +93,6 @@ public class LoginHandler {
         return errors;
     }
 
-    public void deleteAccount(String username) {
-        users.removeUser(users.getUser(username));
-    }
-
     /**
      * Runs a login attempt with username and password and sets currentUser to user specified by username.
      *
@@ -108,18 +104,6 @@ public class LoginHandler {
         User user = users.getUser(username);
         currentUser = new ViewProfile(user); // currentUser points to a ViewProfile for the user who is logged in
         return user.passwordMatches(password);
-    }
-
-    /**
-     * Runs a logout (does not exit the program) by setting currentUser to null.
-     */
-    public void logout() {
-        this.currentUser = null; // currentUser no longer points to any specific ViewProfile for a user
-    }
-
-    // TODO: remove this and replace instances of it with the User itself?
-    public String getCurrentUserUsername() {
-        return this.currentUser.getUsername();
     }
 
     public String settingsToString() {

@@ -71,13 +71,4 @@ public class UserList implements Serializable {
         return false;
     }
 
-    // This function is for development purposes only
-    public void printAllUsers() {
-        for (User account : userList.values()) {
-            System.out.println("user: " + account.getUsername());
-            System.out.println("pass: " + account.getPassword());
-            System.out.println("mail: " + account.getEmail());
-            System.out.println("phone: " + account.getPhoneNumber());
-        }
-    }
 }

@@ -36,12 +36,4 @@ public class AirportReadWriter {
         return null;
     }
 
-    public static void printAirports() {
-        System.out.println("Airport List:");
-        for (Airport port : getAirportList()) {
-            System.out.println("-----");
-            System.out.println("city: " + port.getCity());
-            System.out.println("iata: " + port.getIataCode());
-        }
-    }
 }

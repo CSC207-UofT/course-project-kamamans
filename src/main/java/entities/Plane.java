@@ -8,12 +8,12 @@ import java.io.Serializable;
  */
 
 public class Plane implements Serializable {
-    private String brandName;
-    private int seatCount;
-    private int firstClassSeats;
-    private int economySeats;
-    private boolean hasVacantSeats;
-    private String iataCode;
+    private final String brandName;
+    private final int seatCount;
+    private final int firstClassSeats;
+    private final int economySeats;
+    private final boolean hasVacantSeats;
+    private final String iataCode;
 
     public Plane(String brandName, int seatCount, int firstClassSeats,
                  int economySeats, boolean hasVacantSeats, String iataCode) {
@@ -24,7 +24,6 @@ public class Plane implements Serializable {
         this.economySeats = economySeats;
         this.hasVacantSeats = hasVacantSeats;
         this.iataCode = iataCode;
-
 
     }
 
