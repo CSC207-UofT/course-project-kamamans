@@ -4,7 +4,7 @@ import java.io.*;
 import java.util.*;
 
 public class InteractDatabase {
-    private static final String databasePath = "src/main/java/backend/database";
+    private static final String databasePath = "src/main/java/database";
 
     private static <T extends Serializable> String filePath(Class<T> objectType) {
         // Given an object type, return the file path for the corresponding database
@@ -54,9 +54,17 @@ public class InteractDatabase {
         postList(databaseList, objectType);
     }
 
+    public static <T extends Serializable> void overwrite(T toStore, int index, Class<T> objectType) {
+        // Modify or Replace some data at <index> with <toStore>
+        ArrayList<T> databaseList = getObjectList(objectType);
+        assert databaseList != null;
+        databaseList.set(index, toStore);
+        postList(databaseList, objectType);
+    }
+
     public static <T extends Serializable> void initialize(Class <T> objectType) {
         // Initialize empty database
-        ArrayList<T> databaseList = new ArrayList<T>();
+        ArrayList<T> databaseList = new ArrayList<>();
         postList(databaseList, objectType);
     }
 }
