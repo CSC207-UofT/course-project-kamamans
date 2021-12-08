@@ -41,7 +41,8 @@ public class UserTest {
     }
 
     @Test(timeout = 50)
-    public void Test() {
-        assertEquals("User Type upgraded to Premium.", vp.upgradeUserType());
+    public void TestViewProfileDowngrade() {
+        vp.upgradeUserType();
+        assertEquals("User Type downgraded to Basic.", vp.downgradeUserType());
     }
 }

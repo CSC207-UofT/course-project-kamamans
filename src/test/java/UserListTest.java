@@ -10,21 +10,21 @@ class UserListTest {
     UserList ul = new UserList();
 
     @Test
-    void addUser() {
+    void TestAddUser() {
         ul.addUser(u1);
         assertEquals(ul.getUser("u1"), u1);
     }
 
     @Test
-    void removeUser() {
+    void TestRemoveUser() {
         ul.addUser(u1);
         ul.addUser(u2);
         ul.removeUser(u1);
-        assertEquals(ul.getUser("u1"), null);
+        assertNull(ul.getUser("u1"));
     }
 
     @Test
-    void getUser() {
+    void TestGetUser() {
         ul.addUser(u1);
         ul.addUser(u2);
         assertEquals(ul.getUser("u1"), u1);
@@ -32,14 +32,14 @@ class UserListTest {
     }
 
     @Test
-    void emailExists() {
+    void TestEmailExists() {
         ul.addUser(u1);
         assertTrue(ul.emailExists("u1@gmail.com"));
         assertFalse(ul.emailExists("u2@gmail.com"));
     }
 
     @Test
-    void phoneExists() {
+    void TestPhoneExists() {
         ul.addUser(u2);
         assertTrue(ul.phoneExists("(223)-456-7890"));
         assertFalse(ul.phoneExists("(123)-456-7890"));
