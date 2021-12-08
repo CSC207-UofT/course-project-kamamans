@@ -95,6 +95,7 @@ public class PremiumUserSettings implements BaseUserSettings, Serializable {
      */
     public String updateSettings(Map<String, String> settingsHash) {
         DateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+        System.out.println(settingsHash);
         try{
             this.autoLogoutTimer = Integer.parseInt(settingsHash.get("Auto_Logout_Timer"));
             this.colorScheme = settingsHash.get("Color_Scheme");
@@ -102,18 +103,23 @@ public class PremiumUserSettings implements BaseUserSettings, Serializable {
             if(class_type != null){
                 this.classType = class_type;
             }
+
+            // Returning early if we have basic settings passed in
+            if(settingsHash.get("Renewal_Date") == null){
+                return "true";
+            }
             this.renewalDate = sdf.parse(settingsHash.get("Renewal_Date"));
             Airport favAirport = AirportReadWriter.getAirportByName(settingsHash.get("Favourite_Airport"));
             Airport homAirport = AirportReadWriter.getAirportByName(settingsHash.get("Home_Airport"));
             if(favAirport != null){
                 this.favouriteAirport = favAirport;
             } else {
-                return "Favourite airport is null.";
+                return "Favourite airport is invalid.";
             }
             if(homAirport != null){
                 this.homeAirport = homAirport;
             } else {
-                return "Home airport is null.";
+                return "Home airport is invalid.";
             }
             return "true";
         } catch (NumberFormatException nfe) {
